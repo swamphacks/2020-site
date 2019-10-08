@@ -1,6 +1,7 @@
 import React, {useState} from 'react';
 import {BrowserRouter as Router, Route, Redirect} from 'react-router-dom';
 import {Formik, Form, Field} from 'formik';
+import styled from 'styled-components';
 import * as yup from 'yup';
 
 // Necessary inputs:
@@ -15,20 +16,10 @@ import Section1 from './Sections/Section1';
 const Application = () => {
   const schema1 = yup.object().shape({
     // Basic information
-    firstName: yup.string().required('This field is required.'),
-    lastName: yup.string().required('This field is required.'),
-    dob: yup.string().required('This field is required.'),
-    phone: yup.string().required('This field is required.'),
-    genderSex: yup.string().required('This field is required.'),
-    shirtSize: yup.string().required('This field is required.'),
-    allergiesDietaryRestrictions: yup
-      .string()
-      .required('This field is required.'),
-    // Education
-    school: yup.string().required('This field is required.'),
-    year: yup.string().required('This field is required.'),
-    gradYear: yup.string().required('This field is required.'),
-    major: yup.string().required('This field is required.')
+    testField: yup.string().required('This field is required.'),
+    testArea: yup.string().required('This field is required.'),
+    testCheck: yup.string().required('This field is required.'),
+    testSelect: yup.string()
   });
 
   const data = {};
@@ -36,12 +27,42 @@ const Application = () => {
   const [currSchema, setSchema] = useState(schema1);
   const [currSection, setSection] = useState(Section1);
 
+  const StyledForm = styled(Form)`
+    background-color: blue;
+    display: flex;
+    justify-content: center;
+    width: 80%;
+    flex-direction: column;
+  `;
+
+  const Container = styled.div`
+    display: flex;
+    width: 100vw;
+    min-height: 100vh;
+    background-color: red;
+    flex-grow: 1;
+    align-items: center;
+    justify-content: center;
+  `;
+
   return (
-    <div>
-      <Formik validationSchema={currSchema}>
-        {({isSubmitting, validateForm}) => <Form>{currSection}</Form>}
+    <Container>
+      <Formik
+        validationSchema={currSchema}
+        onSubmit={(values, {setSubmitting}) => {
+          console.log(values);
+        }}
+      >
+        {({isSubmitting, validateForm}) => (
+          <>
+            <StyledForm>
+              {currSection}
+              <button type='submit'>Submit </button>
+            </StyledForm>
+          </>
+        )}
       </Formik>
-    </div>
+    </Container>
   );
 };
 
