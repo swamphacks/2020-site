@@ -1,35 +1,27 @@
-import React from 'react';
+import React, {useState} from 'react';
 import * as yup from 'yup';
 import {Field, HelperMessage, ErrorMessage, ValidMessage} from '@atlaskit/form';
-import styled from 'styled-components';
-import TextField from '@atlaskit/textfield';
-import Checkbox from '@atlaskit/checkbox';
-import Select from '@atlaskit/select';
-import TextArea from '@atlaskit/textarea';
-
-// {
-//   name: 'firstName',
-//   label: 'First name',
-//   isRequired: true,
-//   defaultValue: '',
-//   helperMsg: 'Enter your first name.',
-//   validMsg: 'Looks great!',
-//   component: 'field',
-//   schema: null
-// }
 
 const FieldHelper = ({
   name,
   label,
   isRequired,
+  placeholder,
   defaultValue,
   helperMsg,
   validMsg,
   Component,
   componentProps,
   schema,
-  schemaPath
+  schemaPath,
+  isSelect,
+  selectOptions
 }) => {
+  // Used to handle createable
+  const [cSelectOptions, setOptions] = useState(selectOptions);
+
+  // TODO: Fix multi select
+
   return (
     <Field
       name={name}
@@ -37,7 +29,13 @@ const FieldHelper = ({
       defaultValue={defaultValue}
       isRequired={isRequired}
       validate={value => {
-        value = value.trim();
+        if (Array.isArray(value)) {
+          for (let i = 0; i < value.length; i++) {
+            value[i] = value[i].value;
+          }
+        } else if (typeof value === 'object' && value != undefined) {
+          value = value.value;
+        }
         try {
           yup.reach(schema, schemaPath).validateSync(value);
           return undefined;
@@ -48,7 +46,38 @@ const FieldHelper = ({
     >
       {({fieldProps, error, valid}) => (
         <>
-          <Component {...componentProps} autoComplete='on' {...fieldProps} />
+          {isSelect && (
+            <Component
+              {...componentProps}
+              // Override componentProps
+              autoComplete='on'
+              {...fieldProps}
+              // Handle select
+              options={cSelectOptions}
+              // Handle createable
+              onCreateOption={value => {
+                if (!isSelect) return undefined;
+                const newOption = {
+                  label: value,
+                  value: value.toLowerCase().trim()
+                };
+                setOptions([...cSelectOptions, newOption]);
+                fieldProps.onChange(newOption);
+              }}
+              placeholder='Select or begin typing...'
+            />
+          )}
+
+          {!isSelect && (
+            <Component
+              {...componentProps}
+              // Override componentProps
+              autoComplete='on'
+              {...fieldProps}
+              placeholder={placeholder}
+            />
+          )}
+
           {!error && !valid && <HelperMessage>{helperMsg}</HelperMessage>}
           {error && (
             <ErrorMessage>

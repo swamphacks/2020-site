@@ -19,12 +19,83 @@ const Application = () => {
     // Section 1
     section1: yup.object().shape({
       // Basic information
-      firstName: yup.string().required(),
-      lastName: yup.string().required()
+      firstName: yup
+        .string()
+        .lowercase()
+        .required(),
+      lastName: yup
+        .string()
+        .lowercase()
+        .required(),
+      genderSex: yup
+        .string()
+        .lowercase()
+        .required(),
+      dateOfBirth: yup.date().required(),
+      phone: yup.number().required(),
+      shirtSize: yup
+        .string()
+        .lowercase()
+        .required(),
+      dateOfBirth: yup.date().required(),
+      allergiesDiet: yup
+        .array(yup.string().lowercase())
+        .required()
+        .nullable()
     }),
     section2: yup.object().shape({
-      // Basic information
-      test: yup.string().required()
+      // Education
+      school: yup
+        .string()
+        .lowercase()
+        .required(),
+      currYear: yup
+        .string()
+        .lowercase()
+        .required(),
+      gradYear: yup.number().required(),
+      major: yup
+        .string()
+        .lowercase()
+        .required()
+    }),
+    section3: yup.object().shape({
+      // Professional information
+      github: yup
+        .string()
+        .lowercase()
+        .url(),
+      website: yup
+        .string()
+        .lowercase()
+        .url(),
+      linkedIn: yup
+        .string()
+        .lowercase()
+        .url(),
+      resume: yup.object(),
+      positions: yup.array(yup.string().lowercase())
+    }),
+    section4: yup.object().shape({
+      // Travel information
+      needsTravelAssist: yup.boolean().required(),
+      travelType: yup.string()
+    }),
+    section5: yup.object().shape({
+      // Free response
+      topics: yup.array(yup.string()),
+      question1: yup.string().required(),
+      question2: yup.string().required(),
+      question3: yup.string().required()
+    }),
+    section6: yup.object().shape({
+      // Account information
+      email: yup
+        .string()
+        .email()
+        .lowercase()
+        .required(),
+      password: yup.string().required()
     })
   });
 
@@ -50,9 +121,14 @@ const Application = () => {
   `;
 
   const handleSubmit = data => {
+    for (const key in data) {
+      if (typeof data[key] === 'object') {
+        data[key] = data[key].value;
+      }
+    }
     const newData = {...formData, ...data};
     setFormData(newData);
-    if (currSection !== section2) {
+    if (currSection == section2) {
       setSection(section2);
     } else {
       console.log('form data', newData);
