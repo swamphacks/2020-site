@@ -1,8 +1,9 @@
 import React, {useState} from 'react';
 import {BrowserRouter as Router, Route, Redirect} from 'react-router-dom';
-import {Formik, Form, Field} from 'formik';
 import styled from 'styled-components';
 import * as yup from 'yup';
+import Form, {FormHeader, FormSection, FormFooter} from '@atlaskit/form';
+import FieldHelper from '../../components/FieldHelper';
 
 // Necessary inputs:
 // Checkbox
@@ -11,24 +12,22 @@ import * as yup from 'yup';
 // Select
 
 // Sections
-import Section1 from './Sections/Section1';
+import {section1} from './Sections';
 
 const Application = () => {
-  const schema1 = yup.object().shape({
-    // Basic information
-    testField: yup.string().required('This field is required.'),
-    testArea: yup.string().required('This field is required.'),
-    testCheck: yup.string().required('This field is required.'),
-    testSelect: yup.string()
+  const schema = yup.object().shape({
+    // Section 1
+    section1: yup.object().shape({
+      // Basic information
+      firstName: yup.string().required(),
+      lastName: yup.string().required()
+    })
   });
 
   const data = {};
 
-  const [currSchema, setSchema] = useState(schema1);
-  const [currSection, setSection] = useState(Section1);
-
-  const StyledForm = styled(Form)`
-    background-color: blue;
+  const FormContainer = styled.div`
+    background-color: transparent;
     display: flex;
     justify-content: center;
     width: 80%;
@@ -39,7 +38,7 @@ const Application = () => {
     display: flex;
     width: 100vw;
     min-height: 100vh;
-    background-color: red;
+    background-color: white;
     flex-grow: 1;
     align-items: center;
     justify-content: center;
@@ -47,21 +46,23 @@ const Application = () => {
 
   return (
     <Container>
-      <Formik
-        validationSchema={currSchema}
-        onSubmit={(values, {setSubmitting}) => {
-          console.log(values);
-        }}
-      >
-        {({isSubmitting, validateForm}) => (
-          <>
-            <StyledForm>
-              {currSection}
-              <button type='submit'>Submit </button>
-            </StyledForm>
-          </>
-        )}
-      </Formik>
+      <FormContainer>
+        <Form onSubmit={data => console.log('form data', data)}>
+          {({formProps}) => (
+            <form {...formProps}>
+              <FormHeader title='SwampHacks VI' />
+              <FormSection title='Basic info'>
+                {section1.map(data => (
+                  <FieldHelper {...data} schema={schema} key={data.name} />
+                ))}
+              </FormSection>
+              <FormFooter>
+                <button type='submit'>Submit</button>
+              </FormFooter>
+            </form>
+          )}
+        </Form>
+      </FormContainer>
     </Container>
   );
 };
