@@ -32,4 +32,18 @@ const section1 = [
   }
 ];
 
-export {section1};
+const section2 = [
+  {
+    name: 'test',
+    label: 'Test name',
+    isRequired: true,
+    defaultValue: '',
+    helperMsg: 'Enter your test name.',
+    validMsg: 'Looks test!',
+    Component: TextField,
+    componentProps: {autoComplete: 'on'},
+    schemaPath: 'section2.test'
+  }
+];
+
+export {section1, section2};

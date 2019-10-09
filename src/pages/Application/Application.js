@@ -12,7 +12,7 @@ import FieldHelper from '../../components/FieldHelper';
 // Select
 
 // Sections
-import {section1} from './Sections';
+import {section1, section2} from './Sections';
 
 const Application = () => {
   const schema = yup.object().shape({
@@ -21,10 +21,15 @@ const Application = () => {
       // Basic information
       firstName: yup.string().required(),
       lastName: yup.string().required()
+    }),
+    section2: yup.object().shape({
+      // Basic information
+      test: yup.string().required()
     })
   });
 
-  const data = {};
+  const [currSection, setSection] = useState(section1);
+  const [formData, setFormData] = useState({});
 
   const FormContainer = styled.div`
     background-color: transparent;
@@ -44,15 +49,25 @@ const Application = () => {
     justify-content: center;
   `;
 
+  const handleSubmit = data => {
+    const newData = {...formData, ...data};
+    setFormData(newData);
+    if (currSection !== section2) {
+      setSection(section2);
+    } else {
+      console.log('form data', newData);
+    }
+  };
+
   return (
     <Container>
       <FormContainer>
-        <Form onSubmit={data => console.log('form data', data)}>
+        <Form onSubmit={handleSubmit}>
           {({formProps}) => (
             <form {...formProps}>
               <FormHeader title='SwampHacks VI' />
               <FormSection title='Basic info'>
-                {section1.map(data => (
+                {currSection.map(data => (
                   <FieldHelper {...data} schema={schema} key={data.name} />
                 ))}
               </FormSection>
