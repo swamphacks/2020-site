@@ -1,7 +1,7 @@
 import React, {useState} from 'react';
 import styled from 'styled-components';
 import * as yup from 'yup';
-import Form, {FormHeader, FormSection, FormFooter} from '@atlaskit/form';
+import {Formik, Form, Field} from 'formik';
 import FieldHelper from '../../components/FieldHelper';
 
 // Necessary inputs:
@@ -21,7 +21,7 @@ const Application = () => {
       firstName: yup
         .string()
         .lowercase()
-        .required(),
+        .required('Your first name is required.'),
       lastName: yup
         .string()
         .lowercase()
@@ -101,7 +101,7 @@ const Application = () => {
   const [currSection, setSection] = useState(section1);
   const [formData, setFormData] = useState({});
 
-  const FormContainer = styled.div`
+  const FormContainer = styled(Form)`
     background-color: transparent;
     display: flex;
     justify-content: center;
@@ -136,23 +136,23 @@ const Application = () => {
 
   return (
     <Container>
-      <FormContainer>
-        <Form onSubmit={handleSubmit}>
-          {({formProps}) => (
-            <form {...formProps}>
-              <FormHeader title='SwampHacks VI' />
-              <FormSection title='Basic info'>
-                {currSection.map(data => (
-                  <FieldHelper {...data} schema={schema} key={data.name} />
-                ))}
-              </FormSection>
-              <FormFooter>
-                <button type='submit'>Submit</button>
-              </FormFooter>
-            </form>
-          )}
-        </Form>
-      </FormContainer>
+      <Formik
+        validationSchema={yup.reach(schema, 'section1')}
+        onSubmit={(values, {setSubmitting}) => {
+          console.log(values);
+        }}
+      >
+        <FormContainer>
+          <Field
+            component={FieldHelper}
+            name='firstName'
+            label='First Name'
+            required={true}
+            placeholder='First name'
+            autoFocus={true}
+          ></Field>
+        </FormContainer>
+      </Formik>
     </Container>
   );
 };
