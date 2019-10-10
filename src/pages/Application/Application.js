@@ -1,5 +1,4 @@
 import React, {useState} from 'react';
-import {BrowserRouter as Router, Route, Redirect} from 'react-router-dom';
 import styled from 'styled-components';
 import * as yup from 'yup';
 import Form, {FormHeader, FormSection, FormFooter} from '@atlaskit/form';

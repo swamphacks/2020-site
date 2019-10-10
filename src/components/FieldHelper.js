@@ -1,6 +1,7 @@
 import React, {useState} from 'react';
 import * as yup from 'yup';
 import {Field, HelperMessage, ErrorMessage, ValidMessage} from '@atlaskit/form';
+import {multiply} from '@atlaskit/theme/math';
 
 const FieldHelper = ({
   name,
@@ -15,12 +16,13 @@ const FieldHelper = ({
   schema,
   schemaPath,
   isSelect,
+  isMulti,
   selectOptions
 }) => {
   // Used to handle createable
   const [cSelectOptions, setOptions] = useState(selectOptions);
-
   // TODO: Fix multi select
+  const [multiValues, setMultiValues] = useState([]);
 
   return (
     <Field
@@ -28,12 +30,20 @@ const FieldHelper = ({
       label={label}
       defaultValue={defaultValue}
       isRequired={isRequired}
+      transform={(onChangeValue, currValue) => {
+        console.log('onChangeValue', onChangeValue);
+        console.log('currVal', currValue);
+        if (isMulti) return onChangeValue;
+        else if (isSelect) return onChangeValue;
+      }}
       validate={value => {
         if (Array.isArray(value)) {
-          for (let i = 0; i < value.length; i++) {
-            value[i] = value[i].value;
+          if (value !== undefined) {
+            for (let i = 0; i < value.length; i++) {
+              value[i] = value[i].value;
+            }
           }
-        } else if (typeof value === 'object' && value != undefined) {
+        } else if (typeof value === 'object' && value !== undefined) {
           value = value.value;
         }
         try {
@@ -46,7 +56,7 @@ const FieldHelper = ({
     >
       {({fieldProps, error, valid}) => (
         <>
-          {isSelect && (
+          {isSelect && !isMulti && (
             <Component
               {...componentProps}
               // Override componentProps
@@ -65,6 +75,35 @@ const FieldHelper = ({
                 fieldProps.onChange(newOption);
               }}
               placeholder='Select or begin typing...'
+            />
+          )}
+
+          {isSelect && isMulti && (
+            <Component
+              {...componentProps}
+              // Override componentProps
+              autoComplete='on'
+              {...fieldProps}
+              // Handle select
+              options={cSelectOptions}
+              // Handle createable
+              onCreateOption={value => {
+                if (!isSelect) return undefined;
+                const newOption = {
+                  label: value,
+                  value: value.toLowerCase().trim()
+                };
+                setOptions([...cSelectOptions, newOption]);
+                let newMultiValues = multiValues;
+                newMultiValues.push(newOption);
+                setMultiValues(newMultiValues);
+              }}
+              placeholder='Select or begin typing...'
+              onChange={value => {
+                setMultiValues(value);
+                fieldProps.onChange(value);
+              }}
+              value={multiValues}
             />
           )}
 

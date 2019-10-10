@@ -1,5 +1,3 @@
-import * as yup from 'yup';
-import React from 'react';
 import TextField from '@atlaskit/textfield';
 import Checkbox from '@atlaskit/checkbox';
 import Select, {CreatableSelect} from '@atlaskit/select';
@@ -16,6 +14,7 @@ import TextArea from '@atlaskit/textarea';
 //     componentProps: {},
 //     schemaPath: 'section1.firstName',
 //     isSelect: false,
+// isMulti: true,
 //     selectOptions: []
 
 const section1 = [
@@ -103,6 +102,7 @@ const section1 = [
     componentProps: {isMulti: true},
     schemaPath: 'section1.allergiesDiet',
     isSelect: true,
+    isMulti: true,
     selectOptions: [
       {label: 'Vegan', value: 'vegan'},
       {label: 'Vegetarian', value: 'vegetarian'}
