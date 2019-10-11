@@ -11,6 +11,7 @@
 //     isSelect: false,
 // isMulti: true,
 //     selectOptions: []
+import colleges from '../../resources/data/CollegeOptions';
 
 const section1 = [
   {
@@ -126,9 +127,56 @@ const section2 = [
     name: 'school',
     label: 'School',
     isRequired: true,
-    componentType: 'TextField',
+    placeholder: 'Search or select...',
+    componentType: 'Select',
     componentProps: {
-      autoFocus: true
+      autoFocus: true,
+      options: colleges
+    }
+  },
+  {
+    name: 'currYear',
+    label: 'Year',
+    isRequired: true,
+    placeholder: 'Select...',
+    componentType: 'Select',
+    componentProps: {
+      autoFocus: true,
+      options: ['Freshman', 'Sophomore', 'Junior', 'Senior', 'Graduate']
+    }
+  },
+  {
+    name: 'gradYear',
+    label: 'Graduation Year',
+    isRequired: true,
+    placeholder: 'Select...',
+    componentType: 'Select',
+    componentProps: {
+      autoFocus: true,
+      options: [
+        '2020',
+        '2021',
+        '2022',
+        '2023',
+        '2024',
+        '2025',
+        '2026',
+        '2027',
+        '2028',
+        '2029',
+        '2030'
+      ]
+    }
+  },
+  {
+    name: 'major',
+    label: 'Major',
+    isRequired: true,
+    placeholder: 'Search or select...',
+    componentType: 'Select',
+    componentProps: {
+      autoFocus: true,
+      options: colleges
     }
   }
 ];

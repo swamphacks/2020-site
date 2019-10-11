@@ -49,16 +49,16 @@ const Application = () => {
       school: yup
         .string()
         .lowercase()
+        .required(),
+      currYear: yup
+        .string()
+        .lowercase()
+        .required(),
+      gradYear: yup.number().required(),
+      major: yup
+        .string()
+        .lowercase()
         .required()
-      // currYear: yup
-      //   .string()
-      //   .lowercase()
-      //   .required(),
-      // gradYear: yup.number().required(),
-      // major: yup
-      //   .string()
-      //   .lowercase()
-      //   .required()
     }),
     section3: yup.object().shape({
       // Professional information
@@ -100,9 +100,9 @@ const Application = () => {
     })
   });
 
-  const [currSection, setSection] = useState(section1);
+  const [currSection, setSection] = useState(section2);
   const [formData, setFormData] = useState({});
-  const [currSchema, setSchema] = useState('section1');
+  const [currSchema, setSchema] = useState('section2');
 
   const FormContainer = styled(Form)`
     background-color: transparent;
