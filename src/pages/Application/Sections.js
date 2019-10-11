@@ -68,59 +68,69 @@ const section1 = [
         }
       ]
     }
+  },
+  {
+    name: 'phone',
+    label: 'Phone Number',
+    isRequired: true,
+    componentType: 'MaskedInput',
+    componentProps: {
+      mask: [
+        {fixed: '('},
+        {
+          length: 3,
+          placeholder: '###'
+        },
+        {fixed: ')'},
+        {fixed: ' '},
+        {
+          length: 3,
+          placeholder: '###'
+        },
+        {fixed: '-'},
+        {
+          length: 4,
+          placeholder: '####'
+        }
+      ]
+    }
+  },
+  {
+    name: 'shirtSize',
+    label: 'Shirt Size',
+    isRequired: true,
+    placeholder: 'Select a size...',
+    componentType: 'Select',
+    componentProps: {
+      options: ['Small', 'Medium', 'Large', 'Extra large']
+    }
+  },
+  {
+    name: 'allergiesDiet',
+    label: 'Allergies/Dietary Restrictions',
+    isRequired: true,
+    placeholder: 'Select or type...',
+    componentType: 'TextField',
+    componentProps: {
+      suggestions: [
+        {label: 'None', value: 'None'},
+        {label: 'Vegan', value: 'Vegan'},
+        {label: 'Vegetarian', value: 'Vegetarian'}
+      ]
+    }
   }
-  // {
-  //   name: 'phone',
-  //   label: 'Phone Number',
-  //   isRequired: true,
-  //   helperMsg: 'Enter your phone number.',
-  //   Component: TextField,
-  //   schemaPath: 'section1.phone'
-  // },
-  // {
-  //   name: 'shirtSize',
-  //   label: 'Shirt Size',
-  //   isRequired: true,
-  //   helperMsg: 'Select your shirt size.',
-  //   Component: Select,
-  //   schemaPath: 'section1.shirtSize',
-  //   isSelect: true,
-  //   selectOptions: [
-  //     {label: 'Small', value: 's'},
-  //     {label: 'Medium', value: 'm'},
-  //     {label: 'Large', value: 'l'},
-  //     {label: 'Extra large', value: 'xl'}
-  //   ]
-  // },
-  // {
-  //   name: 'allergiesDiet',
-  //   label: 'Allergies/Dietary Restrictions',
-  //   isRequired: true,
-  //   helperMsg: 'Let us know if you have any restrictionns.',
-  //   Component: CreatableSelect,
-  //   componentProps: {isMulti: true},
-  //   schemaPath: 'section1.allergiesDiet',
-  //   isSelect: true,
-  //   isMulti: true,
-  //   selectOptions: [
-  //     {label: 'Vegan', value: 'vegan'},
-  //     {label: 'Vegetarian', value: 'vegetarian'}
-  //   ]
-  // }
 ];
 
 const section2 = [
-  // {
-  //   name: 'test',
-  //   label: 'Test name',
-  //   isRequired: true,
-  //   defaultValue: '',
-  //   helperMsg: 'Enter your test name.',
-  //   validMsg: 'Looks test!',
-  //   Component: TextField,
-  //   componentProps: {autoComplete: 'on'},
-  //   schemaPath: 'section2.test'
-  // }
+  {
+    name: 'school',
+    label: 'School',
+    isRequired: true,
+    componentType: 'TextField',
+    componentProps: {
+      autoFocus: true
+    }
+  }
 ];
 
 export {section1, section2};

@@ -30,33 +30,35 @@ const Application = () => {
         .string()
         .lowercase()
         .required(),
-      dateOfBirth: yup.date().required()
-      // phone: yup.number().required(),
-      // shirtSize: yup
-      //   .string()
-      //   .lowercase()
-      //   .required(),
-      // dateOfBirth: yup.date().required(),
-      // allergiesDiet: yup
-      //   .array(yup.string().lowercase())
-      //   .required()
-      //   .nullable()
+      dateOfBirth: yup.date().required(),
+      phone: yup
+        .string('Must be a valid phone number.')
+        .matches(
+          /^(\+\d{1,2}\s)?\(?\d{3}\)?[\s.-]?\d{3}[\s.-]?\d{4}$/,
+          'Must be a valid phone number.'
+        )
+        .required('Your phone number is required.'),
+      shirtSize: yup
+        .string()
+        .lowercase()
+        .required(),
+      allergiesDiet: yup.string().required()
     }),
     section2: yup.object().shape({
       // Education
       school: yup
         .string()
         .lowercase()
-        .required(),
-      currYear: yup
-        .string()
-        .lowercase()
-        .required(),
-      gradYear: yup.number().required(),
-      major: yup
-        .string()
-        .lowercase()
         .required()
+      // currYear: yup
+      //   .string()
+      //   .lowercase()
+      //   .required(),
+      // gradYear: yup.number().required(),
+      // major: yup
+      //   .string()
+      //   .lowercase()
+      //   .required()
     }),
     section3: yup.object().shape({
       // Professional information
@@ -100,6 +102,7 @@ const Application = () => {
 
   const [currSection, setSection] = useState(section1);
   const [formData, setFormData] = useState({});
+  const [currSchema, setSchema] = useState('section1');
 
   const FormContainer = styled(Form)`
     background-color: transparent;
@@ -119,16 +122,13 @@ const Application = () => {
     justify-content: center;
   `;
 
-  const handleSubmit = data => {
-    for (const key in data) {
-      if (typeof data[key] === 'object') {
-        data[key] = data[key].value;
-      }
-    }
-    const newData = {...formData, ...data};
+  const handleSubmit = (values, {setSubmitting}) => {
+    const newData = {...formData, ...values};
     setFormData(newData);
-    if (currSection == section2) {
+    console.log(newData);
+    if (currSection !== section2) {
       setSection(section2);
+      setSchema('section2');
     } else {
       console.log('form data', newData);
     }
@@ -137,11 +137,8 @@ const Application = () => {
   return (
     <Container>
       <Formik
-        validationSchema={yup.reach(schema, 'section1')}
-        initialValues={{firstName: '', lastName: '', genderSex: ''}}
-        onSubmit={(values, {setSubmitting}) => {
-          console.log(values);
-        }}
+        validationSchema={yup.reach(schema, currSchema)}
+        onSubmit={handleSubmit}
       >
         <FormContainer>
           {currSection.map(

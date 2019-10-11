@@ -31,14 +31,24 @@ const FieldHelper = ({
               setFieldTouched(field.name, true);
               setFieldValue(field.name, e.suggestion.value);
             }}
-            dropProps={{style: {padding: 10}}}
+            // dropProps={{style: {paddingLeft: 10}}}
             onChange={e => {
               setFieldTouched(field.name, true);
               handleChange(e);
             }}
           />
         )}
-        {componentType === 'Select' && <Select {...field} {...props} />}
+        {componentType === 'Select' && (
+          <Select
+            {...props}
+            {...field}
+            onChange={option => {
+              setFieldTouched(field.name, true);
+              setFieldValue(field.name, option.value);
+            }}
+            value={field.value}
+          />
+        )}
         {componentType === 'MaskedInput' && (
           <MaskedInput {...field} {...props} />
         )}
