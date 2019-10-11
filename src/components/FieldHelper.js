@@ -12,18 +12,36 @@ import {
 
 const FieldHelper = ({
   field, // { name, value, onChange, onBlur }
-  form: {touched, errors}, // also values, setXXXX, handleXXXX, dirty, isValid, status, etc.
+  form: {touched, errors, setFieldValue, setFieldTouched, handleChange}, // also values, setXXXX, handleXXXX, dirty, isValid, status, etc.
+  componentType,
   ...props
 }) => {
+  const errorMsg =
+    touched[field.name] && errors[field.name] ? errors[field.name] : null;
+
   return (
     <>
-      <FormField
-        name={field.name}
-        label={props.label}
-        error={errors[field.name]}
-        required={props.required}
-      >
-        <TextInput {...field} {...props} />
+      <FormField name={field.name} label={props.label} error={errorMsg}>
+        {componentType === 'TextField' && (
+          <TextInput
+            {...field}
+            {...props}
+            value={field.value}
+            onSelect={e => {
+              setFieldTouched(field.name, true);
+              setFieldValue(field.name, e.suggestion.value);
+            }}
+            dropProps={{style: {padding: 10}}}
+            onChange={e => {
+              setFieldTouched(field.name, true);
+              handleChange(e);
+            }}
+          />
+        )}
+        {componentType === 'Select' && <Select {...field} {...props} />}
+        {componentType === 'MaskedInput' && (
+          <MaskedInput {...field} {...props} />
+        )}
       </FormField>
     </>
   );

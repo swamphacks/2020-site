@@ -1,12 +1,3 @@
-import {
-  TextInput,
-  CheckBox,
-  MaskedInput,
-  Select,
-  TextArea,
-  FormField
-} from 'grommet';
-
 // Section format:
 // name: 'firstName',
 //     label: 'First name',
@@ -22,58 +13,62 @@ import {
 //     selectOptions: []
 
 const section1 = [
-  // {
-  //   name: 'firstName',
-  //   label: 'First name',
-  //   isRequired: true,
-  //   placeholder: '',
-  //   defaultValue: '',
-  //   helperMsg: 'Enter your first name.',
-  //   Component: TextField,
-  //   componentProps: {},
-  //   schemaPath: 'section1.firstName',
-  //   isSelect: false,
-  //   selectOptions: []
-  // },
-  // {
-  //   name: 'lastName',
-  //   label: 'Last name',
-  //   isRequired: true,
-  //   placeholder: '',
-  //   defaultValue: '',
-  //   helperMsg: 'Enter your last name.',
-  //   Component: TextField,
-  //   componentProps: {},
-  //   schemaPath: 'section1.lastName',
-  //   isSelect: false,
-  //   selectOptions: []
-  // },
-  // {
-  //   name: 'genderSex',
-  //   label: 'Gender/Sex',
-  //   isRequired: true,
-  //   defaultValue: '',
-  //   helperMsg: 'Enter your gender/sex.',
-  //   Component: CreatableSelect,
-  //   componentProps: {},
-  //   schemaPath: 'section1.genderSex',
-  //   isSelect: true,
-  //   selectOptions: [
-  //     {label: 'Male', value: 'male'},
-  //     {label: 'Female', value: 'female'},
-  //     {label: 'Other', value: 'other'},
-  //     {label: 'Prefer not to answer', value: 'preferNoAnswer'}
-  //   ]
-  // },
-  // {
-  //   name: 'dateOfBirth',
-  //   label: 'Date of Birth',
-  //   isRequired: true,
-  //   placeholder: '##/##/####',
-  //   helperMsg: 'Enter your date of birth.',
-  //   Component: TextField,
-  //   schemaPath: 'section1.dateOfBirth'
-  // },
+  {
+    name: 'firstName',
+    label: 'First Name',
+    isRequired: true,
+    placeholder: 'First name',
+    componentType: 'TextField',
+    componentProps: {
+      autoFocus: true
+    }
+  },
+  {
+    name: 'lastName',
+    label: 'Last Name',
+    isRequired: true,
+    placeholder: 'Last name',
+    componentType: 'TextField'
+  },
+  {
+    name: 'genderSex',
+    label: 'Gender/Sex',
+    isRequired: true,
+    placeholder: 'Select or type...',
+    componentType: 'TextField',
+    componentProps: {
+      suggestions: [
+        {label: 'Male', value: 'Male'},
+        {label: 'Female', value: 'Female'},
+        {label: 'Other', value: 'Other'}
+      ]
+    }
+  },
+  {
+    name: 'dateOfBirth',
+    label: 'Birthday',
+    isRequired: true,
+    componentType: 'MaskedInput',
+    componentProps: {
+      mask: [
+        {
+          length: 2,
+
+          placeholder: 'mm'
+        },
+        {fixed: '/'},
+        {
+          length: 2,
+          placeholder: 'dd'
+        },
+        {fixed: '/'},
+        {
+          length: 4,
+          placeholder: 'yyyy'
+        }
+      ]
+    }
+  }
   // {
   //   name: 'phone',
   //   label: 'Phone Number',

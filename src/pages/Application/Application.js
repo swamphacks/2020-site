@@ -30,17 +30,17 @@ const Application = () => {
         .string()
         .lowercase()
         .required(),
-      dateOfBirth: yup.date().required(),
-      phone: yup.number().required(),
-      shirtSize: yup
-        .string()
-        .lowercase()
-        .required(),
-      dateOfBirth: yup.date().required(),
-      allergiesDiet: yup
-        .array(yup.string().lowercase())
-        .required()
-        .nullable()
+      dateOfBirth: yup.date().required()
+      // phone: yup.number().required(),
+      // shirtSize: yup
+      //   .string()
+      //   .lowercase()
+      //   .required(),
+      // dateOfBirth: yup.date().required(),
+      // allergiesDiet: yup
+      //   .array(yup.string().lowercase())
+      //   .required()
+      //   .nullable()
     }),
     section2: yup.object().shape({
       // Education
@@ -138,19 +138,37 @@ const Application = () => {
     <Container>
       <Formik
         validationSchema={yup.reach(schema, 'section1')}
+        initialValues={{firstName: '', lastName: '', genderSex: ''}}
         onSubmit={(values, {setSubmitting}) => {
           console.log(values);
         }}
       >
         <FormContainer>
-          <Field
-            component={FieldHelper}
-            name='firstName'
-            label='First Name'
-            required={true}
-            placeholder='First name'
-            autoFocus={true}
-          ></Field>
+          {currSection.map(
+            ({
+              name,
+              label,
+              required,
+              placeholder,
+              componentProps,
+              ...props
+            }) => {
+              return (
+                <Field
+                  component={FieldHelper}
+                  name={name}
+                  label={label}
+                  required={required}
+                  placeholder={placeholder}
+                  {...componentProps}
+                  {...props}
+                  key={name}
+                />
+              );
+            }
+          )}
+
+          <button type='submit'>Submit</button>
         </FormContainer>
       </Formik>
     </Container>
