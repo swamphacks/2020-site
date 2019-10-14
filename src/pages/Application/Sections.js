@@ -135,6 +135,17 @@ const section2 = [
     }
   },
   {
+    name: 'major',
+    label: 'Major',
+    isRequired: true,
+    placeholder: 'Search or select...',
+    componentType: 'Select',
+    componentProps: {
+      autoFocus: true,
+      options: colleges
+    }
+  },
+  {
     name: 'currYear',
     label: 'Year',
     isRequired: true,
@@ -167,18 +178,40 @@ const section2 = [
         '2030'
       ]
     }
-  },
-  {
-    name: 'major',
-    label: 'Major',
-    isRequired: true,
-    placeholder: 'Search or select...',
-    componentType: 'Select',
-    componentProps: {
-      autoFocus: true,
-      options: colleges
-    }
   }
 ];
 
-export {section1, section2};
+const section3 = [
+  {
+    name: 'github',
+    label: 'Github Link',
+    isRequired: false,
+    placeholder: 'Enter a url...',
+    componentType: 'TextField',
+    componentProps: {
+      autoFocus: true
+    }
+  },
+  {
+    name: 'website',
+    label: 'Personal Website Link',
+    isRequired: false,
+    placeholder: 'Enter a url...',
+    componentType: 'TextField'
+  },
+  {
+    name: 'linkedIn',
+    label: 'LinkedIn Link',
+    isRequired: false,
+    placeholder: 'Enter a url...',
+    componentType: 'TextField'
+  },
+  {
+    name: 'resume',
+    label: 'Upload Your Resume',
+    isRequired: false,
+    componentType: 'FileUpload'
+  }
+];
+
+export {section1, section2, section3};

@@ -7,7 +7,8 @@ import {
   MaskedInput,
   Select,
   TextArea,
-  FormField
+  FormField,
+  Button
 } from 'grommet';
 
 const FieldHelper = ({
@@ -51,6 +52,21 @@ const FieldHelper = ({
         )}
         {componentType === 'MaskedInput' && (
           <MaskedInput {...field} {...props} />
+        )}
+        {/* TODO: Upload file to firebase files and set value of field to link. */}
+        {componentType === 'FileUpload' && (
+          <TextInput
+            {...field}
+            {...props}
+            type='file'
+            accept='.pdf,.doc,.docx'
+            value={field.value}
+            onChange={e => {
+              console.log(e.target.value);
+              setFieldTouched(field.name, true);
+              handleChange(e);
+            }}
+          />
         )}
       </FormField>
     </>

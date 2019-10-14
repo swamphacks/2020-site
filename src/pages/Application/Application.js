@@ -11,7 +11,7 @@ import FieldHelper from '../../components/FieldHelper';
 // Select
 
 // Sections
-import {section1, section2} from './Sections';
+import {section1, section2, section3} from './Sections';
 
 const Application = () => {
   const schema = yup.object().shape({
@@ -50,15 +50,15 @@ const Application = () => {
         .string()
         .lowercase()
         .required(),
+      major: yup
+        .string()
+        .lowercase()
+        .required(),
       currYear: yup
         .string()
         .lowercase()
         .required(),
-      gradYear: yup.number().required(),
-      major: yup
-        .string()
-        .lowercase()
-        .required()
+      gradYear: yup.number().required()
     }),
     section3: yup.object().shape({
       // Professional information
@@ -100,9 +100,9 @@ const Application = () => {
     })
   });
 
-  const [currSection, setSection] = useState(section2);
+  const [currSection, setSection] = useState(section3);
   const [formData, setFormData] = useState({});
-  const [currSchema, setSchema] = useState('section2');
+  const [currSchema, setSchema] = useState('section3');
 
   const FormContainer = styled(Form)`
     background-color: transparent;
@@ -126,7 +126,7 @@ const Application = () => {
     const newData = {...formData, ...values};
     setFormData(newData);
     console.log(newData);
-    if (currSection !== section2) {
+    if (currSection !== section3) {
       setSection(section2);
       setSchema('section2');
     } else {
