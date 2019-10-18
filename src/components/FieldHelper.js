@@ -60,7 +60,6 @@ const FieldHelper = ({
         {componentType === 'MaskedInput' && (
           <MaskedInput {...field} {...props} />
         )}
-        {/* TODO: Upload file to firebase files and set value of field to link. */}
         {componentType === 'FileUpload' && (
           <TextInput
             {...field}
@@ -71,7 +70,7 @@ const FieldHelper = ({
             onChange={e => {
               console.log(e.target.value);
               setFieldTouched(field.name, true);
-              handleChange(e);
+              setFieldValue(field.name, e.currentTarget.files[0]);
             }}
           />
         )}

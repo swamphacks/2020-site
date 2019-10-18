@@ -15,6 +15,7 @@ import {Box, Button} from 'grommet';
 import {sections} from './Sections';
 
 const Application = () => {
+  // TODO: Move to sections
   const schema = yup.object().shape({
     // Section 1
     section1: yup.object().shape({
@@ -66,7 +67,7 @@ const Application = () => {
       github: yup.string().lowercase(),
       website: yup.string().lowercase(),
       linkedIn: yup.string().lowercase(),
-      resume: yup.object(),
+      resume: yup.mixed(),
       positions: yup.array(yup.string().lowercase())
     }),
     section4: yup.object().shape({
@@ -92,7 +93,7 @@ const Application = () => {
     })
   });
 
-  const [currSection, setSection] = useState(0);
+  const [currSection, setSection] = useState(2);
   const [formData, setFormData] = useState({});
 
   const FormContainer = styled(Form)`
@@ -127,8 +128,6 @@ const Application = () => {
   const handleGoBack = () => {
     setSection(currSection - 1);
   };
-
-  console.log(formData);
 
   return (
     <Container>
