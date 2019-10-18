@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import * as yup from 'yup';
 import {Formik, Form, Field} from 'formik';
 import FieldHelper from '../../components/FieldHelper';
-import {Box, Button} from 'grommet';
+import {Box, Button, Heading} from 'grommet';
 
 // Necessary inputs:
 // Checkbox
@@ -136,7 +136,8 @@ const Application = () => {
         onSubmit={handleSubmit}
       >
         <FormContainer>
-          {sections[currSection].sec.map(
+          <Heading level='3'>{sections[currSection].sec.title}</Heading>
+          {sections[currSection].sec.fields.map(
             ({
               name,
               label,
