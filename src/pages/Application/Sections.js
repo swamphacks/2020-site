@@ -1,16 +1,3 @@
-// Section format:
-// name: 'firstName',
-//     label: 'First name',
-//     isRequired: true,
-//     placeholder: '',
-//     defaultValue: '',
-//     helperMsg: 'Enter your first name.',
-//     Component: TextField,
-//     componentProps: {},
-//     schemaPath: 'section1.firstName',
-//     isSelect: false,
-// isMulti: true,
-//     selectOptions: []
 import colleges from '../../resources/data/CollegeOptions';
 
 const section1 = {
@@ -126,7 +113,7 @@ const section1 = {
 };
 
 const section2 = {
-  title: 'Basic Info 2',
+  title: 'Education',
   fields: [
     {
       name: 'school',
@@ -188,7 +175,7 @@ const section2 = {
 };
 
 const section3 = {
-  title: '3',
+  title: 'Professional Information',
   fields: [
     {
       name: 'github',
@@ -221,7 +208,7 @@ const section3 = {
 };
 
 const section4 = {
-  title: '4',
+  title: 'Travel Information',
   fields: [
     {
       name: 'needsTravelAssist',
@@ -243,7 +230,7 @@ const section4 = {
 };
 
 const section5 = {
-  title: '5',
+  title: 'Free Response',
   fields: [
     {
       name: 'topics',
@@ -279,7 +266,9 @@ const section5 = {
 };
 
 const section6 = {
-  title: '6',
+  title: 'Account Information',
+  subtitle:
+    "You'll use this email and password to login to the SwampHacks dashboard. We'll use this email to send you important updates about your application.",
   fields: [
     {
       name: 'email',
