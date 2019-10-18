@@ -12,7 +12,7 @@
     "@atlaskit/textarea": "^2.2.1",
     "@atlaskit/textfield": "^3.1.2",
     "@atlaskit/theme": "^9.2.4",
-    "firebase": "^7.1.0",
+    "firebase": "^7.2.1",
     "formik": "^1.5.8",
     "grommet": "^2.7.9",
     "polished": "^3.4.1",

@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import * as yup from 'yup';
 import {Field} from 'formik';
 import {
@@ -19,6 +19,13 @@ const FieldHelper = ({
 }) => {
   const errorMsg =
     touched[field.name] && errors[field.name] ? errors[field.name] : null;
+
+  useEffect(() => {
+    if (props.defaultValue !== null) {
+      setFieldTouched(field.name, true);
+      setFieldValue(field.name, props.defaultValue);
+    }
+  }, []);
 
   return (
     <>

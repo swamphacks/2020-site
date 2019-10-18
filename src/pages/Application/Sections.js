@@ -184,9 +184,8 @@ const section2 = [
 const section3 = [
   {
     name: 'github',
-    label: 'Github Link',
+    label: 'Github Username',
     isRequired: false,
-    placeholder: 'Enter a url...',
     componentType: 'TextField',
     componentProps: {
       autoFocus: true
@@ -196,14 +195,12 @@ const section3 = [
     name: 'website',
     label: 'Personal Website Link',
     isRequired: false,
-    placeholder: 'Enter a url...',
     componentType: 'TextField'
   },
   {
     name: 'linkedIn',
     label: 'LinkedIn Link',
     isRequired: false,
-    placeholder: 'Enter a url...',
     componentType: 'TextField'
   },
   {
@@ -214,4 +211,83 @@ const section3 = [
   }
 ];
 
-export {section1, section2, section3};
+const section4 = [
+  {
+    name: 'needsTravelAssist',
+    label: 'Do you need travel assistance?',
+    isRequired: true,
+    componentType: 'TextField',
+    componentProps: {
+      autoFocus: true
+    }
+  },
+  {
+    name: 'travelType',
+    label: 'If so, what type of travel?',
+    isRequired: false,
+    placeholder: 'Select...',
+    componentType: 'TextField'
+  }
+];
+
+const section5 = [
+  {
+    name: 'topics',
+    label: 'What topics are you interested in?',
+    isRequired: false,
+    componentType: 'TextField',
+    componentProps: {
+      autoFocus: true
+    }
+  },
+  {
+    name: 'question1',
+    label: 'Question 1',
+    isRequired: false,
+    placeholder: 'Start typing...',
+    componentType: 'TextField'
+  },
+  {
+    name: 'question2',
+    label: 'Question 2',
+    isRequired: false,
+    placeholder: 'Start typing...',
+    componentType: 'TextField'
+  },
+  {
+    name: 'question3',
+    label: 'Question 3',
+    isRequired: false,
+    placeholder: 'Start typing...',
+    componentType: 'TextField'
+  }
+];
+
+const section6 = [
+  {
+    name: 'email',
+    label: 'Email',
+    isRequired: true,
+    componentType: 'TextField',
+    componentProps: {
+      autoFocus: true
+    }
+  },
+  {
+    name: 'password',
+    label: 'Password',
+    isRequired: true,
+    componentType: 'TextField'
+  }
+];
+
+const sections = [
+  {sec: section1, sch: 'section1'},
+  {sec: section2, sch: 'section2'},
+  {sec: section3, sch: 'section3'},
+  {sec: section4, sch: 'section4'},
+  {sec: section5, sch: 'section5'},
+  {sec: section6, sch: 'section6'}
+];
+
+export {sections};

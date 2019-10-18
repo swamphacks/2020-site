@@ -3,6 +3,7 @@ import styled from 'styled-components';
 import * as yup from 'yup';
 import {Formik, Form, Field} from 'formik';
 import FieldHelper from '../../components/FieldHelper';
+import {Box, Button} from 'grommet';
 
 // Necessary inputs:
 // Checkbox
@@ -11,7 +12,7 @@ import FieldHelper from '../../components/FieldHelper';
 // Select
 
 // Sections
-import {section1, section2, section3} from './Sections';
+import {sections} from './Sections';
 
 const Application = () => {
   const schema = yup.object().shape({
@@ -62,18 +63,9 @@ const Application = () => {
     }),
     section3: yup.object().shape({
       // Professional information
-      github: yup
-        .string()
-        .lowercase()
-        .url(),
-      website: yup
-        .string()
-        .lowercase()
-        .url(),
-      linkedIn: yup
-        .string()
-        .lowercase()
-        .url(),
+      github: yup.string().lowercase(),
+      website: yup.string().lowercase(),
+      linkedIn: yup.string().lowercase(),
       resume: yup.object(),
       positions: yup.array(yup.string().lowercase())
     }),
@@ -100,9 +92,8 @@ const Application = () => {
     })
   });
 
-  const [currSection, setSection] = useState(section3);
+  const [currSection, setSection] = useState(0);
   const [formData, setFormData] = useState({});
-  const [currSchema, setSchema] = useState('section3');
 
   const FormContainer = styled(Form)`
     background-color: transparent;
@@ -126,26 +117,31 @@ const Application = () => {
     const newData = {...formData, ...values};
     setFormData(newData);
     console.log(newData);
-    if (currSection !== section3) {
-      setSection(section2);
-      setSchema('section2');
+    if (currSection !== sections.length - 1) {
+      setSection(currSection + 1);
     } else {
       console.log('form data', newData);
     }
   };
 
+  const handleGoBack = () => {
+    setSection(currSection - 1);
+  };
+
+  console.log(formData);
+
   return (
     <Container>
       <Formik
-        validationSchema={yup.reach(schema, currSchema)}
+        validationSchema={yup.reach(schema, sections[currSection].sch)}
         onSubmit={handleSubmit}
       >
         <FormContainer>
-          {currSection.map(
+          {sections[currSection].sec.map(
             ({
               name,
               label,
-              required,
+              isRequired,
               placeholder,
               componentProps,
               ...props
@@ -155,17 +151,25 @@ const Application = () => {
                   component={FieldHelper}
                   name={name}
                   label={label}
-                  required={required}
+                  required={isRequired}
                   placeholder={placeholder}
                   {...componentProps}
                   {...props}
                   key={name}
+                  defaultValue={formData[name] ? formData[name] : null}
                 />
               );
             }
           )}
-
-          <button type='submit'>Submit</button>
+          <Box direction='row' gap='xsmall'>
+            {currSection !== 0 && (
+              <Button label='Back' onClick={handleGoBack} />
+            )}
+            <Button
+              label={currSection === sections.length - 1 ? 'Submit' : 'Next'}
+              type='submit'
+            />
+          </Box>
         </FormContainer>
       </Formik>
     </Container>
