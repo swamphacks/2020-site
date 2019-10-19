@@ -2,16 +2,22 @@ import colleges from '../../resources/data/CollegeOptions';
 
 const section1 = {
   title: 'Basic Information',
+  initialValues: {
+    firstName: '',
+    lastName: '',
+    genderSex: '',
+    dateOfBirth: '',
+    phone: '',
+    shirtSize: '',
+    allergiesDiet: ''
+  },
   fields: [
     {
       name: 'firstName',
       label: 'First Name',
       isRequired: true,
       placeholder: 'First name',
-      componentType: 'TextField',
-      componentProps: {
-        autoFocus: true
-      }
+      componentType: 'TextField'
     },
     {
       name: 'lastName',
@@ -122,7 +128,6 @@ const section2 = {
       placeholder: 'Search or select...',
       componentType: 'Select',
       componentProps: {
-        autoFocus: true,
         options: colleges
       }
     },
@@ -133,7 +138,6 @@ const section2 = {
       placeholder: 'Search or select...',
       componentType: 'Select',
       componentProps: {
-        autoFocus: true,
         options: colleges
       }
     },
@@ -144,7 +148,6 @@ const section2 = {
       placeholder: 'Select...',
       componentType: 'Select',
       componentProps: {
-        autoFocus: true,
         options: ['Freshman', 'Sophomore', 'Junior', 'Senior', 'Graduate']
       }
     },
@@ -155,7 +158,6 @@ const section2 = {
       placeholder: 'Select...',
       componentType: 'Select',
       componentProps: {
-        autoFocus: true,
         options: [
           '2020',
           '2021',
@@ -181,10 +183,7 @@ const section3 = {
       name: 'github',
       label: 'Github Username',
       isRequired: false,
-      componentType: 'TextField',
-      componentProps: {
-        autoFocus: true
-      }
+      componentType: 'TextField'
     },
     {
       name: 'website',
@@ -246,21 +245,21 @@ const section5 = {
       label: 'Question 1',
       isRequired: false,
       placeholder: 'Start typing...',
-      componentType: 'TextField'
+      componentType: 'TextArea'
     },
     {
       name: 'question2',
       label: 'Question 2',
       isRequired: false,
       placeholder: 'Start typing...',
-      componentType: 'TextField'
+      componentType: 'TextArea'
     },
     {
       name: 'question3',
       label: 'Question 3',
       isRequired: false,
       placeholder: 'Start typing...',
-      componentType: 'TextField'
+      componentType: 'TextArea'
     }
   ]
 };

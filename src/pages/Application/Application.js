@@ -4,6 +4,7 @@ import * as yup from 'yup';
 import {Formik, Form, Field} from 'formik';
 import FieldHelper from '../../components/FieldHelper';
 import {Box, Button, Heading, Paragraph} from 'grommet';
+import TestFieldHelper from '../../tests/TestFieldHelper';
 
 // Necessary inputs:
 // Checkbox
@@ -93,7 +94,7 @@ const Application = () => {
     })
   });
 
-  const [currSection, setSection] = useState(2);
+  const [currSection, setSection] = useState(0);
   const [formData, setFormData] = useState({});
 
   const FormContainer = styled(Form)`
@@ -108,9 +109,8 @@ const Application = () => {
     display: flex;
     width: 100vw;
     min-height: 100vh;
-    background-color: white;
     flex-grow: 1;
-    align-items: center;
+    align-items: flex-start;
     justify-content: center;
   `;
 
@@ -134,6 +134,7 @@ const Application = () => {
       <Formik
         validationSchema={yup.reach(schema, sections[currSection].sch)}
         onSubmit={handleSubmit}
+        initialValues={sections[currSection].sec.initialValues}
       >
         <FormContainer>
           <Heading level='3'>{sections[currSection].sec.title}</Heading>
@@ -149,7 +150,7 @@ const Application = () => {
             }) => {
               return (
                 <Field
-                  component={FieldHelper}
+                  component={TestFieldHelper}
                   name={name}
                   label={label}
                   required={isRequired}
@@ -162,13 +163,14 @@ const Application = () => {
               );
             }
           )}
-          <Box direction='row' gap='xsmall'>
+          <Box direction='row' gap='xsmall' margin={{vertical: 'medium'}}>
             {currSection !== 0 && (
               <Button label='Back' onClick={handleGoBack} />
             )}
             <Button
               label={currSection === sections.length - 1 ? 'Submit' : 'Next'}
               type='submit'
+              primary
             />
           </Box>
         </FormContainer>

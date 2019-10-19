@@ -60,6 +60,7 @@ const FieldHelper = ({
         {componentType === 'MaskedInput' && (
           <MaskedInput {...field} {...props} />
         )}
+        {componentType === 'TextArea' && <TextArea {...field} {...props} />}
         {componentType === 'FileUpload' && (
           <TextInput
             {...field}
