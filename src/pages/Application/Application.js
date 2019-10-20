@@ -14,7 +14,7 @@ import TestFieldHelper from '../../tests/TestFieldHelper';
 import {sections} from './Sections';
 
 const Application = () => {
-  const [currSection, setSection] = useState(0);
+  const [currSection, setSection] = useState(3);
   const [formData, setFormData] = useState({});
 
   const FormContainer = styled(Form)`

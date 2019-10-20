@@ -17,15 +17,15 @@ const section1 = {
     firstName: yup
       .string()
       .lowercase()
-      .required('Your first name is required.'),
+      .required('This field is required.'),
     lastName: yup
       .string()
       .lowercase()
-      .required(),
+      .required('This field is required.'),
     genderSex: yup
       .string()
       .lowercase()
-      .required(),
+      .required('This field is required.'),
     dateOfBirth: yup.date().required(),
     phone: yup
       .string('Must be a valid phone number.')
@@ -33,12 +33,12 @@ const section1 = {
         /^(\+\d{1,2}\s)?\(?\d{3}\)?[\s.-]?\d{3}[\s.-]?\d{4}$/,
         'Must be a valid phone number.'
       )
-      .required('Your phone number is required.'),
+      .required('This field is required.'),
     shirtSize: yup
       .string()
       .lowercase()
-      .required(),
-    allergiesDiet: yup.string().required()
+      .required('This field is required.'),
+    allergiesDiet: yup.string().required('This field is required.')
   }),
   fields: [
     {
@@ -150,26 +150,26 @@ const section1 = {
 const section2 = {
   title: 'Education',
   initialValues: {
-    school: null,
-    major: null,
-    currYear: null,
-    gradYear: null
+    school: undefined,
+    major: undefined,
+    currYear: undefined,
+    gradYear: undefined
   },
   schema: yup.object().shape({
     // Education
     school: yup
       .string()
       .lowercase()
-      .required(),
+      .required('This field is required.'),
     major: yup
       .string()
       .lowercase()
-      .required(),
+      .required('This field is required.'),
     currYear: yup
       .string()
       .lowercase()
-      .required(),
-    gradYear: yup.number().required()
+      .required('This field is required.'),
+    gradYear: yup.number().required('This field is required.')
   }),
   fields: [
     {
@@ -267,37 +267,62 @@ const section3 = {
       label: 'Upload Your Resume',
       isRequired: false,
       componentType: 'FileUpload'
+    },
+    {
+      name: 'positions',
+      label: 'Select positions you may be interested in',
+      isRequired: false,
+      componentType: 'Select',
+      placeholder: 'Select multiple...',
+      componentProps: {
+        options: [
+          'Summer 2020 Internship',
+          'Summer 2020 Co-op',
+          'Summer 2020 Full Time',
+          'Fall 2020 Internship',
+          'Fall 2020 Co-op',
+          'Fall 2020 Full Time'
+        ],
+        multiple: true
+      }
     }
   ]
 };
 
 const section4 = {
   title: 'Travel Information',
-  initialValues: {
-    needsTravelAssist: null,
-    travelType: null
-  },
   schema: yup.object().shape({
     // Travel information
-    needsTravelAssist: yup.boolean().required(),
-    travelType: yup.string()
+    needsTravelAssist: yup.string().required('This field is required.'),
+    travelType: yup.array(yup.string().lowercase())
   }),
   fields: [
     {
       name: 'needsTravelAssist',
       label: 'Do you need travel assistance?',
       isRequired: true,
-      componentType: 'TextField',
+      componentType: 'Select',
+      placeholder: 'Select...',
       componentProps: {
-        autoFocus: true
+        options: ['Yes', 'No']
       }
     },
     {
       name: 'travelType',
-      label: 'If so, what type of travel?',
+      label: 'If so, what type of travel are you considering?',
       isRequired: false,
-      placeholder: 'Select...',
-      componentType: 'TextField'
+      placeholder: 'Select multiple...',
+      componentType: 'Select',
+      componentProps: {
+        options: [
+          {label: 'Flight', value: 'flight'},
+          {label: 'Carpool', value: 'carpool'},
+          {label: 'Bus', value: 'bus'},
+          {label: 'Amtrak', value: 'amtrak'}
+        ],
+        isCreatable: true,
+        isMulti: true
+      }
     }
   ]
 };
@@ -313,38 +338,60 @@ const section5 = {
   schema: yup.object().shape({
     // Free response
     topics: yup.array(yup.string()),
-    question1: yup.string().required(),
-    question2: yup.string().required(),
-    question3: yup.string().required()
+    question1: yup.string().required('This field is required.'),
+    question2: yup.string().required('This field is required.'),
+    question3: yup.string().required('This field is required.')
   }),
   fields: [
     {
       name: 'topics',
       label: 'What topics are you interested in?',
       isRequired: false,
-      componentType: 'TextField',
+      placeholder: 'Select multiple...',
+      componentType: 'Select',
       componentProps: {
-        autoFocus: true
+        options: [
+          'App development',
+          'Enabling technologies',
+          'Computational biology',
+          'Computer architecture',
+          'Computer vision',
+          'Computer security',
+          'Data analytics',
+          'Data mining',
+          'Graphics',
+          'Machine learning',
+          'Networking',
+          'Robotics',
+          'Video games',
+          'Virtual/Augmented reality',
+          'Web development',
+          'Natural language processing',
+          'Human-centered computing',
+          'UI/UX design',
+          'Professional development'
+        ],
+        multiple: true
       }
     },
     {
       name: 'question1',
-      label: 'Question 1',
-      isRequired: false,
+      label: 'What inspired you to apply for SwampHacks VI?',
+      isRequired: true,
       placeholder: 'Start typing...',
       componentType: 'TextArea'
     },
     {
       name: 'question2',
-      label: 'Question 2',
-      isRequired: false,
+      label: 'Why do you hack?',
+      isRequired: true,
       placeholder: 'Start typing...',
       componentType: 'TextArea'
     },
     {
       name: 'question3',
-      label: 'Question 3',
-      isRequired: false,
+      label: 'Describe your favorite project and why it is your favorite.',
+      isRequired: true,
       placeholder: 'Start typing...',
       componentType: 'TextArea'
     }
@@ -352,31 +399,24 @@ const section5 = {
 };
 
 const section6 = {
-  title: 'Account Information',
+  title: 'Final Stretch',
   subtitle:
-    "You'll use this email and password to login to the SwampHacks dashboard. We'll use this email to send you important updates about your application.",
-  initialValues: {
-    email: null,
-    password: null
-  },
+    'Answer some final questions and create an account to view your application status at a later date.',
   schema: yup.object().shape({
     // Account information
     email: yup
       .string()
       .email()
       .lowercase()
-      .required(),
-    password: yup.string().required()
+      .required('This field is required.'),
+    password: yup.string().required('This field is required.')
   }),
   fields: [
     {
       name: 'email',
       label: 'Email',
       isRequired: true,
-      componentType: 'TextField',
-      componentProps: {
-        autoFocus: true
-      }
+      componentType: 'TextField'
     },
     {
       name: 'password',

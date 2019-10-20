@@ -4,14 +4,13 @@ import {
   TextInput,
   CheckBox,
   MaskedInput,
-  Select,
   TextArea,
-  FormField,
   Button,
   Heading,
   Box,
   Paragraph
 } from 'grommet';
+import SelectHelper from '../components/SelectHelper';
 
 const TestFieldHelper = ({
   field, // { name, value, onChange, onBlur }
@@ -31,6 +30,10 @@ const TestFieldHelper = ({
       content: '*';
     }
   `;
+
+  const onBlur = () => {
+    setFieldTouched(field.name);
+  };
 
   return (
     <Box>
@@ -52,21 +55,23 @@ const TestFieldHelper = ({
             setFieldTouched(field.name, true);
             handleChange(e);
           }}
+          onBlur={onBlur}
         />
       )}
       {componentType === 'Select' && (
-        <Select
+        <SelectHelper
           {...props}
-          {...field}
-          onChange={option => {
-            setFieldTouched(field.name, true);
-            setFieldValue(field.name, option.value);
-          }}
-          value={field.value}
+          field={field}
+          form={{touched, setFieldValue, setFieldTouched, handleChange}}
+          onBlur={onBlur}
         />
       )}
-      {componentType === 'MaskedInput' && <MaskedInput {...field} {...props} />}
-      {componentType === 'TextArea' && <TextArea {...field} {...props} />}
+      {componentType === 'MaskedInput' && (
+        <MaskedInput {...field} {...props} onBlur={onBlur} />
+      )}
+      {componentType === 'TextArea' && (
+        <TextArea {...field} {...props} onBlur={onBlur} />
+      )}
       {componentType === 'FileUpload' && (
         <TextInput
           {...field}
@@ -79,6 +84,7 @@ const TestFieldHelper = ({
             setFieldTouched(field.name, true);
             setFieldValue(field.name, e.currentTarget.files[0]);
           }}
+          onBlur={onBlur}
         />
       )}
       {touched[field.name] && errors[field.name] && (
