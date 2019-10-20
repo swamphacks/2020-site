@@ -19,11 +19,8 @@ const TestFieldHelper = ({
   componentType,
   ...props
 }) => {
-  const errorMsg =
-    touched[field.name] && errors[field.name] ? errors[field.name] : null;
-
   useEffect(() => {
-    if (props.defaultValue !== null) {
+    if (props.defaultValue !== undefined) {
       setFieldTouched(field.name, true);
       setFieldValue(field.name, props.defaultValue);
     }

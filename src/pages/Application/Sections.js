@@ -1,16 +1,45 @@
 import colleges from '../../resources/data/CollegeOptions';
+import * as yup from 'yup';
 
 const section1 = {
   title: 'Basic Information',
   initialValues: {
-    firstName: '',
-    lastName: '',
-    genderSex: '',
-    dateOfBirth: '',
-    phone: '',
-    shirtSize: '',
-    allergiesDiet: ''
+    firstName: undefined,
+    lastName: undefined,
+    genderSex: undefined,
+    dateOfBirth: undefined,
+    phone: undefined,
+    shirtSize: undefined,
+    allergiesDiet: undefined
   },
+  schema: yup.object().shape({
+    // Basic information
+    firstName: yup
+      .string()
+      .lowercase()
+      .required('Your first name is required.'),
+    lastName: yup
+      .string()
+      .lowercase()
+      .required(),
+    genderSex: yup
+      .string()
+      .lowercase()
+      .required(),
+    dateOfBirth: yup.date().required(),
+    phone: yup
+      .string('Must be a valid phone number.')
+      .matches(
+        /^(\+\d{1,2}\s)?\(?\d{3}\)?[\s.-]?\d{3}[\s.-]?\d{4}$/,
+        'Must be a valid phone number.'
+      )
+      .required('Your phone number is required.'),
+    shirtSize: yup
+      .string()
+      .lowercase()
+      .required(),
+    allergiesDiet: yup.string().required()
+  }),
   fields: [
     {
       name: 'firstName',
@@ -120,6 +149,28 @@ const section1 = {
 
 const section2 = {
   title: 'Education',
+  initialValues: {
+    school: null,
+    major: null,
+    currYear: null,
+    gradYear: null
+  },
+  schema: yup.object().shape({
+    // Education
+    school: yup
+      .string()
+      .lowercase()
+      .required(),
+    major: yup
+      .string()
+      .lowercase()
+      .required(),
+    currYear: yup
+      .string()
+      .lowercase()
+      .required(),
+    gradYear: yup.number().required()
+  }),
   fields: [
     {
       name: 'school',
@@ -178,6 +229,20 @@ const section2 = {
 
 const section3 = {
   title: 'Professional Information',
+  initialValues: {
+    github: null,
+    website: null,
+    linkedIn: null,
+    resume: null
+  },
+  schema: yup.object().shape({
+    // Professional information
+    github: yup.string().lowercase(),
+    website: yup.string().lowercase(),
+    linkedIn: yup.string().lowercase(),
+    resume: yup.mixed(),
+    positions: yup.array(yup.string().lowercase())
+  }),
   fields: [
     {
       name: 'github',
@@ -208,6 +273,15 @@ const section3 = {
 
 const section4 = {
   title: 'Travel Information',
+  initialValues: {
+    needsTravelAssist: null,
+    travelType: null
+  },
+  schema: yup.object().shape({
+    // Travel information
+    needsTravelAssist: yup.boolean().required(),
+    travelType: yup.string()
+  }),
   fields: [
     {
       name: 'needsTravelAssist',
@@ -230,6 +304,19 @@ const section4 = {
 
 const section5 = {
   title: 'Free Response',
+  initialValues: {
+    topics: null,
+    question1: null,
+    question2: null,
+    question3: null
+  },
+  schema: yup.object().shape({
+    // Free response
+    topics: yup.array(yup.string()),
+    question1: yup.string().required(),
+    question2: yup.string().required(),
+    question3: yup.string().required()
+  }),
   fields: [
     {
       name: 'topics',
@@ -268,6 +355,19 @@ const section6 = {
   title: 'Account Information',
   subtitle:
     "You'll use this email and password to login to the SwampHacks dashboard. We'll use this email to send you important updates about your application.",
+  initialValues: {
+    email: null,
+    password: null
+  },
+  schema: yup.object().shape({
+    // Account information
+    email: yup
+      .string()
+      .email()
+      .lowercase()
+      .required(),
+    password: yup.string().required()
+  }),
   fields: [
     {
       name: 'email',
@@ -287,13 +387,6 @@ const section6 = {
   ]
 };
 
-const sections = [
-  {sec: section1, sch: 'section1'},
-  {sec: section2, sch: 'section2'},
-  {sec: section3, sch: 'section3'},
-  {sec: section4, sch: 'section4'},
-  {sec: section5, sch: 'section5'},
-  {sec: section6, sch: 'section6'}
-];
+const sections = [section1, section2, section3, section4, section5, section6];
 
 export {sections};
