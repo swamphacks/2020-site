@@ -1,14 +1,8 @@
 import React, {useState} from 'react';
 import styled from 'styled-components';
 import {Formik, Form, Field} from 'formik';
-import {Box, Button, Heading, Paragraph} from 'grommet';
+import {Box, Grid, Button, Typography} from '@material-ui/core';
 import FieldHelper from '../../components/FieldHelper';
-
-// Necessary inputs:
-// Checkbox
-// Text field
-// Text box
-// Select
 
 // Sections
 import {sections} from './Sections';
@@ -18,6 +12,7 @@ const Application = () => {
   const [formData, setFormData] = useState({});
 
   const FormContainer = styled(Form)`
+    margin-top: 10vh;
     background-color: transparent;
     display: flex;
     justify-content: center;
@@ -25,7 +20,7 @@ const Application = () => {
     flex-direction: column;
   `;
 
-  const Container = styled.div`
+  const Container = styled(Box)`
     display: flex;
     width: 100vw;
     min-height: 100vh;
@@ -57,42 +52,61 @@ const Application = () => {
         // initialValues={sections[currSection].initialValues}
         render={props => (
           <FormContainer>
-            <Heading level='3'>{sections[currSection].title}</Heading>
-            <Paragraph fill>{sections[currSection].subtitle}</Paragraph>
-            {sections[currSection].fields.map(
-              ({
-                name,
-                label,
-                isRequired,
-                placeholder,
-                componentProps,
-                ...props
-              }) => {
-                return (
-                  <Field
-                    component={FieldHelper}
-                    name={name}
-                    label={label}
-                    required={isRequired}
-                    placeholder={placeholder}
-                    {...componentProps}
-                    {...props}
-                    key={name}
-                    defaultValue={formData[name] ? formData[name] : undefined}
-                  />
-                );
-              }
-            )}
-            <Box direction='row' gap='xsmall' margin={{vertical: 'medium'}}>
-              {currSection !== 0 && (
-                <Button label='Back' onClick={handleGoBack} />
-              )}
-              <Button
-                label={currSection === sections.length - 1 ? 'Submit' : 'Next'}
-                type='submit'
-                primary
-              />
-            </Box>
+            <Grid container spacing={3}>
+              <Grid item>
+                <Typography variant='h3'>
+                  {sections[currSection].title}
+                </Typography>
+              </Grid>
+              <Grid item>
+                <Typography variant='subtitle1'>
+                  {sections[currSection].subtitle}
+                </Typography>
+              </Grid>
+              <Grid item container spacing={2}>
+                {sections[currSection].fields.map(
+                  ({
+                    name,
+                    label,
+                    isRequired,
+                    placeholder,
+                    componentProps,
+                    ...props
+                  }) => {
+                    return (
+                      <Grid item xs={12}>
+                        <Field
+                          component={FieldHelper}
+                          name={name}
+                          label={label}
+                          required={isRequired}
+                          placeholder={placeholder}
+                          {...componentProps}
+                          {...props}
+                          key={name}
+                          defaultValue={
+                            formData[name] ? formData[name] : undefined
+                          }
+                        />
+                      </Grid>
+                    );
+                  }
+                )}
+              </Grid>
+
+              <Grid item container spacing={2}>
+                {currSection !== 0 && (
+                  <Grid item>
+                    <Button onClick={handleGoBack}>Back</Button>
+                  </Grid>
+                )}
+                <Grid item>
+                  <Button color='primary' type='submit'>
+                    {currSection === sections.length - 1 ? 'Submit' : 'Next'}
+                  </Button>
+                </Grid>
+              </Grid>
+            </Grid>
           </FormContainer>
         )}
       ></Formik>

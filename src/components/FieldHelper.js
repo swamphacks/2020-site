@@ -1,7 +1,8 @@
 import React, {useEffect} from 'react';
-import {TextInput, MaskedInput, TextArea} from 'grommet';
-import {Box, TextField, MenuItem} from '@material-ui/core';
+import {TextArea} from 'grommet';
+import {Box, TextField} from '@material-ui/core';
 import SelectHelper from '../components/SelectHelper';
+import FileUploadInput from './FileUploadInput';
 
 const FieldHelper = ({
   field, // { name, value, onChange, onBlur }
@@ -55,25 +56,15 @@ const FieldHelper = ({
           fullWidth
         />
       )}
-      {componentType === 'MaskedInput' && (
-        <MaskedInput {...field} {...props} onBlur={onBlur} />
-      )}
       {componentType === 'TextArea' && (
         <TextArea {...field} {...props} onBlur={onBlur} />
       )}
       {componentType === 'FileUpload' && (
-        <TextInput
-          {...field}
+        <FileUploadInput
+          field={field}
+          setFieldTouched={setFieldTouched}
+          setFieldValue={setFieldValue}
           {...props}
-          type='file'
-          accept='.pdf,.doc,.docx'
-          value={field.value}
-          onChange={e => {
-            console.log(e.target.value);
-            setFieldTouched(field.name, true);
-            setFieldValue(field.name, e.currentTarget.files[0]);
-          }}
-          onBlur={onBlur}
         />
       )}
     </Box>
