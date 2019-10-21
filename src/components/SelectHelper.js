@@ -1,56 +1,36 @@
 import React, {useState} from 'react';
-import CreatableSelect from 'react-select/creatable';
-import Select from 'react-select';
+import {Box, TextField, MenuItem} from '@material-ui/core';
 
-const SelectHelper = ({
-  options,
-  isMulti = false,
-  isCreatable = false,
-  field,
-  form,
-  ...props
-}) => {
-  const onChange = option => {
-    if (option)
-      form.setFieldValue(
-        field.name,
-        isMulti ? option.map(item => item.value) : option.value
-      );
-    else form.setFieldValue(field.name, undefined);
-  };
+const SelectHelper = ({options, multiple = false, field, form, ...props}) => {
+  const [multiValues, setMultiValues] = useState([]);
 
-  const getValue = () => {
-    if (options && field.value) {
-      return isMulti
-        ? options.filter(option => field.value.indexOf(option.value) >= 0)
-        : options.find(option => option.value === field.value);
+  const onChange = event => {
+    form.setFieldTouched(field.name, true);
+    if (multiple) {
+      const newVal = event.target.value;
+      const newValues = [...multiValues, newVal];
+      setMultiValues(newValues);
+      form.setFieldValue(newValues);
     } else {
-      return isMulti ? [] : '';
+      form.handleChange(event);
     }
   };
+
   return (
-    <>
-      {isCreatable && (
-        <CreatableSelect
-          {...props}
-          name={field.name}
-          value={getValue()}
-          onChange={onChange}
-          options={options}
-          isMulti={isMulti}
-        />
-      )}
-      {!isCreatable && (
-        <Select
-          {...props}
-          name={field.name}
-          value={getValue()}
-          onChange={onChange}
-          options={options}
-          isMulti={isMulti}
-        />
-      )}
-    </>
+    <TextField
+      {...props}
+      name={field.name}
+      value={field.value}
+      onChange={onChange}
+      multiple={multiple}
+      select
+    >
+      {options.map(option => (
+        <MenuItem key={option} value={option}>
+          {option}
+        </MenuItem>
+      ))}
+    </TextField>
   );
 };
 

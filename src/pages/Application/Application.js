@@ -2,7 +2,7 @@ import React, {useState} from 'react';
 import styled from 'styled-components';
 import {Formik, Form, Field} from 'formik';
 import {Box, Button, Heading, Paragraph} from 'grommet';
-import TestFieldHelper from '../../tests/TestFieldHelper';
+import FieldHelper from '../../components/FieldHelper';
 
 // Necessary inputs:
 // Checkbox
@@ -14,7 +14,7 @@ import TestFieldHelper from '../../tests/TestFieldHelper';
 import {sections} from './Sections';
 
 const Application = () => {
-  const [currSection, setSection] = useState(3);
+  const [currSection, setSection] = useState(2);
   const [formData, setFormData] = useState({});
 
   const FormContainer = styled(Form)`
@@ -70,7 +70,7 @@ const Application = () => {
               }) => {
                 return (
                   <Field
-                    component={TestFieldHelper}
+                    component={FieldHelper}
                     name={name}
                     label={label}
                     required={isRequired}

@@ -59,21 +59,17 @@ const section1 = {
       name: 'genderSex',
       label: 'Gender/Sex',
       isRequired: true,
-      placeholder: 'Select or type...',
-      componentType: 'TextField',
+      placeholder: 'Select...',
+      componentType: 'Select',
       componentProps: {
-        suggestions: [
-          {label: 'Male', value: 'Male'},
-          {label: 'Female', value: 'Female'},
-          {label: 'Other', value: 'Other'}
-        ]
+        options: ['Male', 'Female', 'Other']
       }
     },
     {
       name: 'dateOfBirth',
       label: 'Birthday',
       isRequired: true,
-      componentType: 'MaskedInput',
+      componentType: 'TextField',
       componentProps: {
         mask: [
           {
@@ -98,7 +94,7 @@ const section1 = {
       name: 'phone',
       label: 'Phone Number',
       isRequired: true,
-      componentType: 'MaskedInput',
+      componentType: 'TextField',
       componentProps: {
         mask: [
           {fixed: '('},
@@ -124,7 +120,7 @@ const section1 = {
       name: 'shirtSize',
       label: 'Shirt Size',
       isRequired: true,
-      placeholder: 'Select a size...',
+      placeholder: 'Select...',
       componentType: 'Select',
       componentProps: {
         options: ['Small', 'Medium', 'Large', 'Extra large']
@@ -134,14 +130,10 @@ const section1 = {
       name: 'allergiesDiet',
       label: 'Allergies/Dietary Restrictions',
       isRequired: true,
-      placeholder: 'Select or type...',
-      componentType: 'TextField',
+      placeholder: 'Select...',
+      componentType: 'Select',
       componentProps: {
-        suggestions: [
-          {label: 'None', value: 'None'},
-          {label: 'Vegan', value: 'Vegan'},
-          {label: 'Vegetarian', value: 'Vegetarian'}
-        ]
+        options: ['Vegan', 'Vegetarian', 'None']
       }
     }
   ]
@@ -179,7 +171,7 @@ const section2 = {
       placeholder: 'Search or select...',
       componentType: 'Select',
       componentProps: {
-        options: colleges
+        options: ['University of Florida']
       }
     },
     {
@@ -189,7 +181,7 @@ const section2 = {
       placeholder: 'Search or select...',
       componentType: 'Select',
       componentProps: {
-        options: colleges
+        options: ['Computer science']
       }
     },
     {
