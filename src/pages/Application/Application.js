@@ -74,7 +74,7 @@ const Application = () => {
                     ...props
                   }) => {
                     return (
-                      <Grid item xs={12}>
+                      <Grid key={name} item xs={12}>
                         <Field
                           component={FieldHelper}
                           name={name}
@@ -83,7 +83,6 @@ const Application = () => {
                           placeholder={placeholder}
                           {...componentProps}
                           {...props}
-                          key={name}
                           defaultValue={
                             formData[name] ? formData[name] : undefined
                           }

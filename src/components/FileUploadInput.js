@@ -9,7 +9,6 @@ const FileUploadInput = ({field, setFieldTouched, setFieldValue, ...props}) => {
       </Grid>
 
       <input
-        color='primary'
         accept='.pdf,.doc,.docx'
         type='file'
         onChange={e => {
@@ -36,8 +35,9 @@ const FileUploadInput = ({field, setFieldTouched, setFieldValue, ...props}) => {
         </Grid>
 
         <Grid item>
-          {field.value && <Typography>{field.value.name}</Typography>}
-          {!field.value && <Typography>No file selected.</Typography>}
+          <Typography>
+            {field.value ? field.value.name : 'No file selected.'}
+          </Typography>
         </Grid>
       </Grid>
     </Grid>
