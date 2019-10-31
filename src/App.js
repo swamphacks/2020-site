@@ -8,6 +8,7 @@ import {GlobalTheme} from './theme/Theme';
 
 // Pages
 import Application from './pages/Application/Application';
+import MainPage from './pages/Main/MainPage';
 
 // Config file
 import firebaseConfig from './firebaseConfig.json';
@@ -18,8 +19,8 @@ const App = () => {
   return (
     <ThemeProvider theme={GlobalTheme}>
       <Router>
-        <Route exact path='/' component={Application} />
-        <Route exact path='/application' component={() => {}} />
+        <Route exact path='/' component={MainPage} />
+        <Route exact path='/application' component={Application} />
       </Router>
     </ThemeProvider>
   );
