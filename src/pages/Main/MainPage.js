@@ -10,8 +10,12 @@ import {
   TableCell,
   TableHead,
   TableRow,
-  Paper
+  Paper,
+  ExpansionPanel,
+  ExpansionPanelSummary,
+  ExpansionPanelDetails
 } from '@material-ui/core';
+import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 
 // Import image assets
 import sunnyDock from '../../resources/images/background.svg';
@@ -39,7 +43,6 @@ const SunnyDock = styled.img.attrs(props => ({
 
 const ContentSectionGrid = styled(Grid)`
   padding: 80px 25vw;
-  background-color: red;
 `;
 
 const createEvent = (name, time) => ({
@@ -48,9 +51,46 @@ const createEvent = (name, time) => ({
 });
 
 const events = [
-  createEvent('Test1', Date.now()),
-  createEvent('Test2', Date.now()),
-  createEvent('Test3', Date.now())
+  {
+    day: 'Friday',
+    events: [
+      createEvent('Test1', Date.now()),
+      createEvent('Test2', Date.now()),
+      createEvent('Test3', Date.now())
+    ]
+  },
+  {
+    day: 'Saturday',
+    events: [
+      createEvent('Test1', Date.now()),
+      createEvent('Test2', Date.now()),
+      createEvent('Test3', Date.now())
+    ]
+  },
+  {
+    day: 'Sunday',
+    events: [
+      createEvent('Test1', Date.now()),
+      createEvent('Test2', Date.now()),
+      createEvent('Test3', Date.now())
+    ]
+  }
+];
+
+const faq = [
+  {
+    question: 'What is a hackathon?',
+    details: (
+      <Typography>
+        A hackathon is a weekend long event where students come together to
+        build computer science projects. Hackathons teach students about
+        software development by letting them make their own products. They
+        create a space for students to learn new skills and eliminate coding
+        road-blocks. Swamphacks VI provides resources such as hardware,
+        workshops, and mentors to support all student endeavors.
+      </Typography>
+    )
+  }
 ];
 
 const MainPage = () => {
@@ -92,22 +132,41 @@ const MainPage = () => {
             </Typography>
             <Paper>
               <Table>
-                <TableHead>
-                  <TableRow>
-                    <TableCell>Event</TableCell>
-                    <TableCell align='right'>Time</TableCell>
-                  </TableRow>
-                </TableHead>
-                <TableBody>
-                  {events.map(row => (
-                    <TableRow key={row.name}>
-                      <TableCell scope='row'>{row.name}</TableCell>
-                      <TableCell align='right'>{row.time}</TableCell>
-                    </TableRow>
-                  ))}
-                </TableBody>
+                {events.map(obj => (
+                  <>
+                    <TableHead>
+                      <TableRow>
+                        <TableCell>{obj.day}</TableCell>
+                      </TableRow>
+                    </TableHead>
+                    <TableBody>
+                      {obj.events.map(event => (
+                        <TableRow key={event.name}>
+                          <TableCell scope='row'>{event.name}</TableCell>
+                          <TableCell align='right'>{event.time}</TableCell>
+                        </TableRow>
+                      ))}
+                    </TableBody>
+                  </>
+                ))}
               </Table>
             </Paper>
+          </Grid>
+        </ContentSectionGrid>
+        {/* Frequently Asked Questions (FAQ) */}
+        <ContentSectionGrid container spacing={2}>
+          <Grid item xs={12}>
+            <Typography variant='h3' paragraph>
+              Frequently Asked Questions
+            </Typography>
+            {faq.map(qa => (
+              <ExpansionPanel key={qa.question}>
+                <ExpansionPanelSummary expandIcon={<ExpandMoreIcon />}>
+                  <Typography>{qa.question}</Typography>
+                </ExpansionPanelSummary>
+                <ExpansionPanelDetails>{qa.details}</ExpansionPanelDetails>
+              </ExpansionPanel>
+            ))}
           </Grid>
         </ContentSectionGrid>
       </Grid>
