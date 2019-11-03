@@ -1,7 +1,16 @@
 import React from 'react';
 import styled from 'styled-components';
 // Semantic UI
-import {Grid, Image, Header, Container, Icon, Table} from 'semantic-ui-react';
+import {
+  Grid,
+  Image,
+  Header,
+  Container,
+  Icon,
+  Table,
+  Button
+} from 'semantic-ui-react';
+import {Link} from 'react-router-dom';
 import ModularAccordion from '../../components/Accordion';
 
 // Import image assets
@@ -19,13 +28,25 @@ const RootContainer = styled.div`
   position: relative;
 `;
 
-const SunnyDock = styled(Image).attrs(props => ({
-  src: sunnyDock,
-  className: 'hidden-image'
-}))`
+const SunnyDock = styled.div`
+  height: 100vh;
   width: 100vw;
-  min-width: 1920px;
   z-index: 1;
+  align-items: center;
+  justify-content: flex-end;
+  background-image: url(${sunnyDock});
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center bottom;
+  display: flex;
+  flex-direction: column;
+`;
+
+const ButtonContainer = styled.div`
+  padding: 40px 0;
+  margin-bottom: 20vh;
+  display: flex;
+  flex-direction: column;
 `;
 
 const ContentBlock = styled(Container)`
@@ -225,7 +246,17 @@ const faq = [
 const MainPage = () => {
   return (
     <RootContainer>
-      <SunnyDock />
+      <SunnyDock>
+        <ButtonContainer>
+          <Button size='huge' color='black' as={Link} to='/application'>
+            Registration
+          </Button>
+          <br />
+          <Button size='huge' color='black'>
+            Sponsors
+          </Button>
+        </ButtonContainer>
+      </SunnyDock>
       {/* Welcome to the swamp */}
       <Grid container padded>
         <Grid.Column>
