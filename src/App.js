@@ -1,13 +1,9 @@
 import React from 'react';
 import {BrowserRouter as Router, Route} from 'react-router-dom';
-import {ThemeProvider} from '@material-ui/core/styles';
 import * as firebase from 'firebase';
 
-// Get the theme(s)
-import {GlobalTheme} from './theme/Theme';
-
 // Pages
-import Application from './pages/Application/Application';
+import ApplicationPage from './pages/Application/ApplicationPage';
 import MainPage from './pages/Main/MainPage';
 
 // Config file
@@ -17,12 +13,10 @@ firebase.initializeApp(firebaseConfig);
 
 const App = () => {
   return (
-    <ThemeProvider theme={GlobalTheme}>
-      <Router>
-        <Route exact path='/' component={MainPage} />
-        <Route exact path='/application' component={Application} />
-      </Router>
-    </ThemeProvider>
+    <Router>
+      <Route exact path='/' component={MainPage} />
+      <Route exact path='/application' component={ApplicationPage} />
+    </Router>
   );
 };
 

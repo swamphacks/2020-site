@@ -3,15 +3,6 @@ import * as yup from 'yup';
 
 const section1 = {
   title: 'Basic Information',
-  initialValues: {
-    firstName: undefined,
-    lastName: undefined,
-    genderSex: undefined,
-    dateOfBirth: undefined,
-    phone: undefined,
-    shirtSize: undefined,
-    allergiesDiet: undefined
-  },
   schema: yup.object().shape({
     // Basic information
     firstName: yup
@@ -43,6 +34,7 @@ const section1 = {
   fields: [
     {
       name: 'firstName',
+      initialValue: '',
       label: 'First Name',
       isRequired: true,
       placeholder: 'First name',
@@ -50,6 +42,7 @@ const section1 = {
     },
     {
       name: 'lastName',
+      initialValue: '',
       label: 'Last Name',
       isRequired: true,
       placeholder: 'Last name',
@@ -57,6 +50,7 @@ const section1 = {
     },
     {
       name: 'genderSex',
+      initialValue: '',
       label: 'Gender/Sex',
       isRequired: true,
       placeholder: 'Select...',
@@ -67,6 +61,7 @@ const section1 = {
     },
     {
       name: 'dateOfBirth',
+      initialValue: '',
       label: 'Birthday',
       isRequired: true,
       componentType: 'TextField',
@@ -92,6 +87,7 @@ const section1 = {
     },
     {
       name: 'phone',
+      initialValue: '',
       label: 'Phone Number',
       isRequired: true,
       componentType: 'TextField',
@@ -118,6 +114,7 @@ const section1 = {
     },
     {
       name: 'shirtSize',
+      initialValue: '',
       label: 'Shirt Size',
       isRequired: true,
       placeholder: 'Select...',
@@ -128,6 +125,7 @@ const section1 = {
     },
     {
       name: 'allergiesDiet',
+      initialValue: '',
       label: 'Allergies/Dietary Restrictions',
       isRequired: true,
       placeholder: 'Select...',
@@ -141,12 +139,6 @@ const section1 = {
 
 const section2 = {
   title: 'Education',
-  initialValues: {
-    school: undefined,
-    major: undefined,
-    currYear: undefined,
-    gradYear: undefined
-  },
   schema: yup.object().shape({
     // Education
     school: yup
@@ -166,6 +158,7 @@ const section2 = {
   fields: [
     {
       name: 'school',
+      initialValue: '',
       label: 'School',
       isRequired: true,
       placeholder: 'Search or select...',
@@ -176,6 +169,7 @@ const section2 = {
     },
     {
       name: 'major',
+      initialValue: '',
       label: 'Major',
       isRequired: true,
       placeholder: 'Search or select...',
@@ -186,6 +180,7 @@ const section2 = {
     },
     {
       name: 'currYear',
+      initialValue: '',
       label: 'Year',
       isRequired: true,
       placeholder: 'Select...',
@@ -196,6 +191,7 @@ const section2 = {
     },
     {
       name: 'gradYear',
+      initialValue: '',
       label: 'Graduation Year',
       isRequired: true,
       placeholder: 'Select...',
