@@ -1,8 +1,16 @@
-import colleges from '../../resources/data/CollegeOptions';
 import * as yup from 'yup';
 
 const section1 = {
   title: 'Basic Information',
+  initialValues: {
+    firstName: '',
+    lastName: '',
+    genderSex: '',
+    dateOfBirth: '',
+    phone: '',
+    shirtSize: '',
+    allergiesDiet: ''
+  },
   schema: yup.object().shape({
     // Basic information
     firstName: yup
@@ -123,6 +131,12 @@ const section1 = {
 
 const section2 = {
   title: 'Education',
+  initialValues: {
+    school: '',
+    major: '',
+    currYear: '',
+    gradYear: ''
+  },
   schema: yup.object().shape({
     // Education
     school: yup
@@ -214,6 +228,13 @@ const section2 = {
 
 const section3 = {
   title: 'Professional Information',
+  initialValues: {
+    github: '',
+    website: '',
+    linkedIn: '',
+    resume: undefined,
+    positions: ['']
+  },
   schema: yup.object().shape({
     // Professional information
     github: yup.string().lowercase(),
@@ -296,18 +317,24 @@ const section3 = {
 
 const section4 = {
   title: 'Travel Information',
+  initialValues: {
+    needsTravelAssist: '',
+    travelType: ['']
+  },
   schema: yup.object().shape({
     // Travel information
-    needsTravelAssist: yup.string().required('This field is required.'),
+    needsTravelAssist: yup.string().required(),
     travelType: yup.array(yup.string().lowercase())
   }),
   fields: [
     {
       name: 'needsTravelAssist',
       label: 'Do you need travel assistance?',
-      componentType: 'Checkbox',
+      componentType: 'Dropdown',
+      options: [{text: 'Yes', value: 'yes'}, {text: 'No', value: 'no'}],
       componentProps: {
-        required: true
+        required: true,
+        placeholder: 'Select...'
       }
     },
     {
@@ -336,6 +363,12 @@ const section4 = {
 
 const section5 = {
   title: 'Free Response',
+  initialValues: {
+    topics: [],
+    question1: '',
+    question2: '',
+    question3: ''
+  },
   schema: yup.object().shape({
     // Free response
     topics: yup.array(yup.string()),
@@ -399,6 +432,18 @@ const section6 = {
   title: 'Final Stretch',
   subtitle:
     'Answer some final questions and create an account to view your application status at a later date.',
+  initialValues: {
+    email: '',
+    password: '',
+    photoRelease: undefined,
+    mlhCodeOfConduct: undefined,
+    regDataSharing: undefined,
+    statisticsUsage: undefined,
+    firstTimeHacker: '',
+    firstTimeSwamphacks: '',
+    hearAbout: undefined,
+    confirmTrue: undefined
+  },
   schema: yup.object().shape({
     // Account information
     email: yup

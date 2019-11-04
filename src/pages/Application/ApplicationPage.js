@@ -1,17 +1,10 @@
 import React, {useState, useEffect} from 'react';
 import styled from 'styled-components';
-import {
-  Button,
-  Form,
-  Input,
-  Checkbox,
-  Radio,
-  TextArea
-} from 'formik-semantic-ui';
+import {Button, Form, Input, Checkbox, TextArea} from 'formik-semantic-ui';
 import DropdownCustom from '../../components/formik-semantic-ui-custom/DropdownCustom';
 import {Button as SUIButton} from 'semantic-ui-react';
 import {Link} from 'react-router-dom';
-import {Grid, Header, Container} from 'semantic-ui-react';
+import {Grid, Header} from 'semantic-ui-react';
 
 // Sections
 import {sections} from './Sections';
@@ -29,22 +22,24 @@ const ButtonGroup = styled.div`
 `;
 
 const ApplicationPage = () => {
-  const [currSection, setCurrSection] = useState(5);
-  const [formData, setFormData] = useState([
+  const [currSection, setCurrSection] = useState(0);
+  const [history, setHistory] = useState([
     ...sections.map(sec => sec.initialValues)
   ]);
 
   const _handleSubmit = (values, formikApi) => {
-    // Make API Call
-    console.log(values, formikApi);
-    let newFormData = formData;
-    newFormData[currSection] = values;
-    console.log(newFormData);
-    setFormData(newFormData);
+    // console.log(values, formikApi);
+    let newHistory = history;
+    const keys = Object.keys(newHistory[currSection]);
+    for (let i = 0; i < keys.length; i++) {
+      newHistory[currSection][keys[i]] = values[keys[i]];
+    }
+    setHistory(newHistory);
+    console.log(newHistory);
     if (currSection < sections.length - 1) {
       setCurrSection(currSection + 1);
     } else {
-      console.log(formData);
+      console.log(values);
     }
     formikApi.setSubmitting(false);
   };
@@ -52,6 +47,8 @@ const ApplicationPage = () => {
   const _handleReset = (values, formikApi) => {
     setCurrSection(currSection - 1);
   };
+
+  console.log(history[currSection]);
 
   return (
     <Grid container stretched>
@@ -67,7 +64,7 @@ const ApplicationPage = () => {
           <Form
             onSubmit={_handleSubmit}
             onReset={_handleReset}
-            initialValues={formData[currSection]}
+            initialValues={history[currSection]}
             validationSchema={sections[currSection].schema}
           >
             {sections[currSection].fields.map(field => {
