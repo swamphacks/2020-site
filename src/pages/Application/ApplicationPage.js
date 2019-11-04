@@ -2,15 +2,16 @@ import React, {useState, useEffect} from 'react';
 import styled from 'styled-components';
 import {
   Button,
-  Dropdown,
   Form,
   Input,
   Checkbox,
-  Radio
+  Radio,
+  TextArea
 } from 'formik-semantic-ui';
+import DropdownCustom from '../../components/formik-semantic-ui-custom/DropdownCustom';
 import {Button as SUIButton} from 'semantic-ui-react';
 import {Link} from 'react-router-dom';
-import {Grid, Header, Container, Icon} from 'semantic-ui-react';
+import {Grid, Header, Container} from 'semantic-ui-react';
 
 // Sections
 import {sections} from './Sections';
@@ -28,13 +29,23 @@ const ButtonGroup = styled.div`
 `;
 
 const ApplicationPage = () => {
-  const [currSection, setCurrSection] = useState(0);
-  const [formData, setFormData] = useState([]);
+  const [currSection, setCurrSection] = useState(5);
+  const [formData, setFormData] = useState([
+    ...sections.map(sec => sec.initialValues)
+  ]);
 
   const _handleSubmit = (values, formikApi) => {
     // Make API Call
     console.log(values, formikApi);
-
+    let newFormData = formData;
+    newFormData[currSection] = values;
+    console.log(newFormData);
+    setFormData(newFormData);
+    if (currSection < sections.length - 1) {
+      setCurrSection(currSection + 1);
+    } else {
+      console.log(formData);
+    }
     formikApi.setSubmitting(false);
   };
 
@@ -42,31 +53,12 @@ const ApplicationPage = () => {
     setCurrSection(currSection - 1);
   };
 
-  useEffect(() => {
-    // This is called when the page initially mounts. It handles going back and forth between form pages.
-    let d = formData;
-    for (let j = 0; j < 2; j++) {
-      const items = sections[j].fields;
-      let iVals = {};
-      for (let i = 0; i < items.length; i++) {
-        const name = items[i].name;
-        const iVal = items[i].initialValue;
-        iVals[name] = iVal;
-      }
-      d.push(iVals);
-    }
-    console.log(d);
-    setFormData(d);
-  }, []);
-
   return (
     <Grid container stretched>
       <Grid.Row centered>
         <Grid.Column>
           <SectionTitleContainer>
-            <Header size='huge' subheader={sections[currSection].subtitle}>
-              {sections[currSection].title}
-            </Header>
+            <Header size='huge'>{sections[currSection].title}</Header>
           </SectionTitleContainer>
         </Grid.Column>
       </Grid.Row>
@@ -76,32 +68,93 @@ const ApplicationPage = () => {
             onSubmit={_handleSubmit}
             onReset={_handleReset}
             initialValues={formData[currSection]}
+            validationSchema={sections[currSection].schema}
           >
-            <Input label='Email' name='emailAddress' />
+            {sections[currSection].fields.map(field => {
+              const {
+                name,
+                label,
+                componentType,
+                componentProps,
+                ...extras
+              } = field;
+              if (componentType === 'TextField') {
+                return (
+                  <Input
+                    name={name}
+                    label={label}
+                    inputProps={componentProps}
+                    fieldProps={{
+                      required: componentProps.required
+                    }}
+                    key={name}
+                  />
+                );
+              }
+              if (componentType === 'Dropdown') {
+                return (
+                  <DropdownCustom
+                    name={name}
+                    label={label}
+                    options={extras.options}
+                    inputProps={componentProps}
+                    fieldProps={{required: componentProps.required}}
+                    key={name}
+                  />
+                );
+              }
+              if (componentType === 'Checkbox') {
+                return (
+                  <Checkbox
+                    name={name}
+                    label={label}
+                    inputProps={componentProps}
+                    fieldProps={{required: componentProps.required}}
+                    key={name}
+                  />
+                );
+              }
+              if (componentType === 'TextArea') {
+                return (
+                  <TextArea
+                    name={name}
+                    label={label}
+                    inputProps={componentProps}
+                    fieldProps={{required: componentProps.required}}
+                    key={name}
+                  />
+                );
+              }
+              if (componentType === 'Terms') {
+                return (
+                  <React.Fragment key={name}>
+                    <Header size='tiny'>
+                      Link:{' '}
+                      <a href={extras.link} target='_blank'>
+                        {label}
+                      </a>
+                    </Header>
+                    <Checkbox
+                      name={name}
+                      label={`I agree to these terms.`}
+                      inputProps={componentProps}
+                      fieldProps={{required: componentProps.required}}
+                    />
+                  </React.Fragment>
+                );
+              }
+            })}
 
-            <Form.Group widths='2'>
-              <Input label='First Name' name='firstName' />
-              <Input label='Last Name' name='lastName' />
-            </Form.Group>
-
-            <Checkbox name='checkbox' label='Check Box' />
-
-            <Radio name='radio' label='Option 1' value={1} />
-            <Radio name='radio' label='Option 2' value={2} />
-            <Dropdown
-              name='dropdown'
-              label='Dropdown'
-              options={[
-                {text: 'Option 1', value: 1},
-                {text: 'Option 2', value: 2}
-              ]}
-            />
             <ButtonGroup>
-              <SUIButton as={Link} to='/' basic>
-                Cancel
-              </SUIButton>
+              {currSection === 0 && (
+                <SUIButton as={Link} to='/' basic>
+                  Cancel
+                </SUIButton>
+              )}
               {currSection > 0 && <Button.Reset>Back</Button.Reset>}
-              <Button.Submit>Next</Button.Submit>
+              <Button.Submit>
+                {currSection < sections.length - 1 ? 'Next' : 'Submit'}
+              </Button.Submit>
             </ButtonGroup>
           </Form>
         </Grid.Column>

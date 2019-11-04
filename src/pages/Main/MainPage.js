@@ -249,11 +249,11 @@ const MainPage = () => {
       <SunnyDock>
         <ButtonContainer>
           <Button size='huge' color='black' as={Link} to='/application'>
-            Registration
+            Register
           </Button>
           <br />
           <Button size='huge' color='black'>
-            Sponsors
+            Sponsor Us
           </Button>
         </ButtonContainer>
       </SunnyDock>

@@ -34,104 +34,88 @@ const section1 = {
   fields: [
     {
       name: 'firstName',
-      initialValue: '',
       label: 'First Name',
-      isRequired: true,
-      placeholder: 'First name',
-      componentType: 'TextField'
+      componentType: 'TextField',
+      componentProps: {
+        required: true,
+        placeholder: 'First name'
+      }
     },
     {
       name: 'lastName',
-      initialValue: '',
       label: 'Last Name',
-      isRequired: true,
-      placeholder: 'Last name',
-      componentType: 'TextField'
+      componentType: 'TextField',
+      componentProps: {
+        required: true,
+        placeholder: 'Last name'
+      }
     },
     {
       name: 'genderSex',
-      initialValue: '',
       label: 'Gender/Sex',
-      isRequired: true,
-      placeholder: 'Select...',
-      componentType: 'Select',
+      componentType: 'Dropdown',
+      options: [
+        {text: 'Male', value: 'male'},
+        {text: 'Female', value: 'female'}
+      ],
       componentProps: {
-        options: ['Male', 'Female', 'Other']
+        required: true,
+        placeholder: 'Select or type...',
+        search: true,
+        allowAdditions: true,
+        additionLabel: 'Other: ',
+        additionPosition: 'bottom'
       }
     },
     {
       name: 'dateOfBirth',
-      initialValue: '',
       label: 'Birthday',
-      isRequired: true,
       componentType: 'TextField',
       componentProps: {
-        mask: [
-          {
-            length: 2,
-
-            placeholder: 'mm'
-          },
-          {fixed: '/'},
-          {
-            length: 2,
-            placeholder: 'dd'
-          },
-          {fixed: '/'},
-          {
-            length: 4,
-            placeholder: 'yyyy'
-          }
-        ]
+        required: true,
+        placeholder: 'mm/dd/yyyy'
       }
     },
     {
       name: 'phone',
-      initialValue: '',
       label: 'Phone Number',
-      isRequired: true,
       componentType: 'TextField',
       componentProps: {
-        mask: [
-          {fixed: '('},
-          {
-            length: 3,
-            placeholder: '###'
-          },
-          {fixed: ')'},
-          {fixed: ' '},
-          {
-            length: 3,
-            placeholder: '###'
-          },
-          {fixed: '-'},
-          {
-            length: 4,
-            placeholder: '####'
-          }
-        ]
+        required: true,
+        placeholder: '##########'
       }
     },
     {
       name: 'shirtSize',
-      initialValue: '',
       label: 'Shirt Size',
-      isRequired: true,
-      placeholder: 'Select...',
-      componentType: 'Select',
+      componentType: 'Dropdown',
+      options: [
+        {text: 'Small', value: 'small'},
+        {text: 'Medium', value: 'medium'},
+        {text: 'Large', value: 'large'},
+        {text: 'Extra Large', value: 'extraLarge'}
+      ],
       componentProps: {
-        options: ['Small', 'Medium', 'Large', 'Extra large']
+        required: true,
+        placeholder: 'Select...'
       }
     },
     {
       name: 'allergiesDiet',
-      initialValue: '',
       label: 'Allergies/Dietary Restrictions',
-      isRequired: true,
-      placeholder: 'Select...',
-      componentType: 'Select',
+      componentType: 'Dropdown',
+      options: [
+        {text: 'Vegan', value: 'vegan'},
+        {text: 'Vegetarian', value: 'vegetarian'},
+        {text: 'None', value: 'none'}
+      ],
       componentProps: {
-        options: ['Vegan', 'Vegetarian', 'None']
+        required: true,
+        placeholder: 'Select or type...',
+        search: true,
+        allowAdditions: true,
+        additionLabel: 'Other: ',
+        additionPosition: 'bottom'
       }
     }
   ]
@@ -160,56 +144,69 @@ const section2 = {
       name: 'school',
       initialValue: '',
       label: 'School',
-      isRequired: true,
-      placeholder: 'Search or select...',
-      componentType: 'Select',
+      componentType: 'Dropdown',
+      options: [
+        {text: 'Vegan', value: 'vegan'},
+        {text: 'Vegetarian', value: 'vegetarian'},
+        {text: 'Other', value: 'other'}
+      ],
       componentProps: {
-        options: ['University of Florida']
+        required: true,
+        placeholder: 'Select or type...',
+        search: true
       }
     },
     {
       name: 'major',
-      initialValue: '',
       label: 'Major',
-      isRequired: true,
-      placeholder: 'Search or select...',
-      componentType: 'Select',
+      componentType: 'Dropdown',
+      options: [
+        {text: 'Vegan', value: 'vegan'},
+        {text: 'Vegetarian', value: 'vegetarian'},
+        {text: 'Other', value: 'other'}
+      ],
       componentProps: {
-        options: ['Computer science']
+        required: true,
+        placeholder: 'Select or type...',
+        search: true
       }
     },
     {
       name: 'currYear',
-      initialValue: '',
       label: 'Year',
-      isRequired: true,
-      placeholder: 'Select...',
-      componentType: 'Select',
+      componentType: 'Dropdown',
+      options: [
+        {text: 'Freshman', value: 'freshman'},
+        {text: 'Sophomore', value: 'sophomore'},
+        {text: 'Junior', value: 'junior'},
+        {text: 'Senior', value: 'senior'},
+        {text: 'Graduate', value: 'graduate'}
+      ],
       componentProps: {
-        options: ['Freshman', 'Sophomore', 'Junior', 'Senior', 'Graduate']
+        required: true,
+        placeholder: 'Select...'
       }
     },
     {
       name: 'gradYear',
-      initialValue: '',
       label: 'Graduation Year',
-      isRequired: true,
-      placeholder: 'Select...',
-      componentType: 'Select',
+      componentType: 'Dropdown',
+      options: [
+        {text: '2020', value: 2020},
+        {text: '2021', value: 2021},
+        {text: '2022', value: 2022},
+        {text: '2023', value: 2023},
+        {text: '2024', value: 2024},
+        {text: '2025', value: 2025},
+        {text: '2026', value: 2026},
+        {text: '2027', value: 2027},
+        {text: '2028', value: 2028},
+        {text: '2029', value: 2029},
+        {text: '2030', value: 2030}
+      ],
       componentProps: {
-        options: [
-          '2020',
-          '2021',
-          '2022',
-          '2023',
-          '2024',
-          '2025',
-          '2026',
-          '2027',
-          '2028',
-          '2029',
-          '2030'
-        ]
+        required: true,
+        placeholder: 'Select...'
       }
     }
   ]
@@ -217,12 +214,6 @@ const section2 = {
 
 const section3 = {
   title: 'Professional Information',
-  initialValues: {
-    github: null,
-    website: null,
-    linkedIn: null,
-    resume: null
-  },
   schema: yup.object().shape({
     // Professional information
     github: yup.string().lowercase(),
@@ -235,43 +226,69 @@ const section3 = {
     {
       name: 'github',
       label: 'Github Username',
-      isRequired: false,
-      componentType: 'TextField'
+      componentType: 'TextField',
+      componentProps: {
+        required: false
+      }
     },
     {
       name: 'website',
       label: 'Personal Website Link',
-      isRequired: false,
-      componentType: 'TextField'
+      componentType: 'TextField',
+      componentProps: {
+        required: false
+      }
     },
     {
       name: 'linkedIn',
       label: 'LinkedIn Link',
-      isRequired: false,
-      componentType: 'TextField'
+      componentType: 'TextField',
+      componentProps: {
+        required: false
+      }
     },
     {
       name: 'resume',
       label: 'Upload Your Resume',
-      isRequired: false,
-      componentType: 'FileUpload'
+      componentType: 'FileUpload',
+      componentProps: {
+        required: false
+      }
     },
     {
       name: 'positions',
       label: 'Select positions you may be interested in',
-      isRequired: false,
-      componentType: 'Select',
-      placeholder: 'Select multiple...',
+      componentType: 'Dropdown',
+      options: [
+        {
+          key: '1',
+          text: 'Summer 2020 Internship',
+          value: 'Summer 2020 Internship'
+        },
+        {key: '2', text: 'Summer 2020 Co-op', value: 'Summer 2020 Co-op'},
+        {
+          key: '3',
+          text: 'Summer 2020 Full Time',
+          value: 'Summer 2020 Full Time'
+        },
+        {
+          key: '4',
+          text: 'Fall 2020 Internship',
+          value: 'Fall 2020 Internship'
+        },
+        {key: '5', text: 'Fall 2020 Co-op', value: 'Fall 2020 Co-op'},
+        {key: '6', text: 'Fall 2020 Co-op', value: 'Fall 2020 Co-op'},
+        {
+          key: '7',
+          text: 'Fall 2020 Full Time',
+          value: 'Fall 2020 Full Time'
+        }
+      ],
       componentProps: {
-        options: [
-          'Summer 2020 Internship',
-          'Summer 2020 Co-op',
-          'Summer 2020 Full Time',
-          'Fall 2020 Internship',
-          'Fall 2020 Co-op',
-          'Fall 2020 Full Time'
-        ],
-        multiple: true
+        required: false,
+        placeholder: 'Select multiple...',
+        multiple: true,
+        closeOnChange: false
       }
     }
   ]
@@ -288,28 +305,30 @@ const section4 = {
     {
       name: 'needsTravelAssist',
       label: 'Do you need travel assistance?',
-      isRequired: true,
-      componentType: 'Select',
-      placeholder: 'Select...',
+      componentType: 'Checkbox',
       componentProps: {
-        options: ['Yes', 'No']
+        required: true
       }
     },
     {
       name: 'travelType',
       label: 'If so, what type of travel are you considering?',
-      isRequired: false,
-      placeholder: 'Select multiple...',
-      componentType: 'Select',
+      componentType: 'Dropdown',
+      options: [
+        {key: 'flight', text: 'Flight', value: 'flight'},
+        {key: 'carpool', text: 'Carpool', value: 'carpool'},
+        {key: 'bus', text: 'Bus', value: 'bus'},
+        {key: 'amtrak', text: 'Amtrak', value: 'amtrak'}
+      ],
       componentProps: {
-        options: [
-          {label: 'Flight', value: 'flight'},
-          {label: 'Carpool', value: 'carpool'},
-          {label: 'Bus', value: 'bus'},
-          {label: 'Amtrak', value: 'amtrak'}
-        ],
-        isCreatable: true,
-        isMulti: true
+        required: false,
+        placeholder: 'Select multiple or type...',
+        multiple: true,
+        closeOnChange: false,
+        search: true,
+        allowAdditions: true,
+        additionLabel: 'Other: ',
+        additionPosition: 'bottom'
       }
     }
   ]
@@ -317,12 +336,6 @@ const section4 = {
 
 const section5 = {
   title: 'Free Response',
-  initialValues: {
-    topics: null,
-    question1: null,
-    question2: null,
-    question3: null
-  },
   schema: yup.object().shape({
     // Free response
     topics: yup.array(yup.string()),
@@ -334,54 +347,50 @@ const section5 = {
     {
       name: 'topics',
       label: 'What topics are you interested in?',
-      isRequired: false,
-      placeholder: 'Select multiple...',
-      componentType: 'Select',
+      componentType: 'Dropdown',
+      options: [
+        {key: 'flight', text: 'Flight', value: 'flight'},
+        {key: 'carpool', text: 'Carpool', value: 'carpool'},
+        {key: 'bus', text: 'Bus', value: 'bus'},
+        {key: 'amtrak', text: 'Amtrak', value: 'amtrak'}
+      ],
       componentProps: {
-        options: [
-          'App development',
-          'Enabling technologies',
-          'Computational biology',
-          'Computer architecture',
-          'Computer vision',
-          'Computer security',
-          'Data analytics',
-          'Data mining',
-          'Graphics',
-          'Machine learning',
-          'Networking',
-          'Robotics',
-          'Video games',
-          'Virtual/Augmented reality',
-          'Web development',
-          'Natural language processing',
-          'Human-centered computing',
-          'UI/UX design',
-          'Professional development'
-        ],
-        multiple: true
+        required: false,
+        placeholder: 'Select multiple or type...',
+        multiple: true,
+        closeOnChange: false,
+        search: true
       }
     },
     {
       name: 'question1',
       label: 'What inspired you to apply for SwampHacks VI?',
-      isRequired: true,
-      placeholder: 'Start typing...',
-      componentType: 'TextArea'
+      componentType: 'TextArea',
+      componentProps: {
+        rows: 5,
+        required: true,
+        placeholder: 'Start typing...'
+      }
     },
     {
       name: 'question2',
       label: 'Why do you hack?',
-      isRequired: true,
-      placeholder: 'Start typing...',
-      componentType: 'TextArea'
+      componentType: 'TextArea',
+      componentProps: {
+        rows: 5,
+        required: true,
+        placeholder: 'Start typing...'
+      }
     },
     {
       name: 'question3',
       label: 'Describe your favorite project and why it is your favorite.',
-      isRequired: true,
-      placeholder: 'Start typing...',
-      componentType: 'TextArea'
+      componentType: 'TextArea',
+      componentProps: {
+        rows: 5,
+        required: true,
+        placeholder: 'Start typing...'
+      }
     }
   ]
 };
@@ -397,20 +406,123 @@ const section6 = {
       .email()
       .lowercase()
       .required('This field is required.'),
-    password: yup.string().required('This field is required.')
+    password: yup.string().required('This field is required.'),
+    photoRelease: yup.bool().oneOf([true], 'You must agree to these terms.'),
+    mlhCodeOfConduct: yup
+      .bool()
+      .oneOf([true], 'You must agree to these terms.'),
+    regDataSharing: yup.bool().oneOf([true], 'You must agree to these terms.'),
+    statisticsUsage: yup.bool().oneOf([true], 'You must agree to these terms.'),
+    firstTimeHacker: yup.string().required(),
+    firstTimeSwamphacks: yup.string().required(),
+    hearAbout: yup.array(yup.string().lowercase()),
+    confirmTrue: yup.bool().oneOf([true], 'Field must be checked.')
   }),
   fields: [
     {
       name: 'email',
       label: 'Email',
-      isRequired: true,
-      componentType: 'TextField'
+      componentType: 'TextField',
+      componentProps: {
+        required: true,
+        placeholder: 'Email'
+      }
     },
     {
       name: 'password',
       label: 'Password',
-      isRequired: true,
-      componentType: 'TextField'
+      componentType: 'TextField',
+      componentProps: {
+        required: true,
+        placeholder: 'Password',
+        type: 'password'
+      }
+    },
+    {
+      name: 'photoRelease',
+      label: 'Photo Release Terms',
+      componentType: 'Terms',
+      link: 'http://www.google.com',
+      componentProps: {
+        required: true
+      }
+    },
+    {
+      name: 'mlhCodeOfConduct',
+      label: 'MLH Code of Conduct',
+      componentType: 'Terms',
+      link: 'http://www.google.com',
+      componentProps: {
+        required: true
+      }
+    },
+    {
+      name: 'regDataSharing',
+      label: 'Registration Data Sharing',
+      componentType: 'Terms',
+      link: 'http://www.google.com',
+      componentProps: {
+        required: true
+      }
+    },
+    {
+      name: 'statisticsUsage',
+      label: 'Statistics Usage',
+      componentType: 'Terms',
+      link: 'http://www.google.com',
+      componentProps: {
+        required: true
+      }
+    },
+    {
+      name: 'firstTimeHacker',
+      label: 'Have you participated in a hackathon before?',
+      componentType: 'Dropdown',
+      options: [{text: 'Yes', value: 'no'}, {text: 'No', value: 'yes'}],
+      componentProps: {
+        required: true,
+        placeholder: 'Select...'
+      }
+    },
+    {
+      name: 'firstTimeSwamphacks',
+      label: 'Have you participated in SwampHacks before?',
+      componentType: 'Dropdown',
+      options: [{text: 'Yes', value: 'no'}, {text: 'No', value: 'yes'}],
+      componentProps: {
+        required: true,
+        placeholder: 'Select...'
+      }
+    },
+    {
+      name: 'hearAbout',
+      label: 'How did you hear about SwampHacks?',
+      componentType: 'Dropdown',
+      options: [
+        {text: 'Facebook', value: 'facebook'},
+        {text: 'Twitter', value: 'twitter'},
+        {text: 'MLH Website', value: 'mlh'},
+        {text: 'Friend', value: 'friend'},
+        {text: 'Instructor', value: 'instructor'},
+        {text: 'Flyer/Sign', value: 'flyerSign'}
+      ],
+      componentProps: {
+        required: true,
+        placeholder: 'Select or type...',
+        search: true,
+        allowAdditions: true,
+        additionLabel: 'Other: ',
+        additionPosition: 'bottom',
+        multiple: true
+      }
+    },
+    {
+      name: 'confirmTrue',
+      label: 'I confirm that all of the information I have provided is true.',
+      componentType: 'Checkbox',
+      componentProps: {
+        required: true
+      }
     }
   ]
 };
