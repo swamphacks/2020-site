@@ -15,6 +15,9 @@ import ModularAccordion from '../../components/Accordion';
 
 // Import image assets
 import sunnyDock from '../../resources/images/background.svg';
+import cloud1 from '../../resources/images/cloud1.svg';
+import cloud2 from '../../resources/images/cloud2.svg';
+import flare from '../../resources/images/flare.svg';
 
 // Styled components
 const RootContainer = styled.div`
@@ -42,6 +45,16 @@ const SunnyDock = styled.div`
   flex-direction: column;
 `;
 
+const Cloud1 = styled(Image).attrs(props => ({
+  src: cloud1
+}))`
+  width: 400px;
+  z-index: 2;
+  position: absolute;
+  top: 40px;
+  left: 0;
+`;
+
 const ButtonContainer = styled.div`
   padding: 40px 0;
   margin-bottom: 20vh;
@@ -51,6 +64,11 @@ const ButtonContainer = styled.div`
 
 const ContentBlock = styled(Container)`
   padding: 60px 0;
+`;
+
+const FooterContainer = styled.footer`
+  background-color: green;
+  width: 100vw;
 `;
 
 const createEvent = (name, time) => ({
@@ -247,15 +265,27 @@ const MainPage = () => {
   return (
     <RootContainer>
       <SunnyDock>
-        <ButtonContainer>
-          <Button size='huge' color='black' as={Link} to='/application'>
-            Register
-          </Button>
-          <br />
-          <Button size='huge' color='black'>
-            Sponsor Us
-          </Button>
-        </ButtonContainer>
+        <Cloud1 />
+        <div
+          style={{
+            width: '100%',
+            height: '100%',
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'flex-end',
+            flexDirection: 'column'
+          }}
+        >
+          <ButtonContainer>
+            <Button size='huge' color='black' as={Link} to='/application'>
+              Register
+            </Button>
+            <br />
+            <Button size='huge' color='black'>
+              Sponsor Us
+            </Button>
+          </ButtonContainer>
+        </div>
       </SunnyDock>
       {/* Welcome to the swamp */}
       <Grid container padded>
@@ -320,6 +350,21 @@ const MainPage = () => {
           </ContentBlock>
         </Grid.Column>
       </Grid>
+      <FooterContainer>
+        <ContentBlock>
+          <Grid container padded>
+            <Grid.Column width={8} textAlign='left'>
+              <Header size='tiny'>{'Made with <3 in Gainesville'}</Header>
+              <Header size='tiny' as='a' href='http://www.google.com'>
+                MLH Code of Conduct
+              </Header>
+            </Grid.Column>
+            <Grid.Column width={8} textAlign='right'>
+              <Header size='tiny'>Social Icons</Header>
+            </Grid.Column>
+          </Grid>
+        </ContentBlock>
+      </FooterContainer>
     </RootContainer>
   );
 };
