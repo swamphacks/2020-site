@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState} from 'react';
 import styled from 'styled-components';
 // Semantic UI
 import {
@@ -11,6 +11,7 @@ import {
   Button
 } from 'semantic-ui-react';
 import {Link} from 'react-router-dom';
+import {useSpring, animated} from 'react-spring';
 import ModularAccordion from '../../components/Accordion';
 
 // Import image assets
@@ -18,6 +19,12 @@ import sunnyDock from '../../resources/images/background.svg';
 import cloud1 from '../../resources/images/cloud1.svg';
 import cloud2 from '../../resources/images/cloud2.svg';
 import flare from '../../resources/images/flare.svg';
+
+// For flare animation
+// TODO: Separate flare animation into separate circles + into component
+// Make the background move with it
+const calc = (x, y) => [x - window.innerWidth / 2, y - window.innerHeight / 2];
+const trans1 = (x, y) => `translate3d(${x / 9 - 200}px,${y / 16 + 200}px,0)`;
 
 // Styled components
 const RootContainer = styled.div`
@@ -33,7 +40,7 @@ const RootContainer = styled.div`
 
 const SunnyDock = styled.div`
   height: 100vh;
-  width: 100vw;
+  width: calc(100vw + 200px);
   z-index: 1;
   align-items: center;
   justify-content: flex-end;
@@ -262,9 +269,28 @@ const faq = [
 ];
 
 const MainPage = () => {
+  // For flare animation
+  const [flareProps, setFlareProps] = useSpring(() => ({
+    xy: [0, 0],
+    config: {mass: 10, tension: 550, friction: 140}
+  }));
   return (
     <RootContainer>
-      <SunnyDock>
+      <SunnyDock
+        onMouseMove={e => {
+          setFlareProps({xy: calc(e.clientX, e.clientY)});
+        }}
+      >
+        {/* For flare animation */}
+        <animated.img
+          src={flare}
+          style={{
+            transform: flareProps.xy.interpolate(trans1),
+            width: '300px',
+            height: '300px'
+          }}
+        />
+
         <Cloud1 />
         <div
           style={{
