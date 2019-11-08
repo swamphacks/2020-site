@@ -1,15 +1,7 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import styled from 'styled-components';
 // Semantic UI
-import {
-  Grid,
-  Image,
-  Header,
-  Container,
-  Icon,
-  Table,
-  Button
-} from 'semantic-ui-react';
+import {Grid, Header, Container, Icon, Table, Button} from 'semantic-ui-react';
 import {Link} from 'react-router-dom';
 import {useSpring, animated} from 'react-spring';
 import ModularAccordion from '../../components/Accordion';
@@ -19,6 +11,8 @@ import sunnyDock from '../../resources/images/background.svg';
 import cloud1 from '../../resources/images/cloud1.svg';
 import cloud2 from '../../resources/images/cloud2.svg';
 import flare from '../../resources/images/flare.svg';
+
+const images = [sunnyDock, cloud1, cloud2, flare];
 
 // For flare animation
 // TODO: Separate flare animation into separate circles + into component
@@ -52,7 +46,7 @@ const SunnyDock = styled.div`
   flex-direction: column;
 `;
 
-const Cloud1 = styled(Image).attrs(props => ({
+const Cloud1 = styled.img.attrs(props => ({
   src: cloud1
 }))`
   width: 400px;
@@ -269,6 +263,16 @@ const faq = [
 ];
 
 const MainPage = () => {
+  // TODO: This is intended to preload image assets. Make sure this actually works.
+  // https://stackoverflow.com/questions/3646036/preloading-images-with-javascript
+  useEffect(() => {
+    console.log('Loading images...');
+    for (const image in images) {
+      let i = new Image();
+      i.src = image;
+    }
+    console.log('Done.');
+  }, []);
   // For flare animation
   const [flareProps, setFlareProps] = useSpring(() => ({
     xy: [0, 0],

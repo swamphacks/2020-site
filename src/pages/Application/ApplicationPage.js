@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from 'react';
+import React, {useState} from 'react';
 import styled from 'styled-components';
 import {Button, Form, Input, Checkbox, TextArea} from 'formik-semantic-ui';
 import DropdownCustom from '../../components/formik-semantic-ui-custom/DropdownCustom';
