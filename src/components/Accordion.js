@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-import {Accordion, Icon} from 'semantic-ui-react';
+import {Accordion, Icon, Transition} from 'semantic-ui-react';
 
 const ModularAccordion = ({items}) => {
   const [activeIndex, setActiveIndex] = useState(0);
@@ -23,9 +23,14 @@ const ModularAccordion = ({items}) => {
             <Icon name='dropdown' />
             {item.title}
           </Accordion.Title>
-          <Accordion.Content active={activeIndex === index}>
-            {item.content}
-          </Accordion.Content>
+          <Transition
+            duration={{hide: 0, show: 1000}}
+            visible={activeIndex === index}
+          >
+            <Accordion.Content active={activeIndex === index}>
+              {item.content}
+            </Accordion.Content>
+          </Transition>
         </React.Fragment>
       ))}
     </Accordion>
