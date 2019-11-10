@@ -1,42 +1,36 @@
 import * as yup from 'yup';
+import majors from '../../resources/data/majors.json';
 
 const section1 = {
   title: 'Basic Information',
   initialValues: {
     firstName: '',
     lastName: '',
-    genderSex: '',
     dateOfBirth: '',
+    gender: '',
+    raceEthnicity: '',
     phone: '',
     shirtSize: '',
     allergiesDiet: ''
   },
   schema: yup.object().shape({
     // Basic information
-    firstName: yup
+    firstName: yup.string().required('This field is required.'),
+    lastName: yup.string().required('This field is required.'),
+    dateOfBirth: yup
       .string()
-      .lowercase()
-      .required('This field is required.'),
-    lastName: yup
-      .string()
-      .lowercase()
-      .required('This field is required.'),
-    genderSex: yup
-      .string()
-      .lowercase()
-      .required('This field is required.'),
-    dateOfBirth: yup.date().required(),
-    phone: yup
-      .string('Must be a valid phone number.')
       .matches(
-        /^(\+\d{1,2}\s)?\(?\d{3}\)?[\s.-]?\d{3}[\s.-]?\d{4}$/,
-        'Must be a valid phone number.'
+        /^(0[1-9]|1[0-2])\/(0[1-9]|1\d|2\d|3[01])\/(19|20)\d{2}$/,
+        'Must be a valid date of birth (mm/dd/yyyy).'
       )
       .required('This field is required.'),
-    shirtSize: yup
-      .string()
-      .lowercase()
+    gender: yup.string().required('This field is required.'),
+    raceEthnicity: yup.string().required('This field is required.'),
+    phone: yup
+      .string('Must be a valid phone number.')
+      .matches(/\d{10}/, 'Must be a valid phone number (##########).')
       .required('This field is required.'),
+    shirtSize: yup.string().required('This field is required.'),
     allergiesDiet: yup.string().required('This field is required.')
   }),
   fields: [
@@ -59,12 +53,23 @@ const section1 = {
       }
     },
     {
-      name: 'genderSex',
-      label: 'Gender/Sex',
+      name: 'dateOfBirth',
+      label: 'Date of Birth',
+      componentType: 'TextField',
+      componentProps: {
+        required: true,
+        placeholder: 'mm/dd/yyyy'
+      }
+    },
+    {
+      name: 'gender',
+      label: 'Gender',
       componentType: 'Dropdown',
       options: [
-        {text: 'Male', value: 'male'},
-        {text: 'Female', value: 'female'}
+        {key: '0', text: 'Male', value: 'Male'},
+        {key: '1', text: 'Female', value: 'Female'},
+        {key: '2', text: 'Prefer Not to Answer', value: 'No Answer'},
+        {key: '3', text: 'Other (please type)', value: 'Other'}
       ],
       componentProps: {
         required: true,
@@ -76,12 +81,49 @@ const section1 = {
       }
     },
     {
-      name: 'dateOfBirth',
-      label: 'Birthday',
-      componentType: 'TextField',
+      name: 'raceEthnicity',
+      label: 'What is your race/ethnicity?',
+      componentType: 'Dropdown',
+      options: [
+        {
+          key: '0',
+          text: 'American Indian or Alaskan Native',
+          value: 'American Indian or Alaskan Native'
+        },
+        {
+          key: '1',
+          text: 'Asian / Pacific Islander',
+          value: 'Asian / Pacific Islander'
+        },
+        {
+          key: '2',
+          text: 'Black or African American',
+          value: 'Black or African American'
+        },
+        {
+          key: '3',
+          text: 'Hispanic',
+          value: 'Hispanic'
+        },
+        {
+          key: '4',
+          text: 'White / Caucasian',
+          value: 'White / Caucasian'
+        },
+        {
+          key: '5',
+          text: 'Multiple ethnicity / Other (please type)',
+          value: 'Other'
+        },
+        {key: '6', text: 'Prefer Not to Answer', value: 'No Answer'}
+      ],
       componentProps: {
         required: true,
-        placeholder: 'mm/dd/yyyy'
+        placeholder: 'Select or type...',
+        search: true,
+        allowAdditions: true,
+        additionLabel: 'Other: ',
+        additionPosition: 'bottom'
       }
     },
     {
@@ -98,10 +140,11 @@ const section1 = {
       label: 'Shirt Size',
       componentType: 'Dropdown',
       options: [
-        {text: 'Small', value: 'small'},
-        {text: 'Medium', value: 'medium'},
-        {text: 'Large', value: 'large'},
-        {text: 'Extra Large', value: 'extraLarge'}
+        {key: '0', text: 'Small', value: 'Small'},
+        {key: '1', text: 'Medium', value: 'Medium'},
+        {key: '2', text: 'Large', value: 'Large'},
+        {key: '3', text: 'Extra Large', value: 'Extra Large'},
+        {key: '4', text: 'Extra Extra Large', value: 'Extra Extra Large'}
       ],
       componentProps: {
         required: true,
@@ -113,9 +156,24 @@ const section1 = {
       label: 'Allergies/Dietary Restrictions',
       componentType: 'Dropdown',
       options: [
-        {text: 'Vegan', value: 'vegan'},
-        {text: 'Vegetarian', value: 'vegetarian'},
-        {text: 'None', value: 'none'}
+        {key: 'None', text: 'None', value: 'None'},
+        {key: 'Vegan', text: 'Vegan', value: 'Vegan'},
+        {key: 'Vegetarian', text: 'Vegetarian', value: 'Vegetarian'},
+        {
+          key: 'Lactose Intolerance',
+          text: 'Lactose Intolerance',
+          value: 'Lactose Intolerance'
+        },
+        {
+          key: 'Peanut Allergy',
+          text: 'Peanut Allergy',
+          value: 'Peanut Allergy'
+        },
+        {key: 'Gluten Free', text: 'Gluten Free', value: 'Gluten Free'},
+        {key: 'Vegetarian', text: 'Vegetarian', value: 'Vegetarian'},
+        {key: 'Kosher', text: 'Kosher', value: 'Kosher'},
+        {key: 'Halal', text: 'Halal', value: 'Halal'},
+        {key: 'Other', text: 'Other (please type)', value: 'Other'}
       ],
       componentProps: {
         required: true,
@@ -134,23 +192,14 @@ const section2 = {
   initialValues: {
     school: '',
     major: '',
-    currYear: '',
+    currLevelStudy: '',
     gradYear: ''
   },
   schema: yup.object().shape({
     // Education
-    school: yup
-      .string()
-      .lowercase()
-      .required('This field is required.'),
-    major: yup
-      .string()
-      .lowercase()
-      .required('This field is required.'),
-    currYear: yup
-      .string()
-      .lowercase()
-      .required('This field is required.'),
+    school: yup.string().required('This field is required.'),
+    major: yup.string().required('This field is required.'),
+    currLevelStudy: yup.string().required('This field is required.'),
     gradYear: yup.number().required('This field is required.')
   }),
   fields: [
@@ -160,9 +209,57 @@ const section2 = {
       label: 'School',
       componentType: 'Dropdown',
       options: [
-        {text: 'Vegan', value: 'vegan'},
-        {text: 'Vegetarian', value: 'vegetarian'},
-        {text: 'Other', value: 'other'}
+        {
+          key: 'University of Florida',
+          text: 'University of Florida',
+          value: 'University of Florida'
+        },
+        {
+          key: 'University of Central Florida',
+          text: 'University of Central Florida',
+          value: 'University of Central Florida'
+        },
+        {
+          key: 'Florida International University',
+          text: 'Florida International University',
+          value: 'Florida International University'
+        },
+        {
+          key: 'University of South Florida',
+          text: 'University of South Florida',
+          value: 'University of South Florida'
+        },
+        {
+          key: 'Florida Institute of Technology',
+          text: 'Florida Institute of Technology',
+          value: 'Florida Institute of Technology'
+        },
+        {
+          key: 'Georgia Institute of Technology',
+          text: 'Georgia Institute of Technology',
+          value: 'Georgia Institute of Technology'
+        },
+        {
+          key: 'University of Georgia',
+          text: 'University of Georgia',
+          value: 'University of Georgia'
+        },
+        {
+          key: 'Georgia State University',
+          text: 'Georgia State University',
+          value: 'Georgia State University'
+        },
+        {
+          key: 'Florida Atlantic University',
+          text: 'Florida Atlantic University',
+          value: 'Florida Atlantic University'
+        },
+        {
+          key: 'University of Miami',
+          text: 'University of Miami',
+          value: 'University of Miami'
+        },
+        {key: 'Other', text: 'Other (please type)', value: 'Other'}
       ],
       componentProps: {
         required: true,
@@ -172,13 +269,9 @@ const section2 = {
     },
     {
       name: 'major',
-      label: 'Major',
+      label: 'What is your major?',
       componentType: 'Dropdown',
-      options: [
-        {text: 'Vegan', value: 'vegan'},
-        {text: 'Vegetarian', value: 'vegetarian'},
-        {text: 'Other', value: 'other'}
-      ],
+      options: majors,
       componentProps: {
         required: true,
         placeholder: 'Select or type...',
@@ -186,15 +279,12 @@ const section2 = {
       }
     },
     {
-      name: 'currYear',
-      label: 'Year',
+      name: 'currLevelStudy',
+      label: 'What is your most current level of study?',
       componentType: 'Dropdown',
       options: [
-        {text: 'Freshman', value: 'freshman'},
-        {text: 'Sophomore', value: 'sophomore'},
-        {text: 'Junior', value: 'junior'},
-        {text: 'Senior', value: 'senior'},
-        {text: 'Graduate', value: 'graduate'}
+        {key: 'Undergraduate', text: 'Undergraduate', value: 'Undergraduate'},
+        {key: 'Graduate', text: 'Graduate', value: 'Graduate'}
       ],
       componentProps: {
         required: true,
@@ -203,20 +293,20 @@ const section2 = {
     },
     {
       name: 'gradYear',
-      label: 'Graduation Year',
+      label: 'What is your graduation year?',
       componentType: 'Dropdown',
       options: [
-        {text: '2020', value: 2020},
-        {text: '2021', value: 2021},
-        {text: '2022', value: 2022},
-        {text: '2023', value: 2023},
-        {text: '2024', value: 2024},
-        {text: '2025', value: 2025},
-        {text: '2026', value: 2026},
-        {text: '2027', value: 2027},
-        {text: '2028', value: 2028},
-        {text: '2029', value: 2029},
-        {text: '2030', value: 2030}
+        {key: '2020', text: '2020', value: 2020},
+        {key: '2021', text: '2021', value: 2021},
+        {key: '2022', text: '2022', value: 2022},
+        {key: '2023', text: '2023', value: 2023},
+        {key: '2024', text: '2024', value: 2024},
+        {key: '2025', text: '2025', value: 2025},
+        {key: '2026', text: '2026', value: 2026},
+        {key: '2027', text: '2027', value: 2027},
+        {key: '2028', text: '2028', value: 2028},
+        {key: '2029', text: '2029', value: 2029},
+        {key: '2030', text: '2030', value: 2030}
       ],
       componentProps: {
         required: true,
@@ -240,7 +330,7 @@ const section3 = {
     github: yup.string().lowercase(),
     website: yup.string().lowercase(),
     linkedIn: yup.string().lowercase(),
-    resume: yup.mixed(),
+    resume: yup.mixed().required('This field is required.'),
     positions: yup.array(yup.string().lowercase())
   }),
   fields: [
@@ -273,12 +363,12 @@ const section3 = {
       label: 'Upload Your Resume',
       componentType: 'FileUpload',
       componentProps: {
-        required: false
+        required: true
       }
     },
     {
       name: 'positions',
-      label: 'Select positions you may be interested in',
+      label: 'What positions are you interested in?',
       componentType: 'Dropdown',
       options: [
         {
