@@ -1,3 +1,4 @@
+import React from 'react';
 import * as yup from 'yup';
 import majors from '../../resources/data/majors.json';
 
@@ -435,7 +436,8 @@ const section4 = {
         {key: 'flight', text: 'Flight', value: 'flight'},
         {key: 'carpool', text: 'Carpool', value: 'carpool'},
         {key: 'bus', text: 'Bus', value: 'bus'},
-        {key: 'amtrak', text: 'Amtrak', value: 'amtrak'}
+        {key: 'amtrak', text: 'Amtrak', value: 'amtrak'},
+        {key: 'Other', text: 'Other (please type)', value: 'Other'}
       ],
       componentProps: {
         required: false,
@@ -454,28 +456,149 @@ const section4 = {
 const section5 = {
   title: 'Free Response',
   initialValues: {
-    topics: [],
+    technologies: [],
+    workshops: [],
     question1: '',
     question2: '',
     question3: ''
   },
   schema: yup.object().shape({
     // Free response
-    topics: yup.array(yup.string()),
+    technologies: yup.array(yup.string()),
+    workshops: yup.array(yup.string()),
     question1: yup.string().required('This field is required.'),
     question2: yup.string().required('This field is required.'),
     question3: yup.string().required('This field is required.')
   }),
   fields: [
     {
-      name: 'topics',
-      label: 'What topics are you interested in?',
+      name: 'technologies',
+      label: 'What technologies are you interested in working with?',
       componentType: 'Dropdown',
       options: [
-        {key: 'flight', text: 'Flight', value: 'flight'},
-        {key: 'carpool', text: 'Carpool', value: 'carpool'},
-        {key: 'bus', text: 'Bus', value: 'bus'},
-        {key: 'amtrak', text: 'Amtrak', value: 'amtrak'}
+        {key: 'React', text: 'React', value: 'React'},
+        {key: 'Angular', text: 'Angular', value: 'Angular'},
+        {
+          key: 'Machine Learning',
+          text: 'Machine Learning',
+          value: 'Machine Learning'
+        },
+        {
+          key: 'Artificial Intelligence',
+          text: 'Artificial Intelligence',
+          value: 'Artificial Intelligence'
+        },
+        {
+          key: 'Big Data',
+          text: 'Big Data',
+          value: 'Big Data'
+        },
+        {
+          key: 'iOS Native Development (Swift)',
+          text: 'iOS Native Development (Swift)',
+          value: 'iOS Native Development (Swift)'
+        },
+        {
+          key: 'Android Native Development (Java/Kotlin)',
+          text: 'Android Native Development (Java/Kotlin)',
+          value: 'Android Native Development (Java/Kotlin)'
+        },
+        {
+          key: 'MongoDB',
+          text: 'MongoDB',
+          value: 'MongoDB'
+        },
+        {
+          key: 'Google Cloud Platform',
+          text: 'Google Cloud Platform',
+          value: 'Google Cloud Platform'
+        },
+        {
+          key: 'Microsoft Azure',
+          text: 'Microsoft Azure',
+          value: 'Microsoft Azure'
+        },
+        {
+          key: 'Amazon Web Services',
+          text: 'Amazon Web Services',
+          value: 'Amazon Web Services'
+        }
+      ],
+      componentProps: {
+        required: false,
+        placeholder: 'Select multiple or type...',
+        multiple: true,
+        closeOnChange: false,
+        search: true
+      }
+    },
+    {
+      name: 'workshops',
+      label: 'What workshops are you interested in seeing?',
+      componentType: 'Dropdown',
+      options: [
+        {key: 'React', text: 'React', value: 'React'},
+        {key: 'Angular', text: 'Angular', value: 'Angular'},
+        {
+          key: 'Machine Learning',
+          text: 'Machine Learning',
+          value: 'Machine Learning'
+        },
+        {
+          key: 'Artificial Intelligence',
+          text: 'Artificial Intelligence',
+          value: 'Artificial Intelligence'
+        },
+        {
+          key: 'Big Data',
+          text: 'Big Data',
+          value: 'Big Data'
+        },
+        {
+          key: 'iOS Native Development (Swift)',
+          text: 'iOS Native Development (Swift)',
+          value: 'iOS Native Development (Swift)'
+        },
+        {
+          key: 'Android Native Development (Java/Kotlin)',
+          text: 'Android Native Development (Java/Kotlin)',
+          value: 'Android Native Development (Java/Kotlin)'
+        },
+        {
+          key: 'MongoDB',
+          text: 'MongoDB',
+          value: 'MongoDB'
+        },
+        {
+          key: 'Google Cloud Platform',
+          text: 'Google Cloud Platform',
+          value: 'Google Cloud Platform'
+        },
+        {
+          key: 'Microsoft Azure',
+          text: 'Microsoft Azure',
+          value: 'Microsoft Azure'
+        },
+        {
+          key: 'Amazon Web Services',
+          text: 'Amazon Web Services',
+          value: 'Amazon Web Services'
+        },
+        {
+          key: 'Front-end Development',
+          text: 'Front-end Development',
+          value: 'Front-end Development'
+        },
+        {
+          key: 'Back-end Development',
+          text: 'Back-end Development',
+          value: 'Back-end Development'
+        },
+        {
+          key: 'Full-stack Development',
+          text: 'Full-stack Development',
+          value: 'Full-stack Development'
+        }
       ],
       componentProps: {
         required: false,
@@ -487,32 +610,37 @@ const section5 = {
     },
     {
       name: 'question1',
-      label: 'What inspired you to apply for SwampHacks VI?',
+      label:
+        'What inspired you to apply for SwampHacks VI (250 character max)?',
       componentType: 'TextArea',
       componentProps: {
         rows: 5,
         required: true,
-        placeholder: 'Start typing...'
+        placeholder: 'Start typing...',
+        maxlength: '250'
       }
     },
     {
       name: 'question2',
-      label: 'Why do you hack?',
+      label: 'Why do you hack (250 character max)?',
       componentType: 'TextArea',
       componentProps: {
         rows: 5,
         required: true,
-        placeholder: 'Start typing...'
+        placeholder: 'Start typing...',
+        maxlength: '250'
       }
     },
     {
       name: 'question3',
-      label: 'Describe your favorite project and why it is your favorite.',
+      label:
+        'Describe your favorite project and why it is your favorite (250 character max).',
       componentType: 'TextArea',
       componentProps: {
         rows: 5,
         required: true,
-        placeholder: 'Start typing...'
+        placeholder: 'Start typing...',
+        maxlength: '250'
       }
     }
   ]
@@ -520,18 +648,17 @@ const section5 = {
 
 const section6 = {
   title: 'Final Stretch',
-  subtitle:
-    'Answer some final questions and create an account to view your application status at a later date.',
   initialValues: {
     email: '',
     password: '',
-    photoRelease: undefined,
-    mlhCodeOfConduct: undefined,
-    regDataSharing: undefined,
-    statisticsUsage: undefined,
+    confirmPassword: '',
     firstTimeHacker: '',
     firstTimeSwamphacks: '',
     hearAbout: undefined,
+    mlhCodeOfConduct: undefined,
+    regDataSharing: undefined,
+    statisticsUsage: undefined,
+    photoRelease: undefined,
     confirmTrue: undefined
   },
   schema: yup.object().shape({
@@ -542,15 +669,18 @@ const section6 = {
       .lowercase()
       .required('This field is required.'),
     password: yup.string().required('This field is required.'),
-    photoRelease: yup.bool().oneOf([true], 'You must agree to these terms.'),
+    confirmPassword: yup
+      .string()
+      .oneOf([yup.ref('password')], 'Passwords must match'),
+    firstTimeHacker: yup.string().required(),
+    firstTimeSwamphacks: yup.string().required(),
+    hearAbout: yup.array(yup.string().lowercase()),
     mlhCodeOfConduct: yup
       .bool()
       .oneOf([true], 'You must agree to these terms.'),
     regDataSharing: yup.bool().oneOf([true], 'You must agree to these terms.'),
     statisticsUsage: yup.bool().oneOf([true], 'You must agree to these terms.'),
-    firstTimeHacker: yup.string().required(),
-    firstTimeSwamphacks: yup.string().required(),
-    hearAbout: yup.array(yup.string().lowercase()),
+    photoRelease: yup.bool().oneOf([true], 'You must agree to these terms.'),
     confirmTrue: yup.bool().oneOf([true], 'Field must be checked.')
   }),
   fields: [
@@ -574,39 +704,13 @@ const section6 = {
       }
     },
     {
-      name: 'photoRelease',
-      label: 'Photo Release Terms',
-      componentType: 'Terms',
-      link: 'http://www.google.com',
+      name: 'confirmPassword',
+      label: 'Confirm Password',
+      componentType: 'TextField',
       componentProps: {
-        required: true
-      }
-    },
-    {
-      name: 'mlhCodeOfConduct',
-      label: 'MLH Code of Conduct',
-      componentType: 'Terms',
-      link: 'http://www.google.com',
-      componentProps: {
-        required: true
-      }
-    },
-    {
-      name: 'regDataSharing',
-      label: 'Registration Data Sharing',
-      componentType: 'Terms',
-      link: 'http://www.google.com',
-      componentProps: {
-        required: true
-      }
-    },
-    {
-      name: 'statisticsUsage',
-      label: 'Statistics Usage',
-      componentType: 'Terms',
-      link: 'http://www.google.com',
-      componentProps: {
-        required: true
+        required: true,
+        placeholder: 'Confirm password',
+        type: 'password'
       }
     },
     {
@@ -639,7 +743,8 @@ const section6 = {
         {text: 'MLH Website', value: 'mlh'},
         {text: 'Friend', value: 'friend'},
         {text: 'Instructor', value: 'instructor'},
-        {text: 'Flyer/Sign', value: 'flyerSign'}
+        {text: 'Flyer/Sign', value: 'flyerSign'},
+        {text: 'Other (please type)', value: 'Other'}
       ],
       componentProps: {
         required: true,
@@ -652,9 +757,76 @@ const section6 = {
       }
     },
     {
+      name: 'mlhCodeOfConduct',
+      label: 'MLH Code of Conduct',
+      content: (
+        <p>
+          I have read and agree to the{' '}
+          <a href='http://www.google.com' target='_blank'>
+            MLH Code of Conduct
+          </a>
+          .
+        </p>
+      ),
+      componentType: 'Terms',
+      componentProps: {
+        required: true
+      }
+    },
+    {
+      name: 'regDataSharing',
+      label: 'Registration Data Sharing',
+      content: (
+        <p>
+          I authorize you to share my application/registration information for
+          event administration, ranking, MLH administration, pre- and post-event
+          informational e-mails, and occasional messages about hackathons
+          in-line with the{' '}
+          <a href='' target='_blank'>
+            MLH Privacy Policy
+          </a>
+          . I further agree to the terms of both the{' '}
+          <a href='' target='_blank'>
+            MLH Contest Terms and Conditions
+          </a>{' '}
+          and the{' '}
+          <a href='' target='_blank'>
+            MLH Privacy Policy
+          </a>
+          .
+        </p>
+      ),
+      componentType: 'Terms',
+      componentProps: {
+        required: true
+      }
+    },
+    {
+      name: 'statisticsUsage',
+      label: 'Statistics Usage',
+      componentType: 'Terms',
+      componentProps: {
+        required: true
+      }
+    },
+    {
+      name: 'photoRelease',
+      label: 'Photo Release Terms',
+      componentType: 'Terms',
+      componentProps: {
+        required: true
+      }
+    },
+    {
       name: 'confirmTrue',
-      label: 'I confirm that all of the information I have provided is true.',
-      componentType: 'Checkbox',
+      label: 'Truth Statement',
+      content: (
+        <p>
+          By checking this box, I confirm that all of the information provided
+          in this application is true.
+        </p>
+      ),
+      componentType: 'Terms',
       componentProps: {
         required: true
       }

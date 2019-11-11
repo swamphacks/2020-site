@@ -4,7 +4,7 @@ import {Button, Form, Input, Checkbox, TextArea} from 'formik-semantic-ui';
 import DropdownCustom from '../../components/formik-semantic-ui-custom/DropdownCustom';
 import {Button as SUIButton} from 'semantic-ui-react';
 import {Link} from 'react-router-dom';
-import {Grid, Header, Label} from 'semantic-ui-react';
+import {Grid, Header, Label, Container} from 'semantic-ui-react';
 import FileUploadInput from '../../components/FileUpload';
 
 // Sections
@@ -23,7 +23,7 @@ const ButtonGroup = styled.div`
 `;
 
 const ApplicationPage = () => {
-  const [currSection, setCurrSection] = useState(2);
+  const [currSection, setCurrSection] = useState(5);
   const [history, setHistory] = useState([
     ...sections.map(sec => sec.initialValues)
   ]);
@@ -113,29 +113,15 @@ const ApplicationPage = () => {
                       />
                     );
                   }
-                  if (componentType === 'Checkbox') {
-                    return (
-                      <Checkbox
-                        name={name}
-                        label={label}
-                        inputProps={componentProps}
-                        fieldProps={{required: componentProps.required}}
-                        key={name}
-                        errorComponent={({message}) => (
-                          <Label basic color='red' pointing>
-                            {message}
-                          </Label>
-                        )}
-                      />
-                    );
-                  }
                   if (componentType === 'TextArea') {
                     return (
                       <TextArea
                         name={name}
                         label={label}
                         inputProps={componentProps}
-                        fieldProps={{required: componentProps.required}}
+                        fieldProps={{
+                          required: componentProps.required
+                        }}
                         key={name}
                         errorComponent={({message}) => (
                           <Label basic color='red' pointing>
@@ -148,23 +134,24 @@ const ApplicationPage = () => {
                   if (componentType === 'Terms') {
                     return (
                       <React.Fragment key={name}>
-                        <Header size='tiny'>
-                          Link:{' '}
-                          <a href={extras.link} target='_blank'>
-                            {label}
-                          </a>
-                        </Header>
+                        <Header size='tiny'>{label}</Header>
                         <Checkbox
                           name={name}
-                          label={`I agree to these terms.`}
+                          label={{
+                            children: (
+                              <Container text style={{minWidth: 0}}>
+                                {extras.content}
+                              </Container>
+                            )
+                          }}
                           inputProps={componentProps}
-                          fieldProps={{required: componentProps.required}}
-                          errorComponent={({message}) => (
-                            <Label basic color='red' pointing>
-                              {message}
-                            </Label>
-                          )}
+                          errorComponent={() => null}
                         />
+                        {formikProps.errors[name] && (
+                          <Label basic color='red' pointing>
+                            {formikProps.errors[name]}
+                          </Label>
+                        )}
                       </React.Fragment>
                     );
                   }
@@ -179,7 +166,6 @@ const ApplicationPage = () => {
                     );
                   }
                 })}
-
                 <ButtonGroup>
                   {currSection === 0 && (
                     <SUIButton as={Link} to='/' basic>
