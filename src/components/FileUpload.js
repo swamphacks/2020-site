@@ -15,7 +15,7 @@ const ValueLabel = styled.p`
 const FileUploadInput = ({formikProps, name, fieldProps, ...props}) => {
   const {setFieldTouched, setFieldValue} = formikProps;
   return (
-    <Form.Field {...fieldProps} error={formikProps.errors[name]}>
+    <Form.Field {...fieldProps} error={formikProps.errors[name] ? true : false}>
       <label>{props.label}</label>
       <input
         accept='.pdf,.doc,.docx'

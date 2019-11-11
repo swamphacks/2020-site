@@ -23,7 +23,7 @@ const ButtonGroup = styled.div`
 `;
 
 const ApplicationPage = () => {
-  const [currSection, setCurrSection] = useState(5);
+  const [currSection, setCurrSection] = useState(0);
   const [history, setHistory] = useState([
     ...sections.map(sec => sec.initialValues)
   ]);
@@ -51,6 +51,8 @@ const ApplicationPage = () => {
 
   console.log(history[currSection]);
 
+  // See https://www.npmjs.com/package/formik-semantic-ui
+  // For documentation on some of these
   return (
     <Grid container stretched>
       <Grid.Row centered>
@@ -158,6 +160,7 @@ const ApplicationPage = () => {
                   if (componentType === 'FileUpload') {
                     return (
                       <FileUploadInput
+                        key={name}
                         formikProps={formikProps}
                         name={name}
                         label={label}

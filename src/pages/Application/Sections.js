@@ -67,10 +67,14 @@ const section1 = {
       label: 'Gender',
       componentType: 'Dropdown',
       options: [
-        {key: '0', text: 'Male', value: 'Male'},
-        {key: '1', text: 'Female', value: 'Female'},
-        {key: '2', text: 'Prefer Not to Answer', value: 'No Answer'},
-        {key: '3', text: 'Other (please type)', value: 'Other'}
+        {key: 'Male', text: 'Male', value: 'Male'},
+        {key: 'Female', text: 'Female', value: 'Female'},
+        {
+          key: 'Prefer Not to Answer',
+          text: 'Prefer Not to Answer',
+          value: 'Prefer Not to Answer'
+        },
+        {key: 'Other', text: 'Other (please type)', value: 'Other'}
       ],
       componentProps: {
         required: true,
@@ -87,36 +91,40 @@ const section1 = {
       componentType: 'Dropdown',
       options: [
         {
-          key: '0',
+          key: 'American Indian or Alaskan Native',
           text: 'American Indian or Alaskan Native',
           value: 'American Indian or Alaskan Native'
         },
         {
-          key: '1',
+          key: 'Asian / Pacific Islander',
           text: 'Asian / Pacific Islander',
           value: 'Asian / Pacific Islander'
         },
         {
-          key: '2',
+          key: 'Black or African American',
           text: 'Black or African American',
           value: 'Black or African American'
         },
         {
-          key: '3',
+          key: 'Hispanic',
           text: 'Hispanic',
           value: 'Hispanic'
         },
         {
-          key: '4',
+          key: 'White / Caucasian',
           text: 'White / Caucasian',
           value: 'White / Caucasian'
         },
         {
-          key: '5',
+          key: 'Multiple ethnicity / Other (please type)',
           text: 'Multiple ethnicity / Other (please type)',
           value: 'Other'
         },
-        {key: '6', text: 'Prefer Not to Answer', value: 'No Answer'}
+        {
+          key: 'Prefer Not to Answer',
+          text: 'Prefer Not to Answer',
+          value: 'Prefer Not to Answer'
+        }
       ],
       componentProps: {
         required: true,
@@ -141,11 +149,15 @@ const section1 = {
       label: 'Shirt Size',
       componentType: 'Dropdown',
       options: [
-        {key: '0', text: 'Small', value: 'Small'},
-        {key: '1', text: 'Medium', value: 'Medium'},
-        {key: '2', text: 'Large', value: 'Large'},
-        {key: '3', text: 'Extra Large', value: 'Extra Large'},
-        {key: '4', text: 'Extra Extra Large', value: 'Extra Extra Large'}
+        {key: 'Small', text: 'Small', value: 'Small'},
+        {key: 'Medium', text: 'Medium', value: 'Medium'},
+        {key: 'Large', text: 'Large', value: 'Large'},
+        {key: 'Extra Large', text: 'Extra Large', value: 'Extra Large'},
+        {
+          key: 'Extra Extra Large',
+          text: 'Extra Extra Large',
+          value: 'Extra Extra Large'
+        }
       ],
       componentProps: {
         required: true,
@@ -171,7 +183,6 @@ const section1 = {
           value: 'Peanut Allergy'
         },
         {key: 'Gluten Free', text: 'Gluten Free', value: 'Gluten Free'},
-        {key: 'Vegetarian', text: 'Vegetarian', value: 'Vegetarian'},
         {key: 'Kosher', text: 'Kosher', value: 'Kosher'},
         {key: 'Halal', text: 'Halal', value: 'Halal'},
         {key: 'Other', text: 'Other (please type)', value: 'Other'}
@@ -324,15 +335,15 @@ const section3 = {
     website: '',
     linkedIn: '',
     resume: undefined,
-    positions: ['']
+    positions: []
   },
   schema: yup.object().shape({
     // Professional information
-    github: yup.string().lowercase(),
-    website: yup.string().lowercase(),
-    linkedIn: yup.string().lowercase(),
+    github: yup.string(),
+    website: yup.string(),
+    linkedIn: yup.string(),
     resume: yup.mixed().required('This field is required.'),
-    positions: yup.array(yup.string().lowercase())
+    positions: yup.array(yup.string())
   }),
   fields: [
     {
@@ -373,25 +384,32 @@ const section3 = {
       componentType: 'Dropdown',
       options: [
         {
-          key: '1',
+          key: 'Summer 2020 Internship',
           text: 'Summer 2020 Internship',
           value: 'Summer 2020 Internship'
         },
-        {key: '2', text: 'Summer 2020 Co-op', value: 'Summer 2020 Co-op'},
         {
-          key: '3',
+          key: 'Summer 2020 Co-op',
+          text: 'Summer 2020 Co-op',
+          value: 'Summer 2020 Co-op'
+        },
+        {
+          key: 'Summer 2020 Full Time',
           text: 'Summer 2020 Full Time',
           value: 'Summer 2020 Full Time'
         },
         {
-          key: '4',
+          key: 'Fall 2020 Internship',
           text: 'Fall 2020 Internship',
           value: 'Fall 2020 Internship'
         },
-        {key: '5', text: 'Fall 2020 Co-op', value: 'Fall 2020 Co-op'},
-        {key: '6', text: 'Fall 2020 Co-op', value: 'Fall 2020 Co-op'},
         {
-          key: '7',
+          key: 'Fall 2020 Co-op',
+          text: 'Fall 2020 Co-op',
+          value: 'Fall 2020 Co-op'
+        },
+        {
+          key: 'Fall 2020 Full Time',
           text: 'Fall 2020 Full Time',
           value: 'Fall 2020 Full Time'
         }
@@ -410,19 +428,22 @@ const section4 = {
   title: 'Travel Information',
   initialValues: {
     needsTravelAssist: '',
-    travelType: ['']
+    travelType: []
   },
   schema: yup.object().shape({
     // Travel information
-    needsTravelAssist: yup.string().required(),
-    travelType: yup.array(yup.string().lowercase())
+    needsTravelAssist: yup.string().required('This field is required.'),
+    travelType: yup.array(yup.string())
   }),
   fields: [
     {
       name: 'needsTravelAssist',
       label: 'Do you need travel assistance?',
       componentType: 'Dropdown',
-      options: [{text: 'Yes', value: 'yes'}, {text: 'No', value: 'no'}],
+      options: [
+        {key: 'Yes', text: 'Yes', value: 'Yes'},
+        {key: 'No', text: 'No', value: 'No'}
+      ],
       componentProps: {
         required: true,
         placeholder: 'Select...'
@@ -433,10 +454,10 @@ const section4 = {
       label: 'If so, what type of travel are you considering?',
       componentType: 'Dropdown',
       options: [
-        {key: 'flight', text: 'Flight', value: 'flight'},
-        {key: 'carpool', text: 'Carpool', value: 'carpool'},
-        {key: 'bus', text: 'Bus', value: 'bus'},
-        {key: 'amtrak', text: 'Amtrak', value: 'amtrak'},
+        {key: 'Flight', text: 'Flight', value: 'Flight'},
+        {key: 'Carpool', text: 'Carpool', value: 'Carpool'},
+        {key: 'Bus', text: 'Bus', value: 'Bus'},
+        {key: 'Amtrak', text: 'Amtrak', value: 'Amtrak'},
         {key: 'Other', text: 'Other (please type)', value: 'Other'}
       ],
       componentProps: {
@@ -617,7 +638,7 @@ const section5 = {
         rows: 5,
         required: true,
         placeholder: 'Start typing...',
-        maxlength: '250'
+        maxLength: '250'
       }
     },
     {
@@ -628,7 +649,7 @@ const section5 = {
         rows: 5,
         required: true,
         placeholder: 'Start typing...',
-        maxlength: '250'
+        maxLength: '250'
       }
     },
     {
@@ -640,7 +661,7 @@ const section5 = {
         rows: 5,
         required: true,
         placeholder: 'Start typing...',
-        maxlength: '250'
+        maxLength: '250'
       }
     }
   ]
@@ -666,7 +687,6 @@ const section6 = {
     email: yup
       .string()
       .email()
-      .lowercase()
       .required('This field is required.'),
     password: yup.string().required('This field is required.'),
     confirmPassword: yup
@@ -674,7 +694,7 @@ const section6 = {
       .oneOf([yup.ref('password')], 'Passwords must match'),
     firstTimeHacker: yup.string().required(),
     firstTimeSwamphacks: yup.string().required(),
-    hearAbout: yup.array(yup.string().lowercase()),
+    hearAbout: yup.array(yup.string()),
     mlhCodeOfConduct: yup
       .bool()
       .oneOf([true], 'You must agree to these terms.'),
@@ -717,7 +737,10 @@ const section6 = {
       name: 'firstTimeHacker',
       label: 'Have you participated in a hackathon before?',
       componentType: 'Dropdown',
-      options: [{text: 'Yes', value: 'no'}, {text: 'No', value: 'yes'}],
+      options: [
+        {key: 'Yes', text: 'Yes', value: 'No'},
+        {key: 'No', text: 'No', value: 'Yes'}
+      ],
       componentProps: {
         required: true,
         placeholder: 'Select...'
@@ -727,7 +750,10 @@ const section6 = {
       name: 'firstTimeSwamphacks',
       label: 'Have you participated in SwampHacks before?',
       componentType: 'Dropdown',
-      options: [{text: 'Yes', value: 'no'}, {text: 'No', value: 'yes'}],
+      options: [
+        {key: 'Yes', text: 'Yes', value: 'No'},
+        {key: 'No', text: 'No', value: 'Yes'}
+      ],
       componentProps: {
         required: true,
         placeholder: 'Select...'
@@ -738,13 +764,13 @@ const section6 = {
       label: 'How did you hear about SwampHacks?',
       componentType: 'Dropdown',
       options: [
-        {text: 'Facebook', value: 'facebook'},
-        {text: 'Twitter', value: 'twitter'},
-        {text: 'MLH Website', value: 'mlh'},
-        {text: 'Friend', value: 'friend'},
-        {text: 'Instructor', value: 'instructor'},
-        {text: 'Flyer/Sign', value: 'flyerSign'},
-        {text: 'Other (please type)', value: 'Other'}
+        {key: 'Facebook', text: 'Facebook', value: 'Facebook'},
+        {key: 'Twitter', text: 'Twitter', value: 'Twitter'},
+        {key: 'MLH Website', text: 'MLH Website', value: 'MLH Website'},
+        {key: 'Friend', text: 'Friend', value: 'Friend'},
+        {key: 'Instructor', text: 'Instructor', value: 'Instructor'},
+        {key: 'Flyer/Sign', text: 'Flyer/Sign', value: 'Flyer/Sign'},
+        {key: 'Other', text: 'Other (please type)', value: 'Other'}
       ],
       componentProps: {
         required: true,
