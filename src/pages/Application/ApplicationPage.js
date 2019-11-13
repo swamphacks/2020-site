@@ -69,6 +69,7 @@ const ApplicationPage = () => {
             onReset={_handleReset}
             initialValues={history[currSection]}
             validationSchema={sections[currSection].schema}
+            enableReinitialize
           >
             {formikProps => (
               <React.Fragment>
