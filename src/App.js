@@ -1,6 +1,12 @@
 import React from 'react';
-import {BrowserRouter as Router, Route} from 'react-router-dom';
+import {
+  BrowserRouter as Router,
+  Route,
+  useLocation,
+  Switch
+} from 'react-router-dom';
 import * as firebase from 'firebase';
+import {useTransition, animated} from 'react-spring';
 
 // Pages
 import ApplicationPage from './pages/Application/ApplicationPage';
@@ -12,11 +18,12 @@ import firebaseConfig from './firebaseConfig.json';
 firebase.initializeApp(firebaseConfig);
 
 const App = () => {
+  const location = useLocation();
   return (
-    <Router>
+    <Switch location={location}>
       <Route exact path='/' component={MainPage} />
       <Route exact path='/application' component={ApplicationPage} />
-    </Router>
+    </Switch>
   );
 };
 
