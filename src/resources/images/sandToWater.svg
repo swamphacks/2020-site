@@ -12,7 +12,7 @@
    viewBox="0 0 1920.8149 553.50385"
    version="1.1"
    id="svg4"
-   sodipodi:docname="Sand to water.svg"
+   sodipodi:docname="Sand to water clipped.svg"
    inkscape:version="0.92.4 (5da689c313, 2019-01-14)">
   <metadata
      id="metadata10">
@@ -22,7 +22,7 @@
         <dc:format>image/svg+xml</dc:format>
         <dc:type
            rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
-        <dc:title></dc:title>
+        <dc:title />
       </cc:Work>
     </rdf:RDF>
   </metadata>
@@ -42,9 +42,9 @@
      id="namedview6"
      showgrid="false"
      inkscape:snap-global="false"
-     inkscape:zoom="0.58778251"
-     inkscape:cx="2172.867"
-     inkscape:cy="-803.54898"
+     inkscape:zoom="0.415625"
+     inkscape:cx="1356.2384"
+     inkscape:cy="-54.972776"
      inkscape:window-x="-9"
      inkscape:window-y="-9"
      inkscape:window-maximized="1"
@@ -54,7 +54,8 @@
      fit-margin-right="0"
      fit-margin-bottom="0" />
   <g
-     id="g952">
+     id="g952"
+     transform="translate(-1149.0886,-821.0278)">
     <rect
        ry="1.29011"
        y="823.43384"

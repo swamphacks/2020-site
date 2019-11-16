@@ -97,7 +97,6 @@ const FooterContainer = styled.footer`
 
 const TransitionImage = styled.img`
   width: 100vw;
-  background-color: red;
 `;
 
 const Heart = styled.svg`
@@ -410,7 +409,7 @@ const MainPage = () => {
           </Grid.Column>
         </Grid>
       </ContentContainer>
-      <TransitionImage src={sandToWater} />
+      <TransitionImage src={sandToWater} style={{backgroundColor: '#FFD59A'}} />
       {/* Schedule of Events */}
       <ContentContainer
         style={{backgroundImage: `url(${water})`, alignItems: 'flex-end'}}
