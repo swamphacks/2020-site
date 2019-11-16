@@ -7,18 +7,21 @@ import {useSpring, animated} from 'react-spring';
 import ModularAccordion from '../../components/Accordion';
 // Custom components
 import SocialButton from '../../components/SocialButton';
+import VolleyballScene from '../../components/VolleyballScene';
 
 // Import image assets
 import sunnyDock from '../../resources/images/background.svg';
 import cloud1 from '../../resources/images/cloud1.svg';
 import cloud2 from '../../resources/images/cloud2.svg';
 import flare from '../../resources/images/flare.svg';
-import sandToWater from '../../resources/images/sandToWater.png';
+import sandToWater from '../../resources/images/sandToWater.svg';
 import water from '../../resources/images/water.png';
-import waterToSky from '../../resources/images/waterToSky.png';
 import rocksWall from '../../resources/images/rocksWall.png';
-import gatorSwan from '../../resources/images/gatorSwan.png';
+import gatorSwan from '../../resources/images/gatorSwan.svg';
 import fbLogo from '../../resources/images/fbLogo.png';
+import mainTitle from '../../resources/images/mainTitle.svg';
+import sponsorsComingSoon from '../../resources/images/sponsorsComingSoon.svg';
+import sailing from '../../resources/images/sailing.svg';
 
 const images = [sunnyDock, cloud1, cloud2, flare];
 
@@ -94,7 +97,7 @@ const FooterContainer = styled.footer`
 
 const TransitionImage = styled.img`
   width: 100vw;
-  height: 400px;
+  background-color: red;
 `;
 
 const Heart = styled.svg`
@@ -346,7 +349,8 @@ const MainPage = () => {
           style={{
             transform: flareProps.xy.interpolate(trans1),
             width: '600px',
-            height: '600px'
+            height: '600px',
+            zIndex: 3
           }}
         />
 
@@ -361,6 +365,7 @@ const MainPage = () => {
             flexDirection: 'column'
           }}
         >
+          <img src={mainTitle} style={{zIndex: 2, width: '40vw'}} />
           <ButtonContainer>
             <Button size='huge' color='black' as={Link} to='/application'>
               Register
@@ -400,19 +405,27 @@ const MainPage = () => {
                 This year, Swamphacks VI aims to make our event more sustainable
                 by reducing our waste and carbon output.
               </p>
+              <VolleyballScene />
             </ContentBlock>
           </Grid.Column>
         </Grid>
       </ContentContainer>
       <TransitionImage src={sandToWater} />
       {/* Schedule of Events */}
-      <ContentContainer style={{backgroundImage: `url(${water})`}}>
+      <ContentContainer
+        style={{backgroundImage: `url(${water})`, alignItems: 'flex-end'}}
+      >
+        <img
+          src={sailing}
+          style={{width: 400, position: 'absolute', left: 0}}
+        />
         <Grid container padded>
           <Grid.Column>
             <ContentBlock text>
               <Header size='huge' inverted>
                 Schedule of Events
               </Header>
+
               <Table>
                 {events.map(obj => (
                   <React.Fragment key={obj.day}>
@@ -443,7 +456,7 @@ const MainPage = () => {
       <ContentContainer
         style={{
           backgroundImage:
-            'linear-gradient(180deg, rgba(10,117,188,1) 0%, rgba(255,255,255,1) 100%)'
+            'linear-gradient(180deg, rgba(20,117,188,1) 9.34%, rgba(64,199,244,1) 49.4%, rgba(255,255,253,1) 91.26%)'
         }}
       >
         <ContentContainer
@@ -468,36 +481,22 @@ const MainPage = () => {
       <ContentContainer
         style={{
           backgroundImage:
-            'linear-gradient(180deg, rgba(10,117,188,1) 0%, rgba(255,255,255,1) 100%)'
+            'linear-gradient(180deg, rgba(119,107,102,1) 9.34%, rgba(250,164,70,1) 49.4%, rgba(252,212,91,1) 91.26%)'
         }}
       >
         <Grid container padded>
           <Grid.Column>
             <ContentBlock>
-              <Header size='huge' textAlign='center' inverted>
+              {/* <Header size='huge' textAlign='center' inverted>
                 Our Amazing Sponsors
-              </Header>
+              </Header> */}
               <Grid stackable columns='equal' textAlign='center'>
                 <Grid.Row>
                   <Grid.Column>
-                    <img src={fbLogo} style={{width: '100%'}} />
+                    <img src={sponsorsComingSoon} style={{width: '100%'}} />
                   </Grid.Column>
                 </Grid.Row>
-                <Grid.Row>
-                  <Grid.Column>
-                    <img src={fbLogo} style={{width: '100%'}} />
-                  </Grid.Column>
-                  <Grid.Column>
-                    <img src={fbLogo} style={{width: '100%'}} />
-                  </Grid.Column>
-                </Grid.Row>
-                <Grid.Row>
-                  <Grid.Column>
-                    <img src={fbLogo} style={{width: '100%'}} />
-                  </Grid.Column>
-                  <Grid.Column>
-                    <img src={fbLogo} style={{width: '100%'}} />
-                  </Grid.Column>
+                {/* <Grid.Row>
                   <Grid.Column>
                     <img src={fbLogo} style={{width: '100%'}} />
                   </Grid.Column>
@@ -519,6 +518,20 @@ const MainPage = () => {
                     <img src={fbLogo} style={{width: '100%'}} />
                   </Grid.Column>
                 </Grid.Row>
+                <Grid.Row>
+                  <Grid.Column>
+                    <img src={fbLogo} style={{width: '100%'}} />
+                  </Grid.Column>
+                  <Grid.Column>
+                    <img src={fbLogo} style={{width: '100%'}} />
+                  </Grid.Column>
+                  <Grid.Column>
+                    <img src={fbLogo} style={{width: '100%'}} />
+                  </Grid.Column>
+                  <Grid.Column>
+                    <img src={fbLogo} style={{width: '100%'}} />
+                  </Grid.Column>
+                </Grid.Row> */}
               </Grid>
             </ContentBlock>
           </Grid.Column>
@@ -568,10 +581,10 @@ const MainPage = () => {
                 </p>
               </Grid.Column>
               <Grid.Column>
-                <FooterLink href='http://www.google.com'>
+                <FooterLink href='http://mlh.io/code-of-conduct'>
                   MLH Code of Conduct
                 </FooterLink>
-                <FooterLink href='http://www.google.com'>
+                <FooterLink href='https://2019.swamphacks.com'>
                   Last Year's Site
                 </FooterLink>
                 <FooterLink href='http://www.google.com'>

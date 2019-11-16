@@ -20,24 +20,6 @@ const RegSign = styled.img.attrs(props => ({
   width: 60vw;
   z-index: 2;
   padding: 40px 0px;
-  animation: loading 8s linear infinite;
-  @keyframes loading {
-    0% {
-      transform: rotateZ(0);
-    }
-    25% {
-      transform: rotateZ(-8deg);
-    }
-    50% {
-      transform: rotateZ(0);
-    }
-    75% {
-      transform: rotateZ(8deg);
-    }
-    100% {
-      transform: rotateZ(0);
-    }
-  }
 `;
 
 const SectionTitleContainer = styled.div`
