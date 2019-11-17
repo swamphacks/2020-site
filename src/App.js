@@ -1,11 +1,5 @@
 import React from 'react';
-import {
-  BrowserRouter as Router,
-  Route,
-  useLocation,
-  Switch,
-  Redirect
-} from 'react-router-dom';
+import {Route, useLocation, Redirect, Switch} from 'react-router-dom';
 import {Container} from 'semantic-ui-react';
 import * as firebase from 'firebase';
 

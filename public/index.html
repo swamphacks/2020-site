@@ -10,7 +10,7 @@
     <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
     <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
     <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png" />
-    <link rel="icon" href="%PUBLIC_URL%/favicon.ico?v=2" />
+    <!-- <link rel="icon" href="%PUBLIC_URL%/favicon.ico?v=2" /> -->
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="theme-color" content="#000000" />
     <meta name="description" content="Website for Swamphacks VI (2020)." />
@@ -29,16 +29,6 @@
       Learn how to configure a non-root public URL by running `npm run build`.
     -->
     <title>Swamphacks VI</title>
-
-    <!-- update the version number as needed -->
-    <script defer src="/__/firebase/7.4.0/firebase-app.js"></script>
-    <!-- include only the Firebase features as you need -->
-    <script defer src="/__/firebase/7.4.0/firebase-auth.js"></script>
-    <script defer src="/__/firebase/7.4.0/firebase-database.js"></script>
-    <script defer src="/__/firebase/7.4.0/firebase-messaging.js"></script>
-    <script defer src="/__/firebase/7.4.0/firebase-storage.js"></script>
-    <!-- initialize the SDK after all desired features are loaded -->
-    <script defer src="/__/firebase/init.js"></script>
   </head>
   <a
     id="mlh-trust-badge"
@@ -53,32 +43,5 @@
   <body>
     <noscript>You need to enable JavaScript to run this app.</noscript>
     <div id="root"></div>
-    <script>
-      document.addEventListener('DOMContentLoaded', function() {
-        // // 🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥
-        // // The Firebase SDK is initialized and available here!
-        //
-        // firebase.auth().onAuthStateChanged(user => { });
-        // firebase.database().ref('/path/to/ref').on('value', snapshot => { });
-        // firebase.messaging().requestPermission().then(() => { });
-        // firebase.storage().ref('/path/to/ref').getDownloadURL().then(() => { });
-        //
-        // // 🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥
-
-        try {
-          let app = firebase.app();
-          let features = ['auth', 'database', 'messaging', 'storage'].filter(
-            feature => typeof app[feature] === 'function'
-          );
-          document.getElementById(
-            'load'
-          ).innerHTML = `Firebase SDK loaded with ${features.join(', ')}`;
-        } catch (e) {
-          console.error(e);
-          document.getElementById('load').innerHTML =
-            'Error loading the Firebase SDK, check the console.';
-        }
-      });
-    </script>
   </body>
 </html>
