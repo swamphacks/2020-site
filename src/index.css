@@ -16,3 +16,11 @@ code {
   src: local('Avenir Next LT Pro'),
     url(./resources/fonts/AvenirNextLTPro-Regular.otf) format('opentype');
 }
+
+@font-face {
+  font-family: 'Ink Free';
+  src: url('./resources/fonts/InkFree.woff2') format('woff2'),
+    url('./resources/fonts/InkFree.woff') format('woff');
+  font-weight: normal;
+  font-style: normal;
+}

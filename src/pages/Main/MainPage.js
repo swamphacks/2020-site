@@ -2,17 +2,23 @@ import React, {useState, useEffect} from 'react';
 import styled from 'styled-components';
 // Semantic UI
 import {Grid, Header, Container, Icon, Table, Button} from 'semantic-ui-react';
-import {Link} from 'react-router-dom';
+import {Link, withRouter} from 'react-router-dom';
 import {useSpring, animated} from 'react-spring';
 import ModularAccordion from '../../components/Accordion';
 // Custom components
 import SocialButton from '../../components/SocialButton';
 import VolleyballScene from '../../components/VolleyballScene';
+import WoodButton from '../../components/Button';
 
 // Import image assets
 import sunnyDock from '../../resources/images/background.svg';
 import cloud1 from '../../resources/images/cloud1.svg';
 import cloud2 from '../../resources/images/cloud2.svg';
+// Flare
+import sun from '../../resources/images/sun.svg';
+import yellowFlare from '../../resources/images/yellowFlare.svg';
+import smallYellowFlare from '../../resources/images/smallYellowFlare.svg';
+import redFlare from '../../resources/images/redFlare.svg';
 import flare from '../../resources/images/flare.svg';
 import sandToWater from '../../resources/images/sandToWater.svg';
 import water from '../../resources/images/water.png';
@@ -29,7 +35,15 @@ const images = [sunnyDock, cloud1, cloud2, flare];
 // TODO: Separate flare animation into separate circles + into component
 // Make the background move with it
 const calc = (x, y) => [x - window.innerWidth / 2, y - window.innerHeight / 2];
-const trans1 = (x, y) => `translate3d(${x / 15 - 200}px,${y / 24 + 200}px,0)`;
+const sunTrans = (x, y) => `translate3d(${x / 24 - 200}px,${y / 36 + 100}px,0)`;
+const redTrans = (x, y) => `translate3d(${x / 15 - 50}px,${y / 24 + 100}px,0)`;
+const yelTrans = (x, y) => `translate3d(${x / 15 - 100}px,${y / 24 + 100}px,0)`;
+const smallYelTrans = (x, y) =>
+  `translate3d(${x / 15 - 250}px,${y / 24 - 120}px,0)`;
+const cloud1Trans = (x, y) =>
+  `translate3d(${x / 12 - 500}px,${y / 17 - 300}px,0)`;
+const cloud2Trans = (x, y) =>
+  `translate3d(${x / 12 + 500}px,${y / 19 - 250}px,0)`;
 
 // Styled components
 const RootContainer = styled.div`
@@ -45,7 +59,7 @@ const RootContainer = styled.div`
 
 const SunnyDock = styled.div`
   height: 100vh;
-  width: calc(100vw + 200px);
+  width: 100vw;
   z-index: 1;
   align-items: center;
   justify-content: flex-end;
@@ -57,14 +71,18 @@ const SunnyDock = styled.div`
   flex-direction: column;
 `;
 
-const Cloud1 = styled.img.attrs(props => ({
+const Cloud1 = styled(animated.img).attrs(props => ({
   src: cloud1
 }))`
   width: 400px;
-  z-index: 2;
-  position: absolute;
-  top: 40px;
-  left: 0;
+  z-index: 3;
+`;
+
+const Cloud2 = styled(animated.img).attrs(props => ({
+  src: cloud2
+}))`
+  width: 400px;
+  z-index: 3;
 `;
 
 const ButtonContainer = styled.div`
@@ -272,8 +290,8 @@ const faq = [
       <p>
         We provide a charter bus to and from the Georgia Institute of
         Technology. We also provide travel reimbursements for applications that
-        request travel support before 11:59pm November 18th. Additional travel
-        routes and buses may be announced depending on interest.
+        request travel support before December 1st. Additional travel routes and
+        buses may be announced depending on interest.
       </p>
     )
   },
@@ -293,13 +311,13 @@ const faq = [
     content: (
       <p>
         SwampHacks VI provides a limited number of travel reimbursements. The
-        deadline for applications seeking travel reimbursement is Sunday,
-        November 18th at 11:59PM.
+        deadline for applications seeking travel reimbursement is December 1st,
+        2019.
       </p>
     )
   },
   {
-    title: 'When are applications out?',
+    title: 'When do applications close?',
     content: <p>Applications will close on December 21st.</p>
   },
   {
@@ -319,7 +337,7 @@ const faq = [
   }
 ];
 
-const MainPage = () => {
+const MainPage = props => {
   // TODO: This is intended to preload image assets. Make sure this actually works.
   // https://stackoverflow.com/questions/3646036/preloading-images-with-javascript
   useEffect(() => {
@@ -335,25 +353,58 @@ const MainPage = () => {
     xy: [0, 0],
     config: {mass: 10, tension: 550, friction: 140}
   }));
+  const [cloudProps, setCloudProps] = useSpring(() => ({
+    xy: [0, 0],
+    config: {mass: 7, tension: 350, friction: 60}
+  }));
+  const [sunProps, setSunProps] = useSpring(() => ({
+    xy: [0, 0],
+    config: {mass: 50, tension: 1000, friction: 300}
+  }));
   return (
     <RootContainer>
       <SunnyDock
         onMouseMove={e => {
           setFlareProps({xy: calc(e.clientX, e.clientY)});
+          setCloudProps({xy: calc(e.clientX, e.clientY)});
+          setSunProps({xy: calc(e.clientX, e.clientY)});
         }}
       >
         {/* For flare animation */}
         <animated.img
-          src={flare}
+          src={sun}
           style={{
-            transform: flareProps.xy.interpolate(trans1),
-            width: '600px',
-            height: '600px',
+            transform: sunProps.xy.interpolate(sunTrans),
+            width: '300px',
+            zIndex: 2
+          }}
+        />
+        <animated.img
+          src={smallYellowFlare}
+          style={{
+            transform: flareProps.xy.interpolate(smallYelTrans),
+            width: '85px',
             zIndex: 3
           }}
         />
-
-        <Cloud1 />
+        <animated.img
+          src={yellowFlare}
+          style={{
+            transform: flareProps.xy.interpolate(yelTrans),
+            width: '125px',
+            zIndex: 3
+          }}
+        />
+        <animated.img
+          src={redFlare}
+          style={{
+            transform: flareProps.xy.interpolate(redTrans),
+            width: '50px',
+            zIndex: 3
+          }}
+        />
+        <Cloud1 style={{transform: cloudProps.xy.interpolate(cloud1Trans)}} />
+        <Cloud2 style={{transform: cloudProps.xy.interpolate(cloud2Trans)}} />
         <div
           style={{
             width: '100%',
@@ -369,13 +420,21 @@ const MainPage = () => {
             style={{zIndex: 2, width: '40vw', minWidth: 350}}
           />
           <ButtonContainer>
-            <Button size='huge' color='black' as={Link} to='/application'>
+            <WoodButton
+              onClick={() => {
+                props.history.push('/application');
+              }}
+            >
               Register
-            </Button>
+            </WoodButton>
             <br />
-            <Button size='huge' color='black'>
+            <WoodButton
+              onClick={() => {
+                window.location.href = 'mailto:sponsors@swamphacks.com';
+              }}
+            >
               Sponsor Us
-            </Button>
+            </WoodButton>
           </ButtonContainer>
         </div>
       </SunnyDock>
@@ -397,15 +456,18 @@ const MainPage = () => {
               </p>
               <p>
                 Experience software development in sunny Gainesville, Florida
-                through our hackathon! From seasoned mentors to intriguing
-                workshops, Swamphacks VI supports all student activities and
-                encourages “outside the box” thinking. Join us to meet some of
-                the brightest minds in the South and have an awesome weekend in
-                our swamp.
+                through our hackathon! No experience is necessary to
+                participate; we welcome everyone regardless of year in school.
+                From seasoned mentors to intriguing workshops, Swamphacks VI
+                supports all student activities and encourages “outside the box”
+                thinking. Join us to meet some of the brightest minds in the
+                South and have an awesome weekend in our swamp.
               </p>
               <p>
                 This year, Swamphacks VI aims to make our event more sustainable
-                by reducing our waste and carbon output.
+                by reducing our waste and carbon output. Our goal is to use more
+                compostable material, encourage our Sponsors to travel
+                sustainably, and provide hackers with eco-friendly swag.
               </p>
               <VolleyballScene />
             </ContentBlock>
@@ -604,4 +666,4 @@ const MainPage = () => {
   );
 };
 
-export default MainPage;
+export default withRouter(MainPage);

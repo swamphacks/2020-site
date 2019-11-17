@@ -1,6 +1,6 @@
 /*******************************
      User Global Variables
 *******************************/
+@pageBackground    : #cbd66c;
 @headerFont        : 'Avenir Next LT Pro', 'Avenir Next', 'Helvetica Neue', Arial, Helvetica, sans-serif;
 @pageFont          : 'Avenir Next LT Pro', 'Avenir Next', 'Helvetica Neue', Arial, Helvetica, sans-serif;
-@googleFontFamily  : 'Open+Sans:400italic,400|Oswald:400,700';

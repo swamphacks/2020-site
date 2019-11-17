@@ -1,6 +1,7 @@
 import React from 'react';
 import * as yup from 'yup';
 import majors from '../../resources/data/majors.json';
+import {Link} from 'react-router-dom';
 
 const section1 = {
   title: 'Basic Information',
@@ -835,13 +836,13 @@ const section6 = {
     },
     {
       name: 'statisticsUsage',
-      label: 'Statistics Usage',
+      label: 'Data Usage Form',
       content: (
         <p>
-          I have read and agree to{' '}
-          <a href='http://www.google.com' target='_blank'>
-            Statistics Usage
-          </a>
+          I have read and agree to the{' '}
+          <Link to='/DataUsageReleaseForm.pdf' target='_blank'>
+            Data Usage Form
+          </Link>
           .
         </p>
       ),
@@ -852,13 +853,13 @@ const section6 = {
     },
     {
       name: 'photoRelease',
-      label: 'Photo Release Terms',
+      label: 'Photo Release Form',
       content: (
         <p>
           I have read and agree to the{' '}
-          <a href='http://www.google.com' target='_blank'>
-            Photo Release Terms
-          </a>
+          <Link to='/PhotoReleaseForm.pdf' target='_blank'>
+            Photo Release Form
+          </Link>
           .
         </p>
       ),

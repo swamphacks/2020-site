@@ -3,7 +3,8 @@ import {
   BrowserRouter as Router,
   Route,
   useLocation,
-  Switch
+  Switch,
+  Redirect
 } from 'react-router-dom';
 import * as firebase from 'firebase';
 
@@ -21,7 +22,11 @@ const App = () => {
   return (
     <Switch location={location}>
       <Route exact path='/' component={MainPage} />
+      <Route exact path='/comingsoon' component={() => <Redirect to='/' />} />
       <Route exact path='/application' component={ApplicationPage} />
+      <Route path='/SponsorshipProspectus.pdf' exact />
+      <Route path='/PhotoReleaseForm.pdf' exact />
+      <Route path='/DataUsageReleaseForm.pdf' exact />
     </Switch>
   );
 };

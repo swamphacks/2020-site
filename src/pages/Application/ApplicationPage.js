@@ -24,8 +24,8 @@ import {sections} from './Sections';
 const RegSign = styled.img.attrs(props => ({
   src: regSign
 }))`
-  min-width: 300px;
-  width: 60vw;
+  max-width: 500px;
+  width: 80vw;
   z-index: 2;
   padding: 40px 0px;
 `;
