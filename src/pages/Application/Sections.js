@@ -694,7 +694,7 @@ const section6 = {
       .required('This field is required.')
       .matches(
         /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{8,}$/,
-        'Your password must be 8 characters long and must include 1 uppercase character, 1 lowercase character, and 1 number.'
+        'Your password must be at least 8 characters long and must include 1 uppercase character, 1 lowercase character, and 1 number.'
       ),
     confirmPassword: yup
       .string()

@@ -144,22 +144,24 @@ const ApplicationPage = () => {
     <div
       style={{display: 'flex', alignItems: 'center', flexDirection: 'column'}}
     >
-      <Modal open={isSubmitted}>
-        <Modal.Header>Thanks for Applying!</Modal.Header>
-        <Modal.Content>
-          <Modal.Description>
-            <p>
-              We will send you an email when we have made a decision about your
-              application. Happy hacking!
-            </p>
-          </Modal.Description>
-          <ButtonGroup>
-            <SUIButton as={Link} to='/' primary>
-              Ok
-            </SUIButton>
-          </ButtonGroup>
-        </Modal.Content>
-      </Modal>
+      <Transition visible={isSubmitted} animation='scale' duration={500}>
+        <Modal open={isSubmitted}>
+          <Modal.Header>Thanks for Applying!</Modal.Header>
+          <Modal.Content>
+            <Modal.Description>
+              <p>
+                We will send you an email when we have made a decision about
+                your application. Happy hacking!
+              </p>
+            </Modal.Description>
+            <ButtonGroup>
+              <SUIButton as={Link} to='/test' primary>
+                Ok
+              </SUIButton>
+            </ButtonGroup>
+          </Modal.Content>
+        </Modal>
+      </Transition>
       <RegSign />
       <Grid container stretched>
         <Grid.Row centered>
@@ -284,7 +286,7 @@ const ApplicationPage = () => {
                     })}
                     <ButtonGroup>
                       {currSection === 0 && (
-                        <SUIButton as={Link} to='/' basic>
+                        <SUIButton as={Link} to='/test' basic>
                           Cancel
                         </SUIButton>
                       )}
