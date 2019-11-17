@@ -49,7 +49,6 @@ const ApplicationPage = () => {
   const [isSubmitted, setIsSubmitted] = useState(false);
 
   const _handleSubmit = (values, formikApi) => {
-    // console.log(values, formikApi);
     let newHistory = history;
     const keys = Object.keys(newHistory[currSection]);
     for (let i = 0; i < keys.length; i++) {

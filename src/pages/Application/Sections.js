@@ -704,11 +704,24 @@ const section6 = {
     hearAbout: yup.array(yup.string()),
     mlhCodeOfConduct: yup
       .bool()
-      .oneOf([true], 'You must agree to these terms.'),
-    regDataSharing: yup.bool().oneOf([true], 'You must agree to these terms.'),
-    statisticsUsage: yup.bool().oneOf([true], 'You must agree to these terms.'),
-    photoRelease: yup.bool().oneOf([true], 'You must agree to these terms.'),
-    confirmTrue: yup.bool().oneOf([true], 'Field must be checked.')
+      .oneOf([true], 'You must agree to these terms.')
+      .required('You must agree to these terms.'),
+    regDataSharing: yup
+      .bool()
+      .oneOf([true], 'You must agree to these terms.')
+      .required('You must agree to these terms.'),
+    statisticsUsage: yup
+      .bool()
+      .oneOf([true], 'You must agree to these terms.')
+      .required('You must agree to these terms.'),
+    photoRelease: yup
+      .bool()
+      .oneOf([true], 'You must agree to these terms.')
+      .required('You must agree to these terms.'),
+    confirmTrue: yup
+      .bool()
+      .oneOf([true], 'Field must be checked.')
+      .required('Field must be checked.')
   }),
   fields: [
     {
