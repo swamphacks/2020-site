@@ -688,7 +688,13 @@ const section6 = {
       .string()
       .email()
       .required('This field is required.'),
-    password: yup.string().required('This field is required.'),
+    password: yup
+      .string()
+      .required('This field is required.')
+      .matches(
+        /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{8,}$/,
+        'Your password must be 8 characters long and must include 1 uppercase character, 1 lowercase character, and 1 number.'
+      ),
     confirmPassword: yup
       .string()
       .oneOf([yup.ref('password')], 'Passwords must match'),
@@ -830,6 +836,15 @@ const section6 = {
     {
       name: 'statisticsUsage',
       label: 'Statistics Usage',
+      content: (
+        <p>
+          I have read and agree to{' '}
+          <a href='http://www.google.com' target='_blank'>
+            Statistics Usage
+          </a>
+          .
+        </p>
+      ),
       componentType: 'Terms',
       componentProps: {
         required: true
@@ -838,6 +853,15 @@ const section6 = {
     {
       name: 'photoRelease',
       label: 'Photo Release Terms',
+      content: (
+        <p>
+          I have read and agree to the{' '}
+          <a href='http://www.google.com' target='_blank'>
+            Photo Release Terms
+          </a>
+          .
+        </p>
+      ),
       componentType: 'Terms',
       componentProps: {
         required: true

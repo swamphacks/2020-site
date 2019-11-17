@@ -364,7 +364,10 @@ const MainPage = () => {
             flexDirection: 'column'
           }}
         >
-          <img src={mainTitle} style={{zIndex: 2, width: '40vw'}} />
+          <img
+            src={mainTitle}
+            style={{zIndex: 2, width: '40vw', minWidth: 350}}
+          />
           <ButtonContainer>
             <Button size='huge' color='black' as={Link} to='/application'>
               Register
@@ -485,14 +488,17 @@ const MainPage = () => {
       >
         <Grid container padded>
           <Grid.Column>
-            <ContentBlock>
+            <ContentBlock style={{height: '100vh'}}>
               {/* <Header size='huge' textAlign='center' inverted>
                 Our Amazing Sponsors
               </Header> */}
               <Grid stackable columns='equal' textAlign='center'>
                 <Grid.Row>
                   <Grid.Column>
-                    <img src={sponsorsComingSoon} style={{width: '100%'}} />
+                    <img
+                      src={sponsorsComingSoon}
+                      style={{width: '100%', maxWidth: 700}}
+                    />
                   </Grid.Column>
                 </Grid.Row>
                 {/* <Grid.Row>

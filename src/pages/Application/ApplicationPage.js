@@ -2,10 +2,18 @@ import React, {useState} from 'react';
 import styled from 'styled-components';
 import {Button, Form, Input, Checkbox, TextArea} from 'formik-semantic-ui';
 import DropdownCustom from '../../components/formik-semantic-ui-custom/DropdownCustom';
-import {Button as SUIButton} from 'semantic-ui-react';
 import {Link} from 'react-router-dom';
-import {Grid, Header, Label, Container, Transition} from 'semantic-ui-react';
+import {
+  Grid,
+  Header,
+  Label,
+  Container,
+  Transition,
+  Button as SUIButton,
+  Modal
+} from 'semantic-ui-react';
 import FileUploadInput from '../../components/FileUpload';
+import * as firebase from 'firebase';
 
 import regSign from '../../resources/images/regSign.svg';
 
@@ -38,6 +46,7 @@ const ApplicationPage = () => {
   const [history, setHistory] = useState([
     ...sections.map(sec => sec.initialValues)
   ]);
+  const [isSubmitted, setIsSubmitted] = useState(false);
 
   const _handleSubmit = (values, formikApi) => {
     // console.log(values, formikApi);
@@ -50,10 +59,78 @@ const ApplicationPage = () => {
     console.log(newHistory);
     if (currSection < sections.length - 1) {
       setCurrSection(currSection + 1);
+      formikApi.setSubmitting(false);
     } else {
-      console.log(values);
+      // Submit to database
+      const {email, password} = values;
+      firebase
+        .auth()
+        .createUserWithEmailAndPassword(email, password)
+        .then(() => {
+          const db = firebase.firestore();
+          let docRef = db
+            .collection('years')
+            .doc('2020')
+            .collection('applications')
+            .doc();
+          let combined = {};
+          for (let i = 0; i < newHistory.length; i++) {
+            combined = {...combined, ...newHistory[i]};
+          }
+          console.log(combined);
+          const {
+            resume,
+            password,
+            confirmPassword,
+            mlhCodeOfConduct,
+            regDataSharing,
+            statisticsUsage,
+            photoRelease,
+            confirmTrue,
+            ...relevantValues
+          } = combined;
+          const date = Date.now();
+          const storageRef = firebase
+            .storage()
+            .ref('2020/resumes')
+            .child(
+              relevantValues.lastName +
+                relevantValues.firstName +
+                date +
+                'Resume.pdf'
+            );
+          storageRef.put(resume).then(() => {
+            let res = docRef
+              .set({
+                ...relevantValues,
+                resumePath: storageRef.fullPath,
+                dateApplied: date,
+                accepted: false,
+                uid: firebase.auth().currentUser.uid
+              })
+              .then(() => {
+                setIsSubmitted(true);
+              });
+          });
+        })
+        .catch(function(error) {
+          // Handle Errors here.
+          var errorCode = error.code;
+          if (errorCode === 'auth/email-already-in-use') {
+            formikApi.setFieldError('email', 'This email is already in use.');
+          } else if (errorCode === 'auth/invalid-email') {
+            formikApi.setFieldError('email', 'This email is not valid.');
+          } else {
+            formikApi.setFieldError(
+              'email',
+              'An unexpected error occurred. Please try again.'
+            );
+          }
+        })
+        .finally(() => {
+          formikApi.setSubmitting(false);
+        });
     }
-    formikApi.setSubmitting(false);
   };
 
   const _handleReset = (values, formikApi) => {
@@ -68,6 +145,22 @@ const ApplicationPage = () => {
     <div
       style={{display: 'flex', alignItems: 'center', flexDirection: 'column'}}
     >
+      <Modal open={isSubmitted}>
+        <Modal.Header>Thanks for Applying!</Modal.Header>
+        <Modal.Content>
+          <Modal.Description>
+            <p>
+              We will send you an email when we have made a decision about your
+              application. Happy hacking!
+            </p>
+          </Modal.Description>
+          <ButtonGroup>
+            <SUIButton as={Link} to='/' primary>
+              Ok
+            </SUIButton>
+          </ButtonGroup>
+        </Modal.Content>
+      </Modal>
       <RegSign />
       <Grid container stretched>
         <Grid.Row centered>
@@ -197,7 +290,10 @@ const ApplicationPage = () => {
                         </SUIButton>
                       )}
                       {currSection > 0 && <Button.Reset>Back</Button.Reset>}
-                      <Button.Submit>
+                      <Button.Submit
+                        loading={formikProps.isSubmitting}
+                        disabled={formikProps.isSubmitting}
+                      >
                         {currSection < sections.length - 1 ? 'Next' : 'Submit'}
                       </Button.Submit>
                     </ButtonGroup>
