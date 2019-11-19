@@ -288,7 +288,10 @@ const section2 = {
       componentProps: {
         required: true,
         placeholder: 'Select or type...',
-        search: true
+        search: true,
+        allowAdditions: true,
+        additionLabel: 'Other: ',
+        additionPosition: 'bottom'
       }
     },
     {
@@ -296,7 +299,10 @@ const section2 = {
       label: 'What is your most current level of study?',
       componentType: 'Dropdown',
       options: [
-        {key: 'Undergraduate', text: 'Undergraduate', value: 'Undergraduate'},
+        {key: 'Freshman', text: 'Freshman', value: 'Freshman'},
+        {key: 'Sophomore', text: 'Sophomore', value: 'Sophomore'},
+        {key: 'Junior', text: 'Junior', value: 'Junior'},
+        {key: 'Senior', text: 'Senior', value: 'Senior'},
         {key: 'Graduate', text: 'Graduate', value: 'Graduate'}
       ],
       componentProps: {
@@ -373,7 +379,7 @@ const section3 = {
     },
     {
       name: 'resume',
-      label: 'Upload Your Resume',
+      label: 'Upload Your Resume (pdf)',
       componentType: 'FileUpload',
       componentProps: {
         required: true
@@ -544,6 +550,11 @@ const section5 = {
           key: 'Amazon Web Services',
           text: 'Amazon Web Services',
           value: 'Amazon Web Services'
+        },
+        {
+          key: 'Other (please type)',
+          text: 'Other (please type)',
+          value: 'Other'
         }
       ],
       componentProps: {
@@ -551,7 +562,10 @@ const section5 = {
         placeholder: 'Select multiple or type...',
         multiple: true,
         closeOnChange: false,
-        search: true
+        search: true,
+        allowAdditions: true,
+        additionLabel: 'Other: ',
+        additionPosition: 'bottom'
       }
     },
     {
@@ -620,6 +634,11 @@ const section5 = {
           key: 'Full-stack Development',
           text: 'Full-stack Development',
           value: 'Full-stack Development'
+        },
+        {
+          key: 'Other (please type)',
+          text: 'Other (please type)',
+          value: 'Other'
         }
       ],
       componentProps: {
@@ -627,7 +646,10 @@ const section5 = {
         placeholder: 'Select multiple or type...',
         multiple: true,
         closeOnChange: false,
-        search: true
+        search: true,
+        allowAdditions: true,
+        additionLabel: 'Other: ',
+        additionPosition: 'bottom'
       }
     },
     {

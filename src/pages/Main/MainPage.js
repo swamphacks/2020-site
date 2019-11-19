@@ -14,7 +14,7 @@ import WoodButton from '../../components/Button';
 // TODO: Separate flare animation into separate circles + into component
 // Make the background move with it
 const calc = (x, y) => [x - window.innerWidth / 2, y - window.innerHeight / 2];
-const sunTrans = (x, y) => `translate3d(${x / 24 - 200}px,${y / 36 + 100}px,0)`;
+const sunTrans = (x, y) => `translate3d(${x / 24 - 200}px,${y / 36 + 150}px,0)`;
 const redTrans = (x, y) => `translate3d(${x / 15 - 50}px,${y / 24 + 100}px,0)`;
 const yelTrans = (x, y) => `translate3d(${x / 15 - 100}px,${y / 24 + 100}px,0)`;
 const smallYelTrans = (x, y) =>
@@ -22,17 +22,39 @@ const smallYelTrans = (x, y) =>
 const cloud1Trans = (x, y) =>
   `translate3d(${x / 12 - 500}px,${y / 17 - 300}px,0)`;
 const cloud2Trans = (x, y) =>
-  `translate3d(${x / 12 + 500}px,${y / 19 - 250}px,0)`;
+  `translate3d(${x / 12 + 500}px,${y / 19 - 300}px,0)`;
 
 // Styled components
 const RootContainer = styled.div`
   min-height: 100vh;
+  display: -webkit-box;
+  display: -ms-flexbox;
   display: flex;
+  -webkit-box-flex: 1;
+  -ms-flex-positive: 1;
   flex-grow: 1;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+  -ms-flex-direction: column;
   flex-direction: column;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
   align-items: center;
+  -webkit-box-pack: center;
+  -ms-flex-pack: center;
   justify-content: center;
   overflow: hidden;
+  position: relative;
+`;
+
+const RocksWall = styled.div`
+  width: 100vw;
+  height: 100vh;
+  z-index: 1;
+  background-image: url('/images/rocksWall.svg');
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center top;
   position: relative;
 `;
 
@@ -40,13 +62,22 @@ const SunnyDock = styled.div`
   height: 100vh;
   width: 100vw;
   z-index: 1;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
   align-items: center;
-  justify-content: flex-end;
+  -webkit-box-pack: center;
+  -ms-flex-pack: center;
+  justify-content: center;
   background-image: url('/images/background.svg');
   background-repeat: no-repeat;
   background-size: cover;
   background-position: center bottom;
+  display: -webkit-box;
+  display: -ms-flexbox;
   display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+  -ms-flex-direction: column;
   flex-direction: column;
 `;
 
@@ -320,15 +351,15 @@ const MainPage = props => {
   // For flare animation
   const [flareProps, setFlareProps] = useSpring(() => ({
     xy: [0, 0],
-    config: {mass: 10, tension: 550, friction: 140}
+    config: {mass: 10, tension: 550, friction: 200}
   }));
   const [cloudProps, setCloudProps] = useSpring(() => ({
     xy: [0, 0],
-    config: {mass: 7, tension: 350, friction: 60}
+    config: {mass: 7, tension: 350, friction: 155}
   }));
   const [sunProps, setSunProps] = useSpring(() => ({
     xy: [0, 0],
-    config: {mass: 50, tension: 1000, friction: 300}
+    config: {mass: 50, tension: 1000, friction: 550}
   }));
   return (
     <RootContainer>
@@ -374,38 +405,34 @@ const MainPage = props => {
         />
         <Cloud1 style={{transform: cloudProps.xy.interpolate(cloud1Trans)}} />
         <Cloud2 style={{transform: cloudProps.xy.interpolate(cloud2Trans)}} />
-        <div
+        {/* <div
           style={{
             width: '100%',
             height: '100%',
             display: 'flex',
             alignItems: 'center',
-            justifyContent: 'flex-end',
+            justifyContent: 'center',
             flexDirection: 'column'
           }}
-        >
-          <img
-            src={'/images/mainTitle.svg'}
-            style={{zIndex: 2, width: '40vw', minWidth: 350}}
+        > */}
+        <img
+          src={'/images/mainTitle.svg'}
+          style={{zIndex: 2, width: '40vw', minWidth: 350}}
+        />
+        <ButtonContainer>
+          <WoodButton
+            onClick={() => {
+              props.history.push('/application');
+            }}
           />
-          <ButtonContainer>
-            <WoodButton
-              onClick={() => {
-                props.history.push('/application');
-              }}
-            >
-              Register
-            </WoodButton>
-            <br />
-            <WoodButton
-              onClick={() => {
-                window.location.href = 'mailto:sponsors@swamphacks.com';
-              }}
-            >
-              Sponsor Us
-            </WoodButton>
-          </ButtonContainer>
-        </div>
+          <WoodButton
+            sponsor
+            onClick={() => {
+              window.location.href = 'mailto:sponsors@swamphacks.com';
+            }}
+          />
+        </ButtonContainer>
+        {/* </div> */}
       </SunnyDock>
       {/* Welcome to the swamp */}
       <ContentContainer
@@ -498,86 +525,36 @@ const MainPage = props => {
             'linear-gradient(180deg, rgba(20,117,188,1) 9.34%, rgba(64,199,244,1) 49.4%, rgba(255,255,253,1) 91.26%)'
         }}
       >
-        <ContentContainer
-          style={{
-            backgroundImage: `url('/images/rocksWall.png')`,
-            alignItems: 'flex-start'
-          }}
-        >
-          <Grid container padded>
-            <Grid.Column>
-              <ContentBlock text style={{minHeight: '100vh'}}>
-                <Header size='huge' inverted>
-                  Frequently Asked Questions
-                </Header>
-                <ModularAccordion items={faq} />
-              </ContentBlock>
-            </Grid.Column>
-          </Grid>
-        </ContentContainer>
+        <div style={{height: 0}}>
+          <RocksWall />
+        </div>
+        <ContentBlock text style={{minHeight: '100vh', zIndex: '3'}}>
+          <Header size='huge' inverted>
+            Frequently Asked Questions
+          </Header>
+          <ModularAccordion items={faq} />
+        </ContentBlock>
       </ContentContainer>
       {/* Sponsors */}
       <ContentContainer
         style={{
           backgroundImage:
-            'linear-gradient(180deg, rgba(119,107,102,1) 9.34%, rgba(250,164,70,1) 49.4%, rgba(252,212,91,1) 91.26%)'
+            'linear-gradient(180deg, rgba(120,107,102,1) 9.34%, rgba(250,172,98,1) 49.4%, rgba(254,228,116,1) 91.26%)'
         }}
       >
-        <Grid container padded>
-          <Grid.Column>
-            <ContentBlock style={{height: '100vh'}}>
-              {/* <Header size='huge' textAlign='center' inverted>
-                Our Amazing Sponsors
-              </Header> */}
-              <Grid stackable columns='equal' textAlign='center'>
-                <Grid.Row>
-                  <Grid.Column>
-                    <img
-                      src={'/images/sponsorsComingSoon.svg'}
-                      style={{width: '100%', maxWidth: 700}}
-                    />
-                  </Grid.Column>
-                </Grid.Row>
-                {/* <Grid.Row>
-                  <Grid.Column>
-                    <img src={fbLogo} style={{width: '100%'}} />
-                  </Grid.Column>
-                  <Grid.Column>
-                    <img src={fbLogo} style={{width: '100%'}} />
-                  </Grid.Column>
-                </Grid.Row>
-                <Grid.Row>
-                  <Grid.Column>
-                    <img src={fbLogo} style={{width: '100%'}} />
-                  </Grid.Column>
-                  <Grid.Column>
-                    <img src={fbLogo} style={{width: '100%'}} />
-                  </Grid.Column>
-                  <Grid.Column>
-                    <img src={fbLogo} style={{width: '100%'}} />
-                  </Grid.Column>
-                  <Grid.Column>
-                    <img src={fbLogo} style={{width: '100%'}} />
-                  </Grid.Column>
-                </Grid.Row>
-                <Grid.Row>
-                  <Grid.Column>
-                    <img src={fbLogo} style={{width: '100%'}} />
-                  </Grid.Column>
-                  <Grid.Column>
-                    <img src={fbLogo} style={{width: '100%'}} />
-                  </Grid.Column>
-                  <Grid.Column>
-                    <img src={fbLogo} style={{width: '100%'}} />
-                  </Grid.Column>
-                  <Grid.Column>
-                    <img src={fbLogo} style={{width: '100%'}} />
-                  </Grid.Column>
-                </Grid.Row> */}
-              </Grid>
-            </ContentBlock>
-          </Grid.Column>
-        </Grid>
+        <ContentBlock
+          style={{
+            minHeight: '50vh',
+            alignItems: 'center',
+            justifyContent: 'center',
+            display: 'flex'
+          }}
+        >
+          <img
+            src={'/images/sponsorsComingSoon.svg'}
+            style={{width: '100%', maxWidth: 700}}
+          />
+        </ContentBlock>
         <img src={'/images/gatorSwan.svg'} style={{width: '100%'}} />
       </ContentContainer>
       {/* Footer */}

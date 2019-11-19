@@ -18,7 +18,7 @@ const FileUploadInput = ({formikProps, name, fieldProps, ...props}) => {
     <Form.Field {...fieldProps} error={formikProps.errors[name] ? true : false}>
       <label>{props.label}</label>
       <input
-        accept='.pdf,.doc,.docx'
+        accept='.pdf'
         type='file'
         onChange={e => {
           console.log(e.target.value);

@@ -206,6 +206,11 @@
   },
   {"key": "Criminology", "text": "Criminology", "value": "Criminology"},
   {
+    "key": "Digital Arts and Sciences",
+    "text": "Digital Arts and Sciences",
+    "value": "Digital Arts and Sciences"
+  },
+  {
     "key": "Drama and Theater Arts",
     "text": "Drama and Theater Arts",
     "value": "Drama and Theater Arts"

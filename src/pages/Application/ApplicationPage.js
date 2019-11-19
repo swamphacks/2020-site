@@ -15,14 +15,12 @@ import {
 import FileUploadInput from '../../components/FileUpload';
 import * as firebase from 'firebase';
 
-import regSign from '../../resources/images/regSign.svg';
-
 // Sections
 import {sections} from './Sections';
 
 // Styled components
 const RegSign = styled.img.attrs(props => ({
-  src: regSign
+  src: '/images/regSign.svg'
 }))`
   max-width: 500px;
   width: 80vw;
@@ -151,7 +149,9 @@ const ApplicationPage = () => {
             <Modal.Description>
               <p>
                 We will send you an email when we have made a decision about
-                your application. Happy hacking!
+                your application. Check back in the coming weeks for access to
+                your dashboard, where you can view more information about
+                SwampHacks and your application status. Happy hacking!
               </p>
             </Modal.Description>
             <ButtonGroup>
@@ -181,125 +181,123 @@ const ApplicationPage = () => {
               enableReinitialize
             >
               {formikProps => (
-                <Transition.Group duration={200}>
-                  <React.Fragment>
-                    {sections[currSection].fields.map(field => {
-                      const {
-                        name,
-                        label,
-                        componentType,
-                        componentProps,
-                        ...extras
-                      } = field;
-                      if (componentType === 'TextField') {
-                        return (
-                          <Input
+                <React.Fragment>
+                  {sections[currSection].fields.map(field => {
+                    const {
+                      name,
+                      label,
+                      componentType,
+                      componentProps,
+                      ...extras
+                    } = field;
+                    if (componentType === 'TextField') {
+                      return (
+                        <Input
+                          name={name}
+                          label={label}
+                          inputProps={componentProps}
+                          fieldProps={{
+                            required: componentProps.required
+                          }}
+                          key={name}
+                          errorComponent={({message}) => (
+                            <Label basic color='red' pointing>
+                              {message}
+                            </Label>
+                          )}
+                        />
+                      );
+                    }
+                    if (componentType === 'Dropdown') {
+                      return (
+                        <DropdownCustom
+                          name={name}
+                          label={label}
+                          options={extras.options}
+                          inputProps={componentProps}
+                          fieldProps={{
+                            required: componentProps.required
+                          }}
+                          key={name}
+                          errorComponent={({message}) => (
+                            <Label basic color='red' pointing>
+                              {message}
+                            </Label>
+                          )}
+                        />
+                      );
+                    }
+                    if (componentType === 'TextArea') {
+                      return (
+                        <TextArea
+                          name={name}
+                          label={label}
+                          inputProps={componentProps}
+                          fieldProps={{
+                            required: componentProps.required
+                          }}
+                          key={name}
+                          errorComponent={({message}) => (
+                            <Label basic color='red' pointing>
+                              {message}
+                            </Label>
+                          )}
+                        />
+                      );
+                    }
+                    if (componentType === 'Terms') {
+                      return (
+                        <React.Fragment key={name}>
+                          <Header size='tiny'>{label}</Header>
+                          <Checkbox
                             name={name}
-                            label={label}
+                            label={{
+                              children: (
+                                <Container text style={{minWidth: 0}}>
+                                  {extras.content}
+                                </Container>
+                              )
+                            }}
                             inputProps={componentProps}
-                            fieldProps={{
-                              required: componentProps.required
-                            }}
-                            key={name}
-                            errorComponent={({message}) => (
-                              <Label basic color='red' pointing>
-                                {message}
-                              </Label>
-                            )}
+                            errorComponent={() => null}
                           />
-                        );
-                      }
-                      if (componentType === 'Dropdown') {
-                        return (
-                          <DropdownCustom
-                            name={name}
-                            label={label}
-                            options={extras.options}
-                            inputProps={componentProps}
-                            fieldProps={{
-                              required: componentProps.required
-                            }}
-                            key={name}
-                            errorComponent={({message}) => (
-                              <Label basic color='red' pointing>
-                                {message}
-                              </Label>
-                            )}
-                          />
-                        );
-                      }
-                      if (componentType === 'TextArea') {
-                        return (
-                          <TextArea
-                            name={name}
-                            label={label}
-                            inputProps={componentProps}
-                            fieldProps={{
-                              required: componentProps.required
-                            }}
-                            key={name}
-                            errorComponent={({message}) => (
-                              <Label basic color='red' pointing>
-                                {message}
-                              </Label>
-                            )}
-                          />
-                        );
-                      }
-                      if (componentType === 'Terms') {
-                        return (
-                          <React.Fragment key={name}>
-                            <Header size='tiny'>{label}</Header>
-                            <Checkbox
-                              name={name}
-                              label={{
-                                children: (
-                                  <Container text style={{minWidth: 0}}>
-                                    {extras.content}
-                                  </Container>
-                                )
-                              }}
-                              inputProps={componentProps}
-                              errorComponent={() => null}
-                            />
-                            {formikProps.errors[name] && (
-                              <Label basic color='red' pointing>
-                                {formikProps.errors[name]}
-                              </Label>
-                            )}
-                          </React.Fragment>
-                        );
-                      }
-                      if (componentType === 'FileUpload') {
-                        return (
-                          <FileUploadInput
-                            key={name}
-                            formikProps={formikProps}
-                            name={name}
-                            label={label}
-                            fieldProps={{
-                              required: componentProps.required
-                            }}
-                          />
-                        );
-                      }
-                    })}
-                    <ButtonGroup>
-                      {currSection === 0 && (
-                        <SUIButton as={Link} to='/test' basic>
-                          Cancel
-                        </SUIButton>
-                      )}
-                      {currSection > 0 && <Button.Reset>Back</Button.Reset>}
-                      <Button.Submit
-                        loading={formikProps.isSubmitting}
-                        disabled={formikProps.isSubmitting}
-                      >
-                        {currSection < sections.length - 1 ? 'Next' : 'Submit'}
-                      </Button.Submit>
-                    </ButtonGroup>
-                  </React.Fragment>
-                </Transition.Group>
+                          {formikProps.errors[name] && (
+                            <Label basic color='red' pointing>
+                              {formikProps.errors[name]}
+                            </Label>
+                          )}
+                        </React.Fragment>
+                      );
+                    }
+                    if (componentType === 'FileUpload') {
+                      return (
+                        <FileUploadInput
+                          key={name}
+                          formikProps={formikProps}
+                          name={name}
+                          label={label}
+                          fieldProps={{
+                            required: componentProps.required
+                          }}
+                        />
+                      );
+                    }
+                  })}
+                  <ButtonGroup>
+                    {currSection === 0 && (
+                      <SUIButton as={Link} to='/test' basic>
+                        Cancel
+                      </SUIButton>
+                    )}
+                    {currSection > 0 && <Button.Reset>Back</Button.Reset>}
+                    <Button.Submit
+                      loading={formikProps.isSubmitting}
+                      disabled={formikProps.isSubmitting}
+                    >
+                      {currSection < sections.length - 1 ? 'Next' : 'Submit'}
+                    </Button.Submit>
+                  </ButtonGroup>
+                </React.Fragment>
               )}
             </Form>
           </Grid.Column>
