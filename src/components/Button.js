@@ -1,8 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
 
-import buttonImage from '../resources/images/woodButton.svg';
-
 const CustomButton = styled.button`
   z-index: 1;
   border: 0;
@@ -54,7 +52,7 @@ const WoodButton = props => {
       disabled={props.disabled}
       style={props.style}
     >
-      <img src={buttonImage} width={'100%'} />
+      <img src={'/images/woodButton.svg'} width={'100%'} />
       <Text>{props.children}</Text>
     </CustomButton>
   );

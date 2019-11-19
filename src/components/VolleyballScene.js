@@ -1,13 +1,8 @@
 import React from 'react';
 import styled from 'styled-components';
 
-// Images
-import net from '../resources/images/net.svg';
-import danny from '../resources/images/danny.svg';
-import karen from '../resources/images/karen.svg';
-
 const Karen = styled.img.attrs(props => ({
-  src: karen
+  src: '/images/karen.svg'
 }))`
   position: absolute;
   width: 200px;
@@ -31,7 +26,7 @@ const Karen = styled.img.attrs(props => ({
 `;
 
 const Danny = styled.img.attrs(props => ({
-  src: danny
+  src: '/images/danny.svg'
 }))`
   position: absolute;
   width: 200px;
@@ -58,7 +53,7 @@ const VolleyballScene = ({style, ...props}) => {
     <div {...props} style={{width: '100%', height: 600}}>
       <Karen />
       <img
-        src={net}
+        src={'/images/net.svg'}
         style={{
           position: 'absolute',
           width: 400,

@@ -4,9 +4,6 @@ import './index.css';
 import App from './App';
 import * as serviceWorker from './serviceWorker';
 import 'semantic-ui-less/semantic.less';
-import './resources/fonts/AvenirNextLTPro-Regular.otf';
-import './resources/fonts/InkFree.woff';
-import './resources/fonts/InkFree.woff2';
 import {BrowserRouter as Router} from 'react-router-dom';
 
 ReactDOM.render(

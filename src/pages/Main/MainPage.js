@@ -10,27 +10,6 @@ import SocialButton from '../../components/SocialButton';
 import VolleyballScene from '../../components/VolleyballScene';
 import WoodButton from '../../components/Button';
 
-// Import image assets
-import sunnyDock from '../../resources/images/background.svg';
-import cloud1 from '../../resources/images/cloud1.svg';
-import cloud2 from '../../resources/images/cloud2.svg';
-// Flare
-import sun from '../../resources/images/sun.svg';
-import yellowFlare from '../../resources/images/yellowFlare.svg';
-import smallYellowFlare from '../../resources/images/smallYellowFlare.svg';
-import redFlare from '../../resources/images/redFlare.svg';
-import flare from '../../resources/images/flare.svg';
-import sandToWater from '../../resources/images/sandToWater.svg';
-import water from '../../resources/images/water.png';
-import rocksWall from '../../resources/images/rocksWall.png';
-import gatorSwan from '../../resources/images/gatorSwan.svg';
-import fbLogo from '../../resources/images/fbLogo.png';
-import mainTitle from '../../resources/images/mainTitle.svg';
-import sponsorsComingSoon from '../../resources/images/sponsorsComingSoon.svg';
-import sailing from '../../resources/images/sailing.svg';
-
-const images = [sunnyDock, cloud1, cloud2, flare];
-
 // For flare animation
 // TODO: Separate flare animation into separate circles + into component
 // Make the background move with it
@@ -63,7 +42,7 @@ const SunnyDock = styled.div`
   z-index: 1;
   align-items: center;
   justify-content: flex-end;
-  background-image: url(${sunnyDock});
+  background-image: url('/images/background.svg');
   background-repeat: no-repeat;
   background-size: cover;
   background-position: center bottom;
@@ -72,14 +51,14 @@ const SunnyDock = styled.div`
 `;
 
 const Cloud1 = styled(animated.img).attrs(props => ({
-  src: cloud1
+  src: '/images/cloud1.svg'
 }))`
   width: 400px;
   z-index: 3;
 `;
 
 const Cloud2 = styled(animated.img).attrs(props => ({
-  src: cloud2
+  src: '/images/cloud2.svg'
 }))`
   width: 400px;
   z-index: 3;
@@ -338,16 +317,6 @@ const faq = [
 ];
 
 const MainPage = props => {
-  // TODO: This is intended to preload image assets. Make sure this actually works.
-  // https://stackoverflow.com/questions/3646036/preloading-images-with-javascript
-  useEffect(() => {
-    console.log('Loading images...');
-    for (const image in images) {
-      let i = new Image();
-      i.src = image;
-    }
-    console.log('Done.');
-  }, []);
   // For flare animation
   const [flareProps, setFlareProps] = useSpring(() => ({
     xy: [0, 0],
@@ -372,7 +341,7 @@ const MainPage = props => {
       >
         {/* For flare animation */}
         <animated.img
-          src={sun}
+          src={'/images/sun.svg'}
           style={{
             transform: sunProps.xy.interpolate(sunTrans),
             width: '300px',
@@ -380,7 +349,7 @@ const MainPage = props => {
           }}
         />
         <animated.img
-          src={smallYellowFlare}
+          src={'/images/smallYellowFlare.svg'}
           style={{
             transform: flareProps.xy.interpolate(smallYelTrans),
             width: '85px',
@@ -388,7 +357,7 @@ const MainPage = props => {
           }}
         />
         <animated.img
-          src={yellowFlare}
+          src={'/images/yellowFlare.svg'}
           style={{
             transform: flareProps.xy.interpolate(yelTrans),
             width: '125px',
@@ -396,7 +365,7 @@ const MainPage = props => {
           }}
         />
         <animated.img
-          src={redFlare}
+          src={'/images/redFlare.svg'}
           style={{
             transform: flareProps.xy.interpolate(redTrans),
             width: '50px',
@@ -416,7 +385,7 @@ const MainPage = props => {
           }}
         >
           <img
-            src={mainTitle}
+            src={'/images/mainTitle.svg'}
             style={{zIndex: 2, width: '40vw', minWidth: 350}}
           />
           <ButtonContainer>
@@ -474,13 +443,19 @@ const MainPage = props => {
           </Grid.Column>
         </Grid>
       </ContentContainer>
-      <TransitionImage src={sandToWater} style={{backgroundColor: '#FFD59A'}} />
+      <TransitionImage
+        src={'/images/sandToWater.svg'}
+        style={{backgroundColor: '#FFD59A'}}
+      />
       {/* Schedule of Events */}
       <ContentContainer
-        style={{backgroundImage: `url(${water})`, alignItems: 'flex-end'}}
+        style={{
+          backgroundImage: `url('/images/water.png')`,
+          alignItems: 'flex-end'
+        }}
       >
         <img
-          src={sailing}
+          src={'/images/sailing.svg'}
           style={{width: 400, position: 'absolute', left: 0}}
         />
         <Grid container padded>
@@ -525,7 +500,7 @@ const MainPage = props => {
       >
         <ContentContainer
           style={{
-            backgroundImage: `url(${rocksWall})`,
+            backgroundImage: `url('/images/rocksWall.png')`,
             alignItems: 'flex-start'
           }}
         >
@@ -558,7 +533,7 @@ const MainPage = props => {
                 <Grid.Row>
                   <Grid.Column>
                     <img
-                      src={sponsorsComingSoon}
+                      src={'/images/sponsorsComingSoon.svg'}
                       style={{width: '100%', maxWidth: 700}}
                     />
                   </Grid.Column>
@@ -603,7 +578,7 @@ const MainPage = props => {
             </ContentBlock>
           </Grid.Column>
         </Grid>
-        <img src={gatorSwan} style={{width: '100%'}} />
+        <img src={'/images/gatorSwan.svg'} style={{width: '100%'}} />
       </ContentContainer>
       {/* Footer */}
       <FooterContainer>
