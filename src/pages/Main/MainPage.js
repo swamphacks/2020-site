@@ -17,15 +17,15 @@ import ScrollToTop from '../../components/ScrollToTop';
 // TODO: Separate flare animation into separate circles + into component
 // Make the background move with it
 const calc = (x, y) => [x - window.innerWidth / 2, y - window.innerHeight / 2];
-const sunTrans = (x, y) => `translate3d(${x / 24 - 200}px,${y / 36 + 150}px,0)`;
-const redTrans = (x, y) => `translate3d(${x / 15 - 50}px,${y / 24 + 100}px,0)`;
-const yelTrans = (x, y) => `translate3d(${x / 15 - 100}px,${y / 24 + 100}px,0)`;
+const sunTrans = (x, y) => `translate3d(${x / 24 - 200}px,${y / 36 + 50}px,0)`;
+const redTrans = (x, y) => `translate3d(${x / 15 - 50}px,${y / 24 + 400}px,0)`;
+const yelTrans = (x, y) => `translate3d(${x / 15 - 100}px,${y / 24 + 300}px,0)`;
 const smallYelTrans = (x, y) =>
-  `translate3d(${x / 15 - 250}px,${y / 24 - 120}px,0)`;
+  `translate3d(${x / 15 - 300}px,${y / 24 + 0}px,0)`;
 const cloud1Trans = (x, y) =>
-  `translate3d(${x / 12 - 500}px,${y / 17 - 300}px,0)`;
+  `translate3d(${x / 18 - 500}px,${y / 27 + 100}px,0)`;
 const cloud2Trans = (x, y) =>
-  `translate3d(${x / 12 + 500}px,${y / 19 - 300}px,0)`;
+  `translate3d(${x / 18 + 500}px,${y / 27 + 150}px,0)`;
 
 // Styled components
 const RootContainer = styled.div`
@@ -57,7 +57,7 @@ const RocksWall = styled.div`
   background-image: url('/images/rocksWall.png');
   background-repeat: no-repeat;
   background-size: cover;
-  background-position: center bottom;
+  background-position: right bottom;
   position: relative;
 `;
 
@@ -89,6 +89,8 @@ const Cloud1 = styled(animated.img).attrs(props => ({
 }))`
   width: 400px;
   z-index: 3;
+  position: absolute;
+  top: 0;
 `;
 
 const Cloud2 = styled(animated.img).attrs(props => ({
@@ -96,6 +98,8 @@ const Cloud2 = styled(animated.img).attrs(props => ({
 }))`
   width: 400px;
   z-index: 3;
+  position: absolute;
+  top: 0;
 `;
 
 const ButtonContainer = styled.div`
@@ -388,7 +392,9 @@ const MainPage = props => {
           style={{
             transform: sunProps.xy.interpolate(sunTrans),
             width: '300px',
-            zIndex: 2
+            zIndex: 2,
+            position: 'absolute',
+            top: 0
           }}
         />
         <animated.img
@@ -396,7 +402,9 @@ const MainPage = props => {
           style={{
             transform: flareProps.xy.interpolate(smallYelTrans),
             width: '85px',
-            zIndex: 3
+            zIndex: 3,
+            position: 'absolute',
+            top: 0
           }}
         />
         <animated.img
@@ -404,7 +412,9 @@ const MainPage = props => {
           style={{
             transform: flareProps.xy.interpolate(yelTrans),
             width: '125px',
-            zIndex: 3
+            zIndex: 3,
+            position: 'absolute',
+            top: 0
           }}
         />
         <animated.img
@@ -412,38 +422,43 @@ const MainPage = props => {
           style={{
             transform: flareProps.xy.interpolate(redTrans),
             width: '50px',
-            zIndex: 3
+            zIndex: 3,
+            position: 'absolute',
+            top: 0
           }}
         />
         <Cloud1 style={{transform: cloudProps.xy.interpolate(cloud1Trans)}} />
         <Cloud2 style={{transform: cloudProps.xy.interpolate(cloud2Trans)}} />
-        {/* <div
+        <div
           style={{
             width: '100%',
             height: '100%',
             display: 'flex',
             alignItems: 'center',
             justifyContent: 'center',
-            flexDirection: 'column'
+            flexDirection: 'column',
+            zIndex: 4
           }}
-        > */}
-        <img
-          src={'/images/mainTitle.svg'}
-          style={{zIndex: 2, width: '40vw', minWidth: 350}}
-        />
-        <ButtonContainer>
-          <WoodButton
-            onClick={() => {
-              props.history.push('/application');
-            }}
+        >
+          <img
+            src={'/images/mainTitle.svg'}
+            style={{zIndex: 2, width: '40vw', minWidth: 350}}
           />
-          <WoodButton
-            sponsor
-            onClick={() => {
-              window.location.href = 'mailto:sponsors@swamphacks.com';
-            }}
-          />
-        </ButtonContainer>
+          <ButtonContainer>
+            <WoodButton
+              onClick={() => {
+                props.history.push('/application');
+              }}
+            />
+            <WoodButton
+              sponsor
+              onClick={() => {
+                window.location.href = 'mailto:sponsors@swamphacks.com';
+              }}
+            />
+          </ButtonContainer>
+        </div>
+
         {/* </div> */}
       </SunnyDock>
       {/* Welcome to the swamp */}
