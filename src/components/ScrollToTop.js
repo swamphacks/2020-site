@@ -2,6 +2,7 @@ import React, {useState, useEffect} from 'react';
 import styled from 'styled-components';
 import {animateScroll} from 'react-scroll';
 import {Transition} from 'semantic-ui-react';
+import {Events} from 'react-scroll';
 
 // https://www.sitepoint.com/throttle-scroll-events/
 function throttle(fn, wait) {
@@ -50,7 +51,8 @@ const ScrollToTop = () => {
     }
   };
   useEffect(() => {
-    window.addEventListener('scroll', throttle(handleScroll, 1000));
+    window.addEventListener('scroll', throttle(handleScroll, 200));
+    Events.scrollEvent.register('end', handleScroll);
   }, []);
   return (
     <Transition visible={isScrolled} animation='fade left'>
@@ -62,7 +64,6 @@ const ScrollToTop = () => {
             delay: DELAY,
             smooth: true
           });
-          setTimeout(() => setIsScrolled(false), DELAY + DURATION);
         }}
       />
     </Transition>
