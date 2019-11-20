@@ -59,6 +59,9 @@ const RocksWall = styled.div`
   background-size: cover;
   background-position: right bottom;
   position: relative;
+  @media screen and (max-width: 768px) {
+    background-position: left bottom;
+  }
 `;
 
 const SunnyDock = styled.div`
@@ -91,6 +94,9 @@ const Cloud1 = styled(animated.img).attrs(props => ({
   z-index: 3;
   position: absolute;
   top: 0;
+  @media screen and (max-width: 768px) {
+    display: none;
+  }
 `;
 
 const Cloud2 = styled(animated.img).attrs(props => ({
@@ -100,6 +106,9 @@ const Cloud2 = styled(animated.img).attrs(props => ({
   z-index: 3;
   position: absolute;
   top: 0;
+  @media screen and (max-width: 768px) {
+    display: none;
+  }
 `;
 
 const ButtonContainer = styled.div`
@@ -181,6 +190,9 @@ const WaterScene = styled.img.attrs(props => ({
     100% {
       transform: rotate(0);
     }
+  }
+  @media screen and (max-width: 1300px) {
+    display: none;
   }
 `;
 

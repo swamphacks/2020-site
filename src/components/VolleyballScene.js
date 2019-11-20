@@ -48,9 +48,17 @@ const Danny = styled.img.attrs(props => ({
   }
 `;
 
+const Container = styled.div`
+  width: 600px;
+  height: 600px;
+  @media screen and (max-width: 1300px) {
+    display: none;
+  }
+`;
+
 const VolleyballScene = ({style, ...props}) => {
   return (
-    <div style={{width: 600, height: 600, ...style}}>
+    <Container style={style}>
       <Karen />
       <img
         src={'/images/net.svg'}
@@ -62,7 +70,7 @@ const VolleyballScene = ({style, ...props}) => {
         }}
       />
       <Danny />
-    </div>
+    </Container>
   );
 };
 

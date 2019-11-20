@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 
-import {Header} from 'semantic-ui-react';
+import {Header, Responsive} from 'semantic-ui-react';
 import {scroller} from 'react-scroll';
 
 const Container = styled.div`
@@ -33,7 +33,7 @@ const Button = styled.div`
 
 const ScrollNav = ({items}) => {
   return (
-    <Container>
+    <Responsive as={Container} minWidth={600}>
       <List>
         {items.map(({label, scrollId}, index) => {
           return (
@@ -53,7 +53,7 @@ const ScrollNav = ({items}) => {
           );
         })}
       </List>
-    </Container>
+    </Responsive>
   );
 };
 
