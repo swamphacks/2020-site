@@ -129,12 +129,19 @@ const ButtonContainer = styled.div`
 const ContentContainer = styled.div`
   width: 100vw;
   display: flex;
-  align-items: center;
+  align-items: ${props => {
+    if (props.left) return 'flex-start';
+    if (props.right) return 'flex-end';
+    return 'center';
+  }};
   justify-content: center;
   background-repeat: no-repeat;
   background-size: cover;
   background-position: right top;
   flex-direction: column;
+  @media screen and (max-width: 1400px) {
+    align-items: center;
+  }
 `;
 
 const ContentBlock = styled(Container)`
@@ -521,9 +528,9 @@ const MainPage = props => {
       {/* Welcome to the swamp */}
       <Element name='aboutSection'>
         <ContentContainer
+          left
           style={{
-            backgroundColor: '#FFD59A',
-            alignItems: 'flex-start'
+            backgroundColor: '#FFD59A'
           }}
         >
           <VolleyballScene
@@ -570,40 +577,45 @@ const MainPage = props => {
       {/* Schedule of Events */}
       <Element name='scheduleSection'>
         <ContentContainer
+          right
           style={{
             backgroundImage: `url('/images/waves.svg')`,
             backgroundColor: '#1475BC'
           }}
         >
           <WaterScene />
-          <ContentBlock text>
-            <Header size='huge' inverted>
-              Schedule of Events
-            </Header>
-            <Segment>
-              {events.map(obj => {
-                return (
-                  <React.Fragment key={obj.day}>
-                    <Header size='medium'>{obj.day}</Header>
-                    <Grid columns='equal' celled='internally'>
-                      {obj.events.map(e => {
-                        return (
-                          <Grid.Row key={e.name}>
-                            <Grid.Column>
-                              <Header size='tiny'>{e.name}</Header>
-                            </Grid.Column>
-                            <Grid.Column textAlign='right'>
-                              <Header size='tiny'>{e.time}</Header>
-                            </Grid.Column>
-                          </Grid.Row>
-                        );
-                      })}
-                    </Grid>
-                  </React.Fragment>
-                );
-              })}
-            </Segment>
-          </ContentBlock>
+          <Grid container padded>
+            <Grid.Column>
+              <ContentBlock text>
+                <Header size='huge' inverted>
+                  Schedule of Events
+                </Header>
+                <Segment>
+                  {events.map(obj => {
+                    return (
+                      <React.Fragment key={obj.day}>
+                        <Header size='medium'>{obj.day}</Header>
+                        <Grid columns='equal' celled='internally'>
+                          {obj.events.map(e => {
+                            return (
+                              <Grid.Row key={e.name}>
+                                <Grid.Column>
+                                  <Header size='tiny'>{e.name}</Header>
+                                </Grid.Column>
+                                <Grid.Column textAlign='right'>
+                                  <Header size='tiny'>{e.time}</Header>
+                                </Grid.Column>
+                              </Grid.Row>
+                            );
+                          })}
+                        </Grid>
+                      </React.Fragment>
+                    );
+                  })}
+                </Segment>
+              </ContentBlock>
+            </Grid.Column>
+          </Grid>
         </ContentContainer>
       </Element>
       {/* FAQ */}
