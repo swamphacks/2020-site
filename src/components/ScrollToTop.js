@@ -1,6 +1,18 @@
-import React from 'react';
+import React, {useState, useEffect} from 'react';
 import styled from 'styled-components';
 import {animateScroll} from 'react-scroll';
+import {Transition} from 'semantic-ui-react';
+
+// https://www.sitepoint.com/throttle-scroll-events/
+function throttle(fn, wait) {
+  var time = Date.now();
+  return function() {
+    if (time + wait - Date.now() < 0) {
+      fn();
+      time = Date.now();
+    }
+  };
+}
 
 const Button = styled.img`
   width: 30px;
@@ -24,18 +36,36 @@ const Button = styled.img`
   }
 `;
 
+const SHOW_POS = 150;
+const DELAY = 50;
+const DURATION = 1000;
+
 const ScrollToTop = () => {
+  const [isScrolled, setIsScrolled] = useState(false);
+  const handleScroll = () => {
+    if (window.pageYOffset > SHOW_POS) {
+      setIsScrolled(true);
+    } else {
+      setIsScrolled(false);
+    }
+  };
+  useEffect(() => {
+    window.addEventListener('scroll', throttle(handleScroll, 1000));
+  }, []);
   return (
-    <Button
-      src='/images/arrow.svg'
-      onClick={() => {
-        animateScroll.scrollToTop({
-          duration: 1000,
-          delay: 50,
-          smooth: true
-        });
-      }}
-    />
+    <Transition visible={isScrolled} animation='fade left'>
+      <Button
+        src='/images/arrow.svg'
+        onClick={() => {
+          animateScroll.scrollToTop({
+            duration: DURATION,
+            delay: DELAY,
+            smooth: true
+          });
+          setTimeout(() => setIsScrolled(false), DELAY + DURATION);
+        }}
+      />
+    </Transition>
   );
 };
 
