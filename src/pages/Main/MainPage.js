@@ -3,12 +3,15 @@ import styled from 'styled-components';
 // Semantic UI
 import {Grid, Header, Container, Icon, Table, Button} from 'semantic-ui-react';
 import {Link, withRouter} from 'react-router-dom';
+import {Element} from 'react-scroll';
 import {useSpring, animated} from 'react-spring';
 import ModularAccordion from '../../components/Accordion';
 // Custom components
 import SocialButton from '../../components/SocialButton';
 import VolleyballScene from '../../components/VolleyballScene';
 import WoodButton from '../../components/Button';
+import ScrollNav from '../../components/ScrollNav';
+import ScrollToTop from '../../components/ScrollToTop';
 
 // For flare animation
 // TODO: Separate flare animation into separate circles + into component
@@ -362,7 +365,16 @@ const MainPage = props => {
     config: {mass: 50, tension: 1000, friction: 550}
   }));
   return (
-    <RootContainer>
+    <RootContainer id='mainRootContainer'>
+      <ScrollNav
+        items={[
+          {label: 'About', scrollId: 'aboutSection'},
+          {label: 'Schedule', scrollId: 'scheduleSection'},
+          {label: 'FAQ', scrollId: 'faqSection'},
+          {label: 'Sponsors', scrollId: 'sponsorSection'}
+        ]}
+      />
+      <ScrollToTop />
       <SunnyDock
         onMouseMove={e => {
           setFlareProps({xy: calc(e.clientX, e.clientY)});
@@ -435,128 +447,140 @@ const MainPage = props => {
         {/* </div> */}
       </SunnyDock>
       {/* Welcome to the swamp */}
-      <ContentContainer
-        style={{
-          backgroundColor: '#FFD59A'
-        }}
-      >
-        <Grid container padded>
-          <Grid.Column>
-            <ContentBlock text>
-              <Header size='huge'>Welcome to the Swamp!</Header>
-              <p>
-                Swamphacks VI is 36 hours of learning, coding, and creativity.
-                For a whole weekend, over 650 students nationwide come together
-                as developers, engineers, and designers. We welcome all people
-                with a desire to build and learn by making.
-              </p>
-              <p>
-                Experience software development in sunny Gainesville, Florida
-                through our hackathon! No experience is necessary to
-                participate; we welcome everyone regardless of year in school.
-                From seasoned mentors to intriguing workshops, Swamphacks VI
-                supports all student activities and encourages “outside the box”
-                thinking. Join us to meet some of the brightest minds in the
-                South and have an awesome weekend in our swamp.
-              </p>
-              <p>
-                This year, Swamphacks VI aims to make our event more sustainable
-                by reducing our waste and carbon output. Our goal is to use more
-                compostable material, encourage our Sponsors to travel
-                sustainably, and provide hackers with eco-friendly swag.
-              </p>
-              <VolleyballScene />
-            </ContentBlock>
-          </Grid.Column>
-        </Grid>
-      </ContentContainer>
+      <Element name='aboutSection'>
+        <ContentContainer
+          style={{
+            backgroundColor: '#FFD59A'
+          }}
+        >
+          <Grid container padded>
+            <Grid.Column>
+              <ContentBlock text>
+                <Header size='huge'>Welcome to the Swamp!</Header>
+                <p>
+                  Swamphacks VI is 36 hours of learning, coding, and creativity.
+                  For a whole weekend, over 650 students nationwide come
+                  together as developers, engineers, and designers. We welcome
+                  all people with a desire to build and learn by making.
+                </p>
+                <p>
+                  Experience software development in sunny Gainesville, Florida
+                  through our hackathon! No experience is necessary to
+                  participate; we welcome everyone regardless of year in school.
+                  From seasoned mentors to intriguing workshops, Swamphacks VI
+                  supports all student activities and encourages “outside the
+                  box” thinking. Join us to meet some of the brightest minds in
+                  the South and have an awesome weekend in our swamp.
+                </p>
+                <p>
+                  This year, Swamphacks VI aims to make our event more
+                  sustainable by reducing our waste and carbon output. Our goal
+                  is to use more compostable material, encourage our Sponsors to
+                  travel sustainably, and provide hackers with eco-friendly
+                  swag.
+                </p>
+                <VolleyballScene />
+              </ContentBlock>
+            </Grid.Column>
+          </Grid>
+        </ContentContainer>
+      </Element>
       <TransitionImage
         src={'/images/sandToWater.svg'}
         style={{backgroundColor: '#FFD59A'}}
       />
       {/* Schedule of Events */}
-      <ContentContainer
-        style={{
-          backgroundImage: `url('/images/water.png')`,
-          alignItems: 'flex-end'
-        }}
-      >
-        <img
-          src={'/images/sailing.svg'}
-          style={{width: 400, position: 'absolute', left: 0}}
-        />
-        <Grid container padded>
-          <Grid.Column>
-            <ContentBlock text>
-              <Header size='huge' inverted>
-                Schedule of Events
-              </Header>
-
-              <Table>
-                {events.map(obj => (
-                  <React.Fragment key={obj.day}>
-                    <Table.Header fullWidth>
-                      <Table.Row>
-                        <Table.HeaderCell>{obj.day}</Table.HeaderCell>
-                        <Table.HeaderCell></Table.HeaderCell>
-                      </Table.Row>
-                    </Table.Header>
-                    <Table.Body>
-                      {obj.events.map(event => (
-                        <Table.Row key={event.name}>
-                          <Table.Cell>{event.name}</Table.Cell>
-                          <Table.Cell textAlign='right'>
-                            {event.time}
-                          </Table.Cell>
-                        </Table.Row>
-                      ))}
-                    </Table.Body>
-                  </React.Fragment>
-                ))}
-              </Table>
-            </ContentBlock>
-          </Grid.Column>
-        </Grid>
-      </ContentContainer>
-      {/* FAQ */}
-      <ContentContainer
-        style={{
-          backgroundImage:
-            'linear-gradient(180deg, rgba(20,117,188,1) 9.34%, rgba(64,199,244,1) 49.4%, rgba(255,255,253,1) 91.26%)'
-        }}
-      >
-        <div style={{height: 0}}>
-          <RocksWall />
-        </div>
-        <ContentBlock text style={{minHeight: '100vh', zIndex: '3'}}>
-          <Header size='huge' inverted>
-            Frequently Asked Questions
-          </Header>
-          <ModularAccordion items={faq} />
-        </ContentBlock>
-      </ContentContainer>
-      {/* Sponsors */}
-      <ContentContainer
-        style={{
-          backgroundImage:
-            'linear-gradient(180deg, rgba(120,107,102,1) 9.34%, rgba(250,172,98,1) 49.4%, rgba(254,228,116,1) 91.26%)'
-        }}
-      >
-        <ContentBlock
+      <Element name='scheduleSection'>
+        <ContentContainer
           style={{
-            minHeight: '50vh',
-            alignItems: 'center',
-            justifyContent: 'center',
-            display: 'flex'
+            backgroundImage: `url('/images/water.png')`,
+            alignItems: 'flex-end'
           }}
         >
           <img
-            src={'/images/sponsorsComingSoon.svg'}
-            style={{width: '100%', maxWidth: 700}}
+            src={'/images/sailing.svg'}
+            style={{width: 400, position: 'absolute', left: 0}}
           />
-        </ContentBlock>
-        <img src={'/images/gatorSwan.svg'} style={{width: '100%'}} />
-      </ContentContainer>
+          <Grid container padded>
+            <Grid.Column>
+              <ContentBlock text>
+                <Header size='huge' inverted>
+                  Schedule of Events
+                </Header>
+
+                <Table>
+                  {events.map(obj => (
+                    <React.Fragment key={obj.day}>
+                      <Table.Header fullWidth>
+                        <Table.Row>
+                          <Table.HeaderCell>{obj.day}</Table.HeaderCell>
+                          <Table.HeaderCell></Table.HeaderCell>
+                        </Table.Row>
+                      </Table.Header>
+                      <Table.Body>
+                        {obj.events.map(event => (
+                          <Table.Row key={event.name}>
+                            <Table.Cell>{event.name}</Table.Cell>
+                            <Table.Cell textAlign='right'>
+                              {event.time}
+                            </Table.Cell>
+                          </Table.Row>
+                        ))}
+                      </Table.Body>
+                    </React.Fragment>
+                  ))}
+                </Table>
+              </ContentBlock>
+            </Grid.Column>
+          </Grid>
+        </ContentContainer>
+      </Element>
+      {/* FAQ */}
+      <Element name='faqSection'>
+        <ContentContainer
+          style={{
+            backgroundImage:
+              'linear-gradient(180deg, rgba(20,117,188,1) 9.34%, rgba(64,199,244,1) 49.4%, rgba(255,255,253,1) 91.26%)'
+          }}
+        >
+          <div style={{height: 0}}>
+            <RocksWall />
+          </div>
+          <ContentBlock text style={{minHeight: '100vh', zIndex: '3'}}>
+            <Header size='huge' inverted>
+              Frequently Asked Questions
+            </Header>
+            <ModularAccordion items={faq} />
+          </ContentBlock>
+        </ContentContainer>
+      </Element>
+      {/* Sponsors */}
+      <Element name='sponsorSection'>
+        <ContentContainer
+          style={{
+            backgroundImage:
+              'linear-gradient(180deg, rgba(120,107,102,1) 9.34%, rgba(250,172,98,1) 49.4%, rgba(254,228,116,1) 91.26%)'
+          }}
+        >
+          <ContentBlock
+            style={{
+              minHeight: '50vh',
+              alignItems: 'center',
+              justifyContent: 'center',
+              display: 'flex'
+            }}
+          >
+            <img
+              src={'/images/sponsorsComingSoon.svg'}
+              style={{width: '100%', maxWidth: 700}}
+            />
+          </ContentBlock>
+          <img
+            src={'/images/gatorSwan.png'}
+            style={{width: '100%', backgroundColor: '#586f52'}}
+          />
+        </ContentContainer>
+      </Element>
       {/* Footer */}
       <FooterContainer>
         <ContentBlock>
