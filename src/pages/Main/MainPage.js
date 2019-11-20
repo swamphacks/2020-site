@@ -164,6 +164,26 @@ const FooterLink = styled.a.attrs(props => ({
   }
 `;
 
+const WaterScene = styled.img.attrs(props => ({
+  src: '/images/sailing.svg'
+}))`
+  width: 600px;
+  position: absolute;
+  left: 0;
+  animation: watta 4s linear infinite;
+  @keyframes watta {
+    0% {
+      transform: rotate(0);
+    }
+    50% {
+      transform: rotate(5deg);
+    }
+    100% {
+      transform: rotate(0);
+    }
+  }
+`;
+
 const createEvent = (name, time) => ({
   name,
   time
@@ -465,9 +485,16 @@ const MainPage = props => {
       <Element name='aboutSection'>
         <ContentContainer
           style={{
-            backgroundColor: '#FFD59A'
+            backgroundColor: '#FFD59A',
+            alignItems: 'flex-start'
           }}
         >
+          <VolleyballScene
+            style={{
+              position: 'absolute',
+              right: 0
+            }}
+          />
           <Grid container padded>
             <Grid.Column>
               <ContentBlock text>
@@ -494,7 +521,6 @@ const MainPage = props => {
                   travel sustainably, and provide hackers with eco-friendly
                   swag.
                 </p>
-                <VolleyballScene />
               </ContentBlock>
             </Grid.Column>
           </Grid>
@@ -508,14 +534,12 @@ const MainPage = props => {
       <Element name='scheduleSection'>
         <ContentContainer
           style={{
-            backgroundImage: `url('/images/water.png')`,
-            alignItems: 'flex-end'
+            backgroundImage: `url('/images/waves.svg')`,
+            alignItems: 'flex-end',
+            backgroundColor: '#1475BC'
           }}
         >
-          <img
-            src={'/images/sailing.svg'}
-            style={{width: 400, position: 'absolute', left: 0}}
-          />
+          <WaterScene />
           <Grid container padded>
             <Grid.Column>
               <ContentBlock text>

@@ -50,7 +50,7 @@ const Danny = styled.img.attrs(props => ({
 
 const VolleyballScene = ({style, ...props}) => {
   return (
-    <div {...props} style={{width: '100%', height: 600}}>
+    <div style={{width: 600, height: 600, ...style}}>
       <Karen />
       <img
         src={'/images/net.svg'}
