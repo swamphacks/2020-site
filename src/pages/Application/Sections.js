@@ -223,44 +223,9 @@ const section2 = {
       componentType: 'Dropdown',
       options: [
         {
-          key: 'University of Florida',
-          text: 'University of Florida',
-          value: 'University of Florida'
-        },
-        {
-          key: 'University of Central Florida',
-          text: 'University of Central Florida',
-          value: 'University of Central Florida'
-        },
-        {
-          key: 'Florida International University',
-          text: 'Florida International University',
-          value: 'Florida International University'
-        },
-        {
-          key: 'University of South Florida',
-          text: 'University of South Florida',
-          value: 'University of South Florida'
-        },
-        {
-          key: 'Florida Institute of Technology',
-          text: 'Florida Institute of Technology',
-          value: 'Florida Institute of Technology'
-        },
-        {
-          key: 'Georgia Institute of Technology',
-          text: 'Georgia Institute of Technology',
-          value: 'Georgia Institute of Technology'
-        },
-        {
-          key: 'University of Georgia',
-          text: 'University of Georgia',
-          value: 'University of Georgia'
-        },
-        {
-          key: 'Georgia State University',
-          text: 'Georgia State University',
-          value: 'Georgia State University'
+          key: 'Embry–Riddle Aeronautical University',
+          text: 'Embry–Riddle Aeronautical University',
+          value: 'Embry–Riddle Aeronautical University'
         },
         {
           key: 'Florida Atlantic University',
@@ -268,9 +233,54 @@ const section2 = {
           value: 'Florida Atlantic University'
         },
         {
+          key: 'Florida Institute of Technology',
+          text: 'Florida Institute of Technology',
+          value: 'Florida Institute of Technology'
+        },
+        {
+          key: 'Florida International University',
+          text: 'Florida International University',
+          value: 'Florida International University'
+        },
+        {
+          key: 'Florida State University',
+          text: 'Florida State University',
+          value: 'Florida State University'
+        },
+        {
+          key: 'Georgia Institute of Technology',
+          text: 'Georgia Institute of Technology',
+          value: 'Georgia Institute of Technology'
+        },
+        {
+          key: 'Georgia State University',
+          text: 'Georgia State University',
+          value: 'Georgia State University'
+        },
+        {
+          key: 'University of Central Florida',
+          text: 'University of Central Florida',
+          value: 'University of Central Florida'
+        },
+        {
+          key: 'University of Florida',
+          text: 'University of Florida',
+          value: 'University of Florida'
+        },
+        {
+          key: 'University of Georgia',
+          text: 'University of Georgia',
+          value: 'University of Georgia'
+        },
+        {
           key: 'University of Miami',
           text: 'University of Miami',
           value: 'University of Miami'
+        },
+        {
+          key: 'University of South Florida',
+          text: 'University of South Florida',
+          value: 'University of South Florida'
         },
         {key: 'Other', text: 'Other (please type)', value: 'Other'}
       ],
