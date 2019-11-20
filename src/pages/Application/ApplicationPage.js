@@ -22,7 +22,7 @@ import {sections} from './Sections';
 const RegSign = styled.img.attrs(props => ({
   src: '/images/regSign.svg'
 }))`
-  max-width: 500px;
+  max-width: 600px;
   width: 80vw;
   z-index: 2;
   padding: 40px 0px;
