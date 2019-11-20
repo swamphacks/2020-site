@@ -67,7 +67,7 @@ const RocksWall = styled.div`
   background-size: cover;
   background-position: right bottom;
   position: relative;
-  @media screen and (max-width: 768px) {
+  @media screen and (max-width: 1100px) {
     background-position: left bottom;
   }
 `;
@@ -201,6 +201,17 @@ const WaterScene = styled.img.attrs(props => ({
   }
   @media screen and (max-width: 1300px) {
     display: none;
+  }
+`;
+
+const MainTitle = styled.img.attrs(props => ({
+  src: '/images/mainTitle.svg'
+}))`
+  z-index: 2;
+  width: 40vw;
+  max-width: 800px;
+  @media screen and (max-width: 768px) {
+    width: 80vw;
   }
 `;
 
@@ -485,13 +496,11 @@ const MainPage = props => {
             alignItems: 'center',
             justifyContent: 'center',
             flexDirection: 'column',
-            zIndex: 4
+            zIndex: 4,
+            paddingTop: '20%'
           }}
         >
-          <img
-            src={'/images/mainTitle.svg'}
-            style={{zIndex: 2, width: '40vw', minWidth: 350}}
-          />
+          <MainTitle />
           <ButtonContainer>
             <WoodButton
               onClick={() => {
