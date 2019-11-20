@@ -51,7 +51,7 @@ const Danny = styled.img.attrs(props => ({
 const Container = styled.div`
   width: 600px;
   height: 600px;
-  @media screen and (max-width: 1300px) {
+  @media screen and (max-width: 1400px) {
     display: none;
   }
 `;

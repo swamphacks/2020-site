@@ -1,7 +1,15 @@
 import React, {useState, useEffect} from 'react';
 import styled from 'styled-components';
 // Semantic UI
-import {Grid, Header, Container, Icon, Table, Button} from 'semantic-ui-react';
+import {
+  Grid,
+  Header,
+  Container,
+  Icon,
+  Table,
+  Button,
+  Segment
+} from 'semantic-ui-react';
 import {Link, withRouter} from 'react-router-dom';
 import {Element} from 'react-scroll';
 import {useSpring, animated} from 'react-spring';
@@ -205,25 +213,32 @@ const events = [
   {
     day: 'Friday',
     events: [
-      createEvent('Test1', '8:30 AM'),
-      createEvent('Test2', '8:30 AM'),
-      createEvent('Test3', '8:30 AM')
+      createEvent('Check-In', '5:30-7:30 PM'),
+      createEvent('Dinner', '6:00-8:00 PM'),
+      createEvent('Team Building', '6:30-8:00 PM'),
+      createEvent('Opening Ceremony', '8:00-9:00 PM'),
+      createEvent('Sponsor Fair', '9:00-10:00 PM'),
+      createEvent('Hacking Begins', '10:00 PM')
     ]
   },
   {
     day: 'Saturday',
     events: [
-      createEvent('Test1', '8:30 AM'),
-      createEvent('Test2', '8:30 AM'),
-      createEvent('Test3', '8:30 AM')
+      createEvent('Midnight Snack', '12:00 AM'),
+      createEvent('Breakfast', '8:00-9:00 AM'),
+      createEvent('Lunch', '1:00-2:30 PM'),
+      createEvent('Dinner', '6:00-7:30 PM')
     ]
   },
   {
     day: 'Sunday',
     events: [
-      createEvent('Test1', '8:30 AM'),
-      createEvent('Test2', '8:30 AM'),
-      createEvent('Test3', '8:30 AM')
+      createEvent('Midnight Snack', '12:00 AM'),
+      createEvent('Breakfast', '6:00-8:00 AM'),
+      createEvent('Devpost Submissions Close', '8:00 AM'),
+      createEvent('Hacking Ends + Lunch', '10:00 AM'),
+      createEvent('Demo Waves', '11:00 AM - 2:00 PM'),
+      createEvent('Closing Ceremony', '2:30-3:30 PM')
     ]
   }
 ];
@@ -400,6 +415,7 @@ const MainPage = props => {
     xy: [0, 0],
     config: {mass: 50, tension: 1000, friction: 550}
   }));
+
   return (
     <RootContainer id='mainRootContainer'>
       <ScrollNav
@@ -547,43 +563,38 @@ const MainPage = props => {
         <ContentContainer
           style={{
             backgroundImage: `url('/images/waves.svg')`,
-            alignItems: 'flex-end',
             backgroundColor: '#1475BC'
           }}
         >
           <WaterScene />
-          <Grid container padded>
-            <Grid.Column>
-              <ContentBlock text>
-                <Header size='huge' inverted>
-                  Schedule of Events
-                </Header>
-
-                <Table>
-                  {events.map(obj => (
-                    <React.Fragment key={obj.day}>
-                      <Table.Header fullWidth>
-                        <Table.Row>
-                          <Table.HeaderCell>{obj.day}</Table.HeaderCell>
-                          <Table.HeaderCell></Table.HeaderCell>
-                        </Table.Row>
-                      </Table.Header>
-                      <Table.Body>
-                        {obj.events.map(event => (
-                          <Table.Row key={event.name}>
-                            <Table.Cell>{event.name}</Table.Cell>
-                            <Table.Cell textAlign='right'>
-                              {event.time}
-                            </Table.Cell>
-                          </Table.Row>
-                        ))}
-                      </Table.Body>
-                    </React.Fragment>
-                  ))}
-                </Table>
-              </ContentBlock>
-            </Grid.Column>
-          </Grid>
+          <ContentBlock text>
+            <Header size='huge' inverted>
+              Schedule of Events
+            </Header>
+            <Segment>
+              {events.map(obj => {
+                return (
+                  <React.Fragment key={obj.day}>
+                    <Header size='medium'>{obj.day}</Header>
+                    <Grid columns='equal' celled='internally'>
+                      {obj.events.map(e => {
+                        return (
+                          <Grid.Row key={e.name}>
+                            <Grid.Column>
+                              <Header size='tiny'>{e.name}</Header>
+                            </Grid.Column>
+                            <Grid.Column textAlign='right'>
+                              <Header size='tiny'>{e.time}</Header>
+                            </Grid.Column>
+                          </Grid.Row>
+                        );
+                      })}
+                    </Grid>
+                  </React.Fragment>
+                );
+              })}
+            </Segment>
+          </ContentBlock>
         </ContentContainer>
       </Element>
       {/* FAQ */}
