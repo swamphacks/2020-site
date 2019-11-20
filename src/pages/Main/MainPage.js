@@ -54,10 +54,10 @@ const RocksWall = styled.div`
   width: 100vw;
   height: 100vh;
   z-index: 1;
-  background-image: url('/images/rocksWall.svg');
+  background-image: url('/images/rocksWall.png');
   background-repeat: no-repeat;
   background-size: cover;
-  background-position: center top;
+  background-position: center bottom;
   position: relative;
 `;
 
@@ -539,12 +539,18 @@ const MainPage = props => {
       <Element name='faqSection'>
         <ContentContainer
           style={{
-            backgroundImage:
-              'linear-gradient(180deg, rgba(20,117,188,1) 9.34%, rgba(64,199,244,1) 49.4%, rgba(255,255,253,1) 91.26%)'
+            background: '#786b66'
           }}
         >
           <div style={{height: 0}}>
-            <RocksWall />
+            <div
+              style={{
+                backgroundImage:
+                  'linear-gradient(180deg, rgba(20,117,188,1) 9.34%, rgba(64,199,244,1) 49.4%, rgba(255,255,253,1) 91.26%)'
+              }}
+            >
+              <RocksWall />
+            </div>
           </div>
           <ContentBlock text style={{minHeight: '100vh', zIndex: '3'}}>
             <Header size='huge' inverted>
@@ -556,25 +562,28 @@ const MainPage = props => {
       </Element>
       {/* Sponsors */}
       <Element name='sponsorSection'>
-        <ContentContainer
-          style={{
-            backgroundImage:
-              'linear-gradient(180deg, rgba(120,107,102,1) 9.34%, rgba(250,172,98,1) 49.4%, rgba(254,228,116,1) 91.26%)'
-          }}
-        >
-          <ContentBlock
+        <ContentContainer>
+          <ContentContainer
             style={{
-              minHeight: '50vh',
-              alignItems: 'center',
-              justifyContent: 'center',
-              display: 'flex'
+              backgroundImage:
+                'linear-gradient(180deg, rgba(120,107,102,1) 9.34%, rgba(250,172,98,1) 49.4%, rgba(254,228,116,1) 91.26%)'
             }}
           >
-            <img
-              src={'/images/sponsorsComingSoon.svg'}
-              style={{width: '100%', maxWidth: 700}}
-            />
-          </ContentBlock>
+            <ContentBlock
+              style={{
+                minHeight: '50vh',
+                alignItems: 'center',
+                justifyContent: 'center',
+                display: 'flex'
+              }}
+            >
+              <img
+                src={'/images/sponsorsComingSoon.svg'}
+                style={{width: '100%', maxWidth: 700}}
+              />
+            </ContentBlock>
+          </ContentContainer>
+
           <img
             src={'/images/gatorSwan.png'}
             style={{width: '100%', backgroundColor: '#586f52'}}
@@ -630,7 +639,7 @@ const MainPage = props => {
                 <FooterLink href='https://2019.swamphacks.com'>
                   Last Year's Site
                 </FooterLink>
-                <FooterLink href='http://www.google.com'>
+                <FooterLink href='https://swamphacks-v.devpost.com/?ref_content=default&ref_feature=challenge&ref_medium=discover'>
                   Last Year's Devpost
                 </FooterLink>
               </Grid.Column>

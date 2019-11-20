@@ -35,9 +35,9 @@ const ScrollNav = ({items}) => {
   return (
     <Container>
       <List>
-        {items.map(({label, scrollId}) => {
+        {items.map(({label, scrollId}, index) => {
           return (
-            <Item>
+            <Item key={label + index}>
               <Button
                 onClick={() => {
                   scroller.scrollTo(scrollId, {
