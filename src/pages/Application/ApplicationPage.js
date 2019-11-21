@@ -53,7 +53,6 @@ const ApplicationPage = () => {
       newHistory[currSection][keys[i]] = values[keys[i]];
     }
     setHistory(newHistory);
-    console.log(newHistory);
     if (currSection < sections.length - 1) {
       setCurrSection(currSection + 1);
       formikApi.setSubmitting(false);
@@ -74,7 +73,6 @@ const ApplicationPage = () => {
           for (let i = 0; i < newHistory.length; i++) {
             combined = {...combined, ...newHistory[i]};
           }
-          console.log(combined);
           const {
             resume,
             password,
@@ -133,8 +131,6 @@ const ApplicationPage = () => {
   const _handleReset = (values, formikApi) => {
     setCurrSection(currSection - 1);
   };
-
-  console.log(history[currSection]);
 
   // See https://www.npmjs.com/package/formik-semantic-ui
   // For documentation on some of these
