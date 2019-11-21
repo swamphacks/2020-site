@@ -28,10 +28,9 @@ const App = () => {
   const location = useLocation();
   return (
     <Switch location={location}>
-      {/* <Route exact path='/' component={MainPage} /> */}
-      <Route exact path='/' component={Placeholder} />
+      <Route exact path='/' component={MainPage} />
+      {/* <Route exact path='/' component={Placeholder} /> */}
       <Route exact path='/comingsoon' component={() => <Redirect to='/' />} />
-      <Route exact path='/test' component={MainPage} />
       <Route exact path='/application' component={ApplicationPage} />
       <Route path='/SponsorshipProspectus.pdf' exact />
       <Route path='/PhotoReleaseForm.pdf' exact />

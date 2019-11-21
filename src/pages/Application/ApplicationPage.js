@@ -151,7 +151,7 @@ const ApplicationPage = () => {
               </p>
             </Modal.Description>
             <ButtonGroup>
-              <SUIButton as={Link} to='/test' primary>
+              <SUIButton as={Link} to='/' primary>
                 Ok
               </SUIButton>
             </ButtonGroup>
@@ -281,7 +281,7 @@ const ApplicationPage = () => {
                   })}
                   <ButtonGroup>
                     {currSection === 0 && (
-                      <SUIButton as={Link} to='/test' basic>
+                      <SUIButton as={Link} to='/' basic>
                         Cancel
                       </SUIButton>
                     )}
