@@ -10,6 +10,9 @@ const Container = styled.div`
   left: 0;
   z-index: 1000;
   padding: 40px;
+  @media screen and (max-width: 600px) {
+    position: fixed;
+  }
 `;
 
 const Hamburger = styled.img`
@@ -26,6 +29,9 @@ const Hamburger = styled.img`
 `;
 
 const Close = styled.img`
+  position: absolute;
+  top: 40px;
+  left: 40px;
   fill: black;
   width: 30px;
   -webkit-transition: transform 0.2s;
@@ -66,7 +72,7 @@ const Drawer = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
-  background-color: white;
+  background-color: #ffd59a;
 `;
 
 const ScrollNav = ({items}) => {
@@ -101,9 +107,9 @@ const ScrollNav = ({items}) => {
         />
         {open && (
           <Spring
-            from={{left: -100}}
+            from={{opacity: 0}}
             to={{
-              left: 0
+              opacity: 1
             }}
           >
             {props => (
@@ -115,7 +121,14 @@ const ScrollNav = ({items}) => {
                 <List>
                   {items.map(({label, scrollId}, index) => {
                     return (
-                      <Item key={label + index} style={{float: 'none'}}>
+                      <Item
+                        key={label + index}
+                        style={{
+                          float: 'none',
+                          paddingTop: 20,
+                          paddingBottom: 20
+                        }}
+                      >
                         <Button
                           onClick={() => {
                             scroller.scrollTo(scrollId, {
@@ -123,9 +136,10 @@ const ScrollNav = ({items}) => {
                               delay: 50,
                               smooth: true
                             });
+                            setOpen(false);
                           }}
                         >
-                          <Header>{label}</Header>
+                          <Header textAlign='center'>{label}</Header>
                         </Button>
                       </Item>
                     );

@@ -142,7 +142,8 @@ const section1 = {
       componentType: 'TextField',
       componentProps: {
         required: true,
-        placeholder: '##########'
+        placeholder: '##########',
+        maxLength: 10
       }
     },
     {
@@ -287,7 +288,10 @@ const section2 = {
       componentProps: {
         required: true,
         placeholder: 'Select or type...',
-        search: true
+        search: true,
+        allowAdditions: true,
+        additionLabel: 'Other: ',
+        additionPosition: 'bottom'
       }
     },
     {
@@ -725,8 +729,8 @@ const section6 = {
       .string()
       .required('This field is required.')
       .matches(
-        /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{8,}$/,
-        'Your password must be at least 8 characters long and must include 1 uppercase character, 1 lowercase character, and 1 number.'
+        /^(?=.*[A-Z])(?=.*[!@#$&*%^&*()_+=-])(?=.*[0-9])(?=.*[a-z]).{8,}$/,
+        'Your password must be at least 8 characters long include 1 uppercase character, 1 lowercase character, 1 number, and 1 special character.'
       ),
     confirmPassword: yup
       .string()
