@@ -138,9 +138,18 @@ const ContentContainer = styled.div`
   background-repeat: no-repeat;
   background-size: cover;
   background-position: right top;
+  background-image: ${props => {
+    if (props.bgSrc) return props.bgSrc;
+    return 'none';
+  }};
   flex-direction: column;
   @media screen and (max-width: 1400px) {
     align-items: center;
+    background-image: ${props => {
+      if (props.waves) return 'none';
+      if (props.bgSrc) return props.bgSrc;
+      return 'none';
+    }};
   }
 `;
 
@@ -578,8 +587,9 @@ const MainPage = props => {
       <Element name='scheduleSection'>
         <ContentContainer
           right
+          waves
+          bgSrc="url('/images/waves.svg')"
           style={{
-            backgroundImage: `url('/images/waves.svg')`,
             backgroundColor: '#1475BC'
           }}
         >
@@ -646,12 +656,7 @@ const MainPage = props => {
       {/* Sponsors */}
       <Element name='sponsorSection'>
         <ContentContainer>
-          <ContentContainer
-            style={{
-              backgroundImage:
-                'linear-gradient(180deg, rgba(120,107,102,1) 9.34%, rgba(250,172,98,1) 49.4%, rgba(254,228,116,1) 91.26%)'
-            }}
-          >
+          <ContentContainer bgSrc='linear-gradient(180deg, rgba(120,107,102,1) 9.34%, rgba(250,172,98,1) 49.4%, rgba(254,228,116,1) 91.26%)'>
             <ContentBlock
               style={{
                 minHeight: '50vh',
