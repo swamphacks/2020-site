@@ -844,7 +844,10 @@ const section6 = {
       content: (
         <p>
           I have read and agree to the{' '}
-          <a href='http://www.google.com' target='_blank'>
+          <a
+            href='https://static.mlh.io/docs/mlh-code-of-conduct.pdf'
+            target='_blank'
+          >
             MLH Code of Conduct
           </a>
           .
@@ -864,15 +867,18 @@ const section6 = {
           event administration, ranking, MLH administration, pre- and post-event
           informational e-mails, and occasional messages about hackathons
           in-line with the{' '}
-          <a href='' target='_blank'>
+          <a href='https://mlh.io/privacy' target='_blank'>
             MLH Privacy Policy
           </a>
           . I further agree to the terms of both the{' '}
-          <a href='' target='_blank'>
+          <a
+            href='https://github.com/MLH/mlh-policies/blob/master/prize-terms-and-conditions/contest-terms.md'
+            target='_blank'
+          >
             MLH Contest Terms and Conditions
           </a>{' '}
           and the{' '}
-          <a href='' target='_blank'>
+          <a href='https://mlh.io/privacy' target='_blank'>
             MLH Privacy Policy
           </a>
           .
