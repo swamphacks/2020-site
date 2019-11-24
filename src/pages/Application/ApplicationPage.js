@@ -94,19 +94,39 @@ const ApplicationPage = () => {
                 date +
                 'Resume.pdf'
             );
-          storageRef.put(resume).then(() => {
-            let res = docRef
-              .set({
-                ...relevantValues,
-                resumePath: storageRef.fullPath,
-                dateApplied: date,
-                accepted: false,
-                uid: firebase.auth().currentUser.uid
-              })
-              .then(() => {
-                setIsSubmitted(true);
-              });
-          });
+          storageRef
+            .put(resume)
+            .then(() => {
+              let res = docRef
+                .set({
+                  ...relevantValues,
+                  resumePath: storageRef.fullPath,
+                  dateApplied: date,
+                  accepted: false,
+                  uid: firebase.auth().currentUser.uid
+                })
+                .then(() => {
+                  setIsSubmitted(true);
+                })
+                .catch(error => {
+                  var errorCode = error.code;
+                  formikApi.setFieldError(
+                    'email',
+                    'An unexpected error occurred. Please try again. If error persists, please contact support with error code: [' +
+                      errorCode +
+                      ']-[01].'
+                  );
+                });
+            })
+            .catch(error => {
+              var errorCode = error.code;
+              formikApi.setFieldError(
+                'email',
+                'An unexpected error occurred. Please try again. If error persists, please contact support with error code: [' +
+                  errorCode +
+                  ']-[02].'
+              );
+            });
         })
         .catch(function(error) {
           // Handle Errors here.
@@ -118,7 +138,9 @@ const ApplicationPage = () => {
           } else {
             formikApi.setFieldError(
               'email',
-              'An unexpected error occurred. Please try again.'
+              'An unexpected error occurred. Please try again.  If error persists, please contact support with error code: [' +
+                errorCode +
+                ']-[03].'
             );
           }
         })
