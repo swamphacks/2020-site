@@ -2,6 +2,7 @@ import React, {useState} from 'react';
 import styled from 'styled-components';
 import {Button, Form, Input, Checkbox, TextArea} from 'formik-semantic-ui';
 import DropdownCustom from '../../components/formik-semantic-ui-custom/DropdownCustom';
+import {animateScroll} from 'react-scroll';
 import {Link} from 'react-router-dom';
 import {
   Grid,
@@ -46,7 +47,7 @@ const ApplicationPage = () => {
   ]);
   const [isSubmitted, setIsSubmitted] = useState(false);
 
-  const _handleSubmit = (values, formikApi) => {
+  const _handleSubmit = async (values, formikApi) => {
     let newHistory = history;
     const keys = Object.keys(newHistory[currSection]);
     for (let i = 0; i < keys.length; i++) {
@@ -55,12 +56,13 @@ const ApplicationPage = () => {
     setHistory(newHistory);
     if (currSection < sections.length - 1) {
       setCurrSection(currSection + 1);
-      formikApi.setSubmitting(false);
+      animateScroll.scrollToTop({
+        duration: 0,
+        delay: 0,
+        smooth: true
+      });
     } else {
-      // Submit to database
-      const auth = firebase.auth();
-      const storage = firebase.storage();
-      const db = firebase.firestore();
+      // Clean up the form data
       let combined = {};
       for (let i = 0; i < newHistory.length; i++) {
         combined = {...combined, ...newHistory[i]};
@@ -76,92 +78,89 @@ const ApplicationPage = () => {
         confirmTrue,
         ...relevantValues
       } = combined;
+      console.log(resume);
       const date = Date.now();
-      const {email} = values;
-      console.log('Login');
-      auth
-        .createUserWithEmailAndPassword(email, password)
-        .then(() => {
-          const storageRef = storage
-            .ref('2020/resumes')
-            .child(
-              relevantValues.lastName +
-                relevantValues.firstName +
-                date.toString() +
-                'Resume.pdf'
-            );
-          console.log('Storage');
-          storageRef
-            .put(resume)
-            .then(() => {
-              let docRef = db
-                .collection('years')
-                .doc('2020')
-                .collection('applications')
-                .doc();
-              console.log('Firestore');
-              docRef
-                .set({
-                  ...relevantValues,
-                  resumePath: storageRef.fullPath,
-                  dateApplied: date,
-                  accepted: false,
-                  uid: auth.currentUser.uid
-                })
-                .then(() => {
-                  setIsSubmitted(true);
-                })
-                .catch(error => {
-                  var errorCode = error.code;
-                  formikApi.setFieldError(
-                    'email',
-                    'An unexpected error occurred. Please try again. If error persists, please contact support with error code: [' +
-                      errorCode +
-                      ']-[01].'
-                  );
-                });
-            })
-            .catch(error => {
-              var errorCode = error.code;
-              formikApi.setFieldError(
-                'email',
-                'An unexpected error occurred. Please try again. If error persists, please contact support with error code: [' +
-                  errorCode +
-                  ']-[02].'
-              );
-            });
-        })
-        .catch(error => {
-          // Handle Errors here.
-          var errorCode = error.code;
-          if (errorCode === 'auth/email-already-in-use') {
-            formikApi.setFieldError('email', 'This email is already in use.');
-          } else if (errorCode === 'auth/invalid-email') {
-            formikApi.setFieldError('email', 'This email is not valid.');
-          } else {
-            formikApi.setFieldError(
-              'email',
-              'An unexpected error occurred. Please try again.  If error persists, please contact support with error code: [' +
-                errorCode +
-                ']-[03].'
-            );
-          }
-        })
-        .finally(() => {
-          formikApi.setSubmitting(false);
+      // Submit to database
+      try {
+        const auth = await firebase.auth();
+        const storage = await firebase.storage();
+        const db = await firebase.firestore();
+        console.log('Logging in...');
+        await auth.createUserWithEmailAndPassword(
+          relevantValues.email,
+          password
+        );
+        console.log('Logged in!');
+        const storageRef = await storage
+          .ref('2020/resumes')
+          .child(
+            relevantValues.lastName +
+              relevantValues.firstName +
+              date.toString() +
+              'Resume.pdf'
+          );
+        console.log('Uploading resume...');
+        await storageRef.put(resume);
+        console.log('Uploaded!');
+        let docRef = await db
+          .collection('years')
+          .doc('2020')
+          .collection('applications')
+          .doc();
+        console.log('Uploading application...');
+        await docRef.set({
+          ...relevantValues,
+          resumePath: storageRef.fullPath,
+          dateApplied: date,
+          accepted: false,
+          uid: auth.currentUser.uid
         });
+        console.log('Uploaded!');
+        formikApi.setSubmitting(false);
+        setIsSubmitted(true);
+      } catch (error) {
+        var errorCode = error.code;
+        if (errorCode === 'auth/email-already-in-use') {
+          formikApi.setFieldError('email', 'This email is already in use.');
+        } else if (errorCode === 'auth/invalid-email') {
+          formikApi.setFieldError('email', 'This email is not valid.');
+        } else {
+          formikApi.setFieldError(
+            'email',
+            'An unexpected error occurred. Please try again.  If error persists, please contact support with error code: [' +
+              errorCode +
+              '].'
+          );
+        }
+        formikApi.setSubmitting(false);
+        animateScroll.scrollToTop({
+          duration: 200,
+          delay: 0,
+          smooth: true
+        });
+      }
     }
   };
 
   const _handleReset = (values, formikApi) => {
     setCurrSection(currSection - 1);
+    animateScroll.scrollToTop({
+      duration: 0,
+      delay: 0,
+      smooth: true
+    });
   };
 
   // See https://www.npmjs.com/package/formik-semantic-ui
   // For documentation on some of these
   return (
     <div
-      style={{display: 'flex', alignItems: 'center', flexDirection: 'column'}}
+      style={{
+        display: 'flex',
+        alignItems: 'center',
+        flexDirection: 'column',
+        paddingBottom: 80
+      }}
     >
       <Transition visible={isSubmitted} animation='scale' duration={500}>
         <Modal open={isSubmitted}>
@@ -200,6 +199,7 @@ const ApplicationPage = () => {
               initialValues={history[currSection]}
               validationSchema={sections[currSection].schema}
               enableReinitialize
+              ignoreLoading
             >
               {formikProps => (
                 <React.Fragment>
@@ -306,11 +306,15 @@ const ApplicationPage = () => {
                   })}
                   <ButtonGroup>
                     {currSection === 0 && (
-                      <SUIButton as={Link} to='/' basic>
+                      <SUIButton as={Link} to='/' basic color='black'>
                         Cancel
                       </SUIButton>
                     )}
-                    {currSection > 0 && <Button.Reset>Back</Button.Reset>}
+                    {currSection > 0 && (
+                      <Button.Reset basic color='black'>
+                        Back
+                      </Button.Reset>
+                    )}
                     <Button.Submit
                       loading={formikProps.isSubmitting}
                       disabled={formikProps.isSubmitting}

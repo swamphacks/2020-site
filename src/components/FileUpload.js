@@ -5,6 +5,7 @@ import {Button, Form, Label} from 'semantic-ui-react';
 const Container = styled.div`
   display: flex;
   align-items: center;
+  text-overflow: ellipsis;
 `;
 
 const ValueLabel = styled.p`
@@ -21,9 +22,8 @@ const FileUploadInput = ({formikProps, name, fieldProps, ...props}) => {
         accept='.pdf'
         type='file'
         onChange={e => {
-          console.log(e.target.value);
           setFieldTouched(name, true);
-          console.log(e.currentTarget.files[0]);
+          console.log(e.currentTarget.files);
           setFieldValue(name, e.currentTarget.files[0]);
         }}
         id={name}
@@ -32,7 +32,9 @@ const FileUploadInput = ({formikProps, name, fieldProps, ...props}) => {
 
       <Container>
         <label htmlFor={name}>
-          <Button as='span'>Upload File</Button>
+          <Button as='span' basic color='black'>
+            Upload File
+          </Button>
         </label>
         <ValueLabel>
           {formikProps.values[name]

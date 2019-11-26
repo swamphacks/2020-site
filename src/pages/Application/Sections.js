@@ -712,7 +712,7 @@ const section6 = {
     confirmPassword: '',
     firstTimeHacker: '',
     firstTimeSwamphacks: '',
-    hearAbout: undefined,
+    hearAbout: [],
     mlhCodeOfConduct: undefined,
     regDataSharing: undefined,
     statisticsUsage: undefined,
