@@ -58,52 +58,55 @@ const ApplicationPage = () => {
       formikApi.setSubmitting(false);
     } else {
       // Submit to database
-      const {email, password} = values;
-      firebase
-        .auth()
+      const auth = firebase.auth();
+      const storage = firebase.storage();
+      const db = firebase.firestore();
+      let combined = {};
+      for (let i = 0; i < newHistory.length; i++) {
+        combined = {...combined, ...newHistory[i]};
+      }
+      const {
+        resume,
+        password,
+        confirmPassword,
+        mlhCodeOfConduct,
+        regDataSharing,
+        statisticsUsage,
+        photoRelease,
+        confirmTrue,
+        ...relevantValues
+      } = combined;
+      const date = Date.now();
+      const {email} = values;
+      console.log('Login');
+      auth
         .createUserWithEmailAndPassword(email, password)
         .then(() => {
-          const db = firebase.firestore();
-          let docRef = db
-            .collection('years')
-            .doc('2020')
-            .collection('applications')
-            .doc();
-          let combined = {};
-          for (let i = 0; i < newHistory.length; i++) {
-            combined = {...combined, ...newHistory[i]};
-          }
-          const {
-            resume,
-            password,
-            confirmPassword,
-            mlhCodeOfConduct,
-            regDataSharing,
-            statisticsUsage,
-            photoRelease,
-            confirmTrue,
-            ...relevantValues
-          } = combined;
-          const date = Date.now();
-          const storageRef = firebase
-            .storage()
+          const storageRef = storage
             .ref('2020/resumes')
             .child(
               relevantValues.lastName +
                 relevantValues.firstName +
-                date +
+                date.toString() +
                 'Resume.pdf'
             );
+          console.log('Storage');
           storageRef
             .put(resume)
             .then(() => {
-              let res = docRef
+              let docRef = db
+                .collection('years')
+                .doc('2020')
+                .collection('applications')
+                .doc();
+              console.log('Firestore');
+              docRef
                 .set({
                   ...relevantValues,
                   resumePath: storageRef.fullPath,
                   dateApplied: date,
                   accepted: false,
-                  uid: firebase.auth().currentUser.uid
+                  uid: auth.currentUser.uid
                 })
                 .then(() => {
                   setIsSubmitted(true);
@@ -128,7 +131,7 @@ const ApplicationPage = () => {
               );
             });
         })
-        .catch(function(error) {
+        .catch(error => {
           // Handle Errors here.
           var errorCode = error.code;
           if (errorCode === 'auth/email-already-in-use') {
