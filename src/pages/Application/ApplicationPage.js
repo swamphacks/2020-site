@@ -14,7 +14,7 @@ import {
   Modal
 } from 'semantic-ui-react';
 import FileUploadInput from '../../components/FileUpload';
-import * as firebase from 'firebase';
+import {withFirebase} from '../../components/Firebase';
 
 // Sections
 import {sections} from './Sections';
@@ -40,7 +40,7 @@ const ButtonGroup = styled.div`
   justify-content: flex-end;
 `;
 
-const ApplicationPage = () => {
+const ApplicationPage = ({firebase}) => {
   const [currSection, setCurrSection] = useState(0);
   const [history, setHistory] = useState([
     ...sections.map(sec => sec.initialValues)
@@ -82,43 +82,26 @@ const ApplicationPage = () => {
       const date = Date.now();
       // Submit to database
       try {
-        const auth = await firebase.auth();
-        const storage = await firebase.storage();
-        const db = await firebase.firestore();
         console.log('Logging in...');
-        await auth.createUserWithEmailAndPassword(
-          relevantValues.email,
-          password
-        );
+        await firebase.createAccount(relevantValues.email, password);
         console.log('Logged in!');
-        const storageRef = await storage
-          .ref('2020/resumes')
-          .child(
-            relevantValues.lastName +
-              relevantValues.firstName +
-              date.toString() +
-              'Resume.pdf'
-          );
+        const name =
+          relevantValues.lastName + relevantValues.firstName + date.toString();
         console.log('Uploading resume...');
-        await storageRef.put(resume);
+        const resumePath = await firebase.uploadResume(name, resume);
         console.log('Uploaded!');
-        let docRef = await db
-          .collection('years')
-          .doc('2020')
-          .collection('applications')
-          .doc();
         console.log('Uploading application...');
-        await docRef.set({
+        await firebase.submitApplication({
           ...relevantValues,
-          resumePath: storageRef.fullPath,
+          resumePath: resumePath,
           dateApplied: date,
-          accepted: false,
-          uid: auth.currentUser.uid
+          accepted: false
         });
         console.log('Uploaded!');
         formikApi.setSubmitting(false);
         setIsSubmitted(true);
       } catch (error) {
+        console.log(error);
         var errorCode = error.code;
         if (errorCode === 'auth/email-already-in-use') {
           formikApi.setFieldError('email', 'This email is already in use.');
@@ -332,4 +315,4 @@ const ApplicationPage = () => {
   );
 };
 
-export default ApplicationPage;
+export default withFirebase(ApplicationPage);

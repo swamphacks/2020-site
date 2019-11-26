@@ -1,28 +1,22 @@
 import React from 'react';
 import {Route, useLocation, Redirect, Switch} from 'react-router-dom';
-import {Container} from 'semantic-ui-react';
-import * as firebase from 'firebase';
+// import {Container} from 'semantic-ui-react';
 
 // Pages
 import ApplicationPage from './pages/Application/ApplicationPage';
 import MainPage from './pages/Main/MainPage';
 
-// Config file
-import firebaseConfig from './firebaseConfig.json';
-
-firebase.initializeApp(firebaseConfig);
-
-const Placeholder = () => {
-  return (
-    <Container text style={{paddingTop: 80}}>
-      <h1>It's Almost Here!</h1>
-      <p>
-        The official SwampHacks website is almost ready to launch. Come back in
-        a few days to start applying!
-      </p>
-    </Container>
-  );
-};
+// const Placeholder = () => {
+//   return (
+//     <Container text style={{paddingTop: 80}}>
+//       <h1>It's Almost Here!</h1>
+//       <p>
+//         The official SwampHacks website is almost ready to launch. Come back in
+//         a few days to start applying!
+//       </p>
+//     </Container>
+//   );
+// };
 
 const App = () => {
   const location = useLocation();
