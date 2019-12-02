@@ -21,7 +21,7 @@ import MainPage from './pages/Main/MainPage';
 
 const App = ({firebase}) => {
   // useEffect(() => {
-  //   firebase.getNumberApplications();
+  //   firebase.getTravelApplicationData();
   // }, []);
 
   const location = useLocation();

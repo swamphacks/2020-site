@@ -49,6 +49,31 @@ class Firebase {
   //   const applications = await ref.get();
   //   console.log(`Number of applications: ${applications.size}`);
   // };
+
+  getTravelApplicationData = async () => {
+    const ref = this.firestore
+      .collection('years')
+      .doc('2020')
+      .collection('applications')
+      .where('needsTravelAssist', '==', 'Yes');
+    const apps = await ref.get();
+    let csvData = [
+      'Last Name',
+      'First Name',
+      'School',
+      'Date of Birth',
+      'Email Address'
+    ];
+    apps.docs.forEach(doc => {
+      const {firstName, lastName, dateOfBirth, school, email} = doc.data();
+      const row = [lastName, firstName, school, dateOfBirth, email];
+      csvData.push(row);
+    });
+    let csvContent =
+      'data:text/csv;charset=utf-8,' + csvData.map(e => e.join(',')).join('\n');
+    var encodedUri = encodeURI(csvContent);
+    window.open(encodedUri);
+  };
 }
 
 const withFirebase = Component => props => (
