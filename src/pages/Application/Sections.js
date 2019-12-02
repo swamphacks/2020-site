@@ -940,6 +940,6 @@ const section6 = {
   ]
 };
 
-const sections = [section1, section2, section3, section4, section5, section6];
+const sections = [section1, section2, section3, section5, section6];
 
 export {sections};

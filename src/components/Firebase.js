@@ -15,6 +15,10 @@ class Firebase {
     this.firestore = firebase.firestore();
   }
 
+  signIn = async (email, password) => {
+    await this.auth.signInWithEmailAndPassword(email, password);
+  };
+
   createAccount = (email, password) => {
     return this.auth.createUserWithEmailAndPassword(email, password);
   };
@@ -35,6 +39,16 @@ class Firebase {
       .doc();
     return ref.set({...data, uid: this.auth.currentUser.uid});
   };
+
+  // getNumberApplications = async () => {
+  // Sign in
+  //   const ref = this.firestore
+  //     .collection('years')
+  //     .doc('2020')
+  //     .collection('applications');
+  //   const applications = await ref.get();
+  //   console.log(`Number of applications: ${applications.size}`);
+  // };
 }
 
 const withFirebase = Component => props => (

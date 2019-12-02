@@ -1,5 +1,6 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import {Route, useLocation, Redirect, Switch} from 'react-router-dom';
+import {withFirebase} from './components/Firebase';
 // import {Container} from 'semantic-ui-react';
 
 // Pages
@@ -18,7 +19,11 @@ import MainPage from './pages/Main/MainPage';
 //   );
 // };
 
-const App = () => {
+const App = ({firebase}) => {
+  // useEffect(() => {
+  //   firebase.getNumberApplications();
+  // }, []);
+
   const location = useLocation();
   return (
     <Switch location={location}>
@@ -33,4 +38,4 @@ const App = () => {
   );
 };
 
-export default App;
+export default withFirebase(App);
