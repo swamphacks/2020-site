@@ -6,6 +6,7 @@ import {withFirebase} from './components/Firebase';
 // Pages
 import ApplicationPage from './pages/Application/ApplicationPage';
 import MainPage from './pages/Main/MainPage';
+import MVApplicationPage from './pages/MentorVolunteerApp/MVApplicationPage';
 
 // const Placeholder = () => {
 //   return (
@@ -20,9 +21,9 @@ import MainPage from './pages/Main/MainPage';
 // };
 
 const App = ({firebase}) => {
-  // useEffect(() => {
-  //   firebase.getTravelApplicationData();
-  // }, []);
+  useEffect(() => {
+    // firebase.getNumberApplications();
+  }, []);
 
   const location = useLocation();
   return (
@@ -31,6 +32,7 @@ const App = ({firebase}) => {
       {/* <Route exact path='/' component={Placeholder} /> */}
       <Route exact path='/comingsoon' component={() => <Redirect to='/' />} />
       <Route exact path='/application' component={ApplicationPage} />
+      <Route exact path='/mvapplication' component={MVApplicationPage} />
       <Route path='/SponsorshipProspectus.pdf' exact />
       <Route path='/PhotoReleaseForm.pdf' exact />
       <Route path='/DataUsageReleaseForm.pdf' exact />

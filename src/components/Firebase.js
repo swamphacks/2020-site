@@ -40,15 +40,14 @@ class Firebase {
     return ref.set({...data, uid: this.auth.currentUser.uid});
   };
 
-  // getNumberApplications = async () => {
-  // Sign in
-  //   const ref = this.firestore
-  //     .collection('years')
-  //     .doc('2020')
-  //     .collection('applications');
-  //   const applications = await ref.get();
-  //   console.log(`Number of applications: ${applications.size}`);
-  // };
+  getNumberApplications = async () => {
+    const ref = this.firestore
+      .collection('years')
+      .doc('2020')
+      .collection('applications');
+    const applications = await ref.get();
+    console.log(`Number of applications: ${applications.size}`);
+  };
 
   getTravelApplicationData = async () => {
     const ref = this.firestore
@@ -58,15 +57,31 @@ class Firebase {
       .where('needsTravelAssist', '==', 'Yes');
     const apps = await ref.get();
     let csvData = [
-      'Last Name',
-      'First Name',
-      'School',
-      'Date of Birth',
-      'Email Address'
+      [
+        'Last Name',
+        'First Name',
+        'School',
+        'Date of Birth',
+        'Email Address',
+        'Travel Types Considered'
+      ]
     ];
     apps.docs.forEach(doc => {
-      const {firstName, lastName, dateOfBirth, school, email} = doc.data();
-      const row = [lastName, firstName, school, dateOfBirth, email];
+      const {
+        firstName,
+        lastName,
+        dateOfBirth,
+        school,
+        email,
+        travelType
+      } = doc.data();
+      let t = '"';
+      travelType.forEach(e => {
+        t += e;
+        t += ', ';
+      });
+      t += '"';
+      const row = [lastName, firstName, school, dateOfBirth, email, t];
       csvData.push(row);
     });
     let csvContent =
