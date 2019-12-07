@@ -48,7 +48,6 @@ const MVApplicationPage = ({firebase}) => {
   const [isSubmitted, setIsSubmitted] = useState(false);
 
   const _handleSubmit = async (values, formikApi) => {
-    console.log('Test');
     let newHistory = history;
     const keys = Object.keys(newHistory[currSection]);
     for (let i = 0; i < keys.length; i++) {
@@ -68,31 +67,26 @@ const MVApplicationPage = ({firebase}) => {
       for (let i = 0; i < newHistory.length; i++) {
         combined = {...combined, ...newHistory[i]};
       }
-      const {
-        resume,
-        password,
-        confirmPassword,
-        mlhCodeOfConduct,
-        regDataSharing,
-        statisticsUsage,
-        photoRelease,
-        confirmTrue,
-        ...relevantValues
-      } = combined;
+      const {resume, ...relevantValues} = combined;
       console.log(resume);
       const date = Date.now();
       // Submit to database
       try {
         console.log('Logging in...');
-        await firebase.createAccount(relevantValues.email, password);
+        await firebase.signInAnonymously();
         console.log('Logged in!');
-        const name =
-          relevantValues.lastName + relevantValues.firstName + date.toString();
-        console.log('Uploading resume...');
-        const resumePath = await firebase.uploadResume(name, resume);
-        console.log('Uploaded!');
+        let resumePath = 'none';
+        if (resume) {
+          const name =
+            relevantValues.lastName +
+            relevantValues.firstName +
+            date.toString();
+          console.log('Uploading resume...');
+          resumePath = await firebase.uploadResume(name, resume);
+          console.log('Uploaded!');
+        }
         console.log('Uploading application...');
-        await firebase.submitApplication({
+        await firebase.submitMentorVolunteerApplication({
           ...relevantValues,
           resumePath: resumePath,
           dateApplied: date,
@@ -104,18 +98,12 @@ const MVApplicationPage = ({firebase}) => {
       } catch (error) {
         console.log(error);
         var errorCode = error.code;
-        if (errorCode === 'auth/email-already-in-use') {
-          formikApi.setFieldError('email', 'This email is already in use.');
-        } else if (errorCode === 'auth/invalid-email') {
-          formikApi.setFieldError('email', 'This email is not valid.');
-        } else {
-          formikApi.setFieldError(
-            'email',
-            'An unexpected error occurred. Please try again.  If error persists, please contact support with error code: [' +
-              errorCode +
-              '].'
-          );
-        }
+        formikApi.setFieldError(
+          'email',
+          'An unexpected error occurred. Please try again.  If error persists, please contact support with error code: [' +
+            errorCode +
+            '].'
+        );
         formikApi.setSubmitting(false);
         animateScroll.scrollToTop({
           duration: 200,

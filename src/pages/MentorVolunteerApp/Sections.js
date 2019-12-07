@@ -18,7 +18,7 @@ const section1 = {
     firstName: yup.string().required('This field is required.'),
     lastName: yup.string().required('This field is required.'),
     mentorOrVolunteer: yup.string().required('This field is required.'),
-    year: yup.string().required('This field is required.'),
+    currLevelStudy: yup.string().required('This field is required.'),
     major: yup.string().required('This field is required.'),
     attendedHackathon: yup.string().required('This field is required.'),
     mentorVolunteerHistory: yup.string().required('This field is required.'),
@@ -148,7 +148,7 @@ const section2 = {
     workshopsToHost: '',
     ideas: '',
     skillsTalents: '',
-    resume: null
+    resume: undefined
   },
   schema: yup.object().shape({
     // Mentor information
@@ -208,7 +208,8 @@ const section2 = {
       name: 'resume',
       label:
         'Upload Your Resume (required for mentors, optional for volunteers) (pdf)',
-      componentType: 'FileUpload'
+      componentType: 'FileUpload',
+      componentProps: {}
     }
   ]
 };
