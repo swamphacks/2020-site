@@ -27,6 +27,10 @@ class Firebase {
     await this.auth.signInAnonymously();
   };
 
+  signOut = async () => {
+    await this.auth.signOut();
+  };
+
   uploadResume = (name, file) => {
     const ref = this.storage.ref('2020/resumes').child(name + 'Resume.pdf');
     const fullPath = ref.put(file).then(snap => {

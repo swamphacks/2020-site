@@ -93,6 +93,7 @@ const MVApplicationPage = ({firebase}) => {
           accepted: false
         });
         console.log('Uploaded!');
+        await firebase.signOut();
         formikApi.setSubmitting(false);
         setIsSubmitted(true);
       } catch (error) {
