@@ -524,6 +524,12 @@ const MainPage = props => {
               }}
             />
             <WoodButton
+              mentorVolunteer
+              onClick={() => {
+                props.history.push('/mvapplication');
+              }}
+            />
+            <WoodButton
               sponsor
               onClick={() => {
                 window.location.href = 'mailto:sponsors@swamphacks.com';

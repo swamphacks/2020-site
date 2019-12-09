@@ -18,9 +18,10 @@ const CustomButton = styled.img`
   }
 `;
 
-const WoodButton = ({register, sponsor, onClick}) => {
+const WoodButton = ({register, sponsor, mentorVolunteer, onClick}) => {
   let src = '/images/registerButton.svg';
   if (sponsor) src = '/images/sponsorButton.svg';
+  if (mentorVolunteer) src = '/images/mvButton.svg';
   return <CustomButton src={src} onClick={onClick} />;
 };
 

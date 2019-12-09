@@ -21,7 +21,7 @@ import {sections} from './Sections';
 
 // Styled components
 const RegSign = styled.img.attrs(props => ({
-  src: '/images/regSign.svg'
+  src: '/images/mvSign.svg'
 }))`
   max-width: 600px;
   width: 80vw;
