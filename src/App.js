@@ -7,6 +7,7 @@ import {withFirebase} from './components/Firebase';
 import ApplicationPage from './pages/Application/ApplicationPage';
 import MainPage from './pages/Main/MainPage';
 import MVApplicationPage from './pages/MentorVolunteerApp/MVApplicationPage';
+import Dashboard from './pages/Dashboard/Dashboard';
 
 // const Placeholder = () => {
 //   return (
@@ -33,6 +34,8 @@ const App = ({firebase}) => {
       <Route exact path='/comingsoon' component={() => <Redirect to='/' />} />
       <Route exact path='/application' component={ApplicationPage} />
       <Route exact path='/mvapplication' component={MVApplicationPage} />
+      <Route path='/dashboard' component={Dashboard} />
+      {/* PDFs */}
       <Route path='/SponsorshipProspectus.pdf' exact />
       <Route path='/PhotoReleaseForm.pdf' exact />
       <Route path='/DataUsageReleaseForm.pdf' exact />
