@@ -8,10 +8,11 @@ import HomeComponent from '../../components/Dashboard/HomeComponent';
 import Home from './Home';
 import Event from './Event';
 import Schedule from './Schedule';
+import Checklist from './Checklist';
+import Help from './Help';
 
 // Styled components
 const RootContainer = styled.div`
-  display: flex;
   color: white;
   font-family: Montserrat-Bold, Helvetica, sans-serif;
 `;
@@ -19,49 +20,17 @@ const RootContainer = styled.div`
 const SidebarContainer = styled.div`
   background-color: #8daa90;
   display: flex;
-  overflow-y: scroll;
-  overflow-x: hidden;
+  position: fixed;
+  overflow: auto;
 `;
 
 const ContentContainer = styled.div`
-  flex: 1;
+  width: 67%;
   background-color: #5e765e;
   display: flex;
+  float: right;
+  overflow: auto;
 `;
-
-// Routes
-const routes = [
-  {
-    label: 'Home',
-    path: '/dashboard',
-    exact: true,
-    main: Home
-  },
-  {
-    label: 'Event',
-    path: '/dashboard/event',
-    exact: true,
-    main: Event
-  },
-  {
-    label: 'Schedule',
-    path: '/dashboard/schedule',
-    exact: true,
-    main: Schedule
-  },
-  {
-    label: 'Checklist',
-    path: '/dashboard/checklist',
-    exact: true,
-    main: () => <h2>2</h2>
-  },
-  {
-    label: 'Help',
-    path: '/dashboard/help',
-    exact: true,
-    main: () => <h2>2</h2>
-  }
-];
 
 const Dashboard = ({firebase}) => {
   return (
@@ -91,5 +60,39 @@ const Dashboard = ({firebase}) => {
     </RootContainer>
   );
 };
+
+// Routes
+const routes = [
+  {
+    label: 'Home',
+    path: '/dashboard',
+    exact: true,
+    main: Home
+  },
+  {
+    label: 'Event',
+    path: '/dashboard/event',
+    exact: true,
+    main: Event
+  },
+  {
+    label: 'Schedule',
+    path: '/dashboard/schedule',
+    exact: true,
+    main: Schedule
+  },
+  {
+    label: 'Checklist',
+    path: '/dashboard/checklist',
+    exact: true,
+    main: Checklist
+  },
+  {
+    label: 'Help',
+    path: '/dashboard/help',
+    exact: true,
+    main: Help
+  }
+];
 
 export default withFirebase(Dashboard);

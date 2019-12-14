@@ -82,8 +82,12 @@ const DrawerLink = styled(Link)`
   font-family: Montserrat-Bold, Helvetica, sans-serif;
 `;
 
-const InfoText = styled.p`
+const NameText = styled.h2`
   font-family: Montserrat-Bold, Helvetica, sans-serif;
+`;
+
+const InfoText = styled.p`
+  font-family: Montserrat, Helvetica, sans-serif;
 `;
 
 const HomeComponent = ({paths}) => {
@@ -126,7 +130,7 @@ const HomeComponent = ({paths}) => {
         <Picture />
       </PictureContainer>
       <InfoContainer>
-        <InfoText>John Smith</InfoText>
+        <NameText>John Smith</NameText>
         <InfoText>jsmith@gmail.com</InfoText>
         <InfoText>Hacker</InfoText>
         <InfoText>Application Status: Pending</InfoText>

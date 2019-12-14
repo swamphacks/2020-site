@@ -6,7 +6,7 @@ import PageTitle from '../../components/Dashboard/PageTitle';
 // Styled components
 const RootContainer = styled.div`
   width: 100%;
-  height: 100%;
+  min-height: 100vh;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -28,6 +28,7 @@ const EventContainer = styled.div`
   display: flex;
   flex-direction: column;
   padding: 20px 0px;
+  max-width: 680px;
 `;
 
 const DayText = styled.h3`
