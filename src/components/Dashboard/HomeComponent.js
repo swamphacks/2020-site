@@ -18,9 +18,24 @@ const RootContainer = styled.div`
 `;
 
 const PictureContainer = styled.div`
-  background-color: red;
-  width: 200px;
+  padding: 20px 0px;
+  width: 50%;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+`;
+
+const PictureOutline = styled.img`
+  width: 100%;
+  left: 0;
+  top: 0;
+`;
+
+const Picture = styled.img`
+  width: 80%;
   height: 200px;
+  background-color: red;
 `;
 
 const InfoContainer = styled.div`
@@ -31,7 +46,10 @@ const InfoContainer = styled.div`
 `;
 
 const WelcomeText = styled.h1`
-  font-weight: bold;
+  font-weight: 900;
+  font-size: 2.75rem;
+  font-family: Montserrat-Bold, Helvetica, sans-serif;
+  text-align: center;
 `;
 
 const Drawer = styled.div`
@@ -45,6 +63,7 @@ const Drawer = styled.div`
   justify-content: center;
   flex-direction: column;
   background-color: #8daa90;
+  z-index: 40;
 `;
 
 const LinkContainer = styled.div`
@@ -60,6 +79,11 @@ const DrawerLink = styled(Link)`
     cursor: pointer;
     color: white;
   }
+  font-family: Montserrat-Bold, Helvetica, sans-serif;
+`;
+
+const InfoText = styled.p`
+  font-family: Montserrat-Bold, Helvetica, sans-serif;
 `;
 
 const HomeComponent = ({paths}) => {
@@ -70,7 +94,7 @@ const HomeComponent = ({paths}) => {
       <HamburgerButton
         onClick={() => setMenuOpen(!menuOpen)}
         color='white'
-        style={{position: 'absolute', top: 20, right: 20, zIndex: 40}}
+        style={{position: 'absolute', top: 20, right: 20, zIndex: 41}}
       />
       <Transition
         items={menuOpen}
@@ -97,12 +121,15 @@ const HomeComponent = ({paths}) => {
       {/* Title */}
       <WelcomeText>Welcome to SwampHacks VI</WelcomeText>
       {/* Picture */}
-      <PictureContainer />
-      <h3>John Smith</h3>
+      <PictureContainer>
+        <PictureOutline src='/images/outlineLouis.png'></PictureOutline>
+        <Picture />
+      </PictureContainer>
       <InfoContainer>
-        <h3>jsmith@gmail.com</h3>
-        <h3>Hacker</h3>
-        <h3>Application Status: Pending</h3>
+        <InfoText>John Smith</InfoText>
+        <InfoText>jsmith@gmail.com</InfoText>
+        <InfoText>Hacker</InfoText>
+        <InfoText>Application Status: Pending</InfoText>
       </InfoContainer>
     </RootContainer>
   );

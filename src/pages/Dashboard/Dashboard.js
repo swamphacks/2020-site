@@ -5,11 +5,13 @@ import {withFirebase} from '../../components/Firebase';
 
 // Pages
 import HomeComponent from '../../components/Dashboard/HomeComponent';
+import Home from './Home';
 
 // Styled components
 const RootContainer = styled.div`
   display: flex;
   color: white;
+  font-family: Montserrat-Bold, Helvetica, sans-serif;
 `;
 
 const SidebarContainer = styled.div`
@@ -23,8 +25,6 @@ const ContentContainer = styled.div`
   flex: 1;
   background-color: #5e765e;
   display: flex;
-  overflow-y: scroll;
-  overflow-x: hidden;
 `;
 
 // Routes
@@ -33,11 +33,29 @@ const routes = [
     label: 'Home',
     path: '/dashboard',
     exact: true,
-    main: () => <h2>Home</h2>
+    main: Home
   },
   {
-    label: '2',
-    path: '/dashboard/2',
+    label: 'Event',
+    path: '/dashboard/event',
+    exact: true,
+    main: () => <h2>2</h2>
+  },
+  {
+    label: 'Schedule',
+    path: '/dashboard/schedule',
+    exact: true,
+    main: () => <h2>2</h2>
+  },
+  {
+    label: 'Checklist',
+    path: '/dashboard/checklist',
+    exact: true,
+    main: () => <h2>2</h2>
+  },
+  {
+    label: 'Help',
+    path: '/dashboard/help',
     exact: true,
     main: () => <h2>2</h2>
   }
