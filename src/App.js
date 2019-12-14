@@ -8,6 +8,7 @@ import ApplicationPage from './pages/Application/ApplicationPage';
 import MainPage from './pages/Main/MainPage';
 import MVApplicationPage from './pages/MentorVolunteerApp/MVApplicationPage';
 import Dashboard from './pages/Dashboard/Dashboard';
+import LoginPage from './pages/Login/Login';
 
 // const Placeholder = () => {
 //   return (
@@ -26,6 +27,19 @@ const App = ({firebase}) => {
     // firebase.getNumberApplications();
   }, []);
 
+  const PrivateRoute = ({children: Component, ...rest}) => (
+    <Route
+      {...rest}
+      render={props => {
+        if (firebase.checkSignedIn() === true) {
+          return <Component {...props} />;
+        } else {
+          return <Redirect to='/login' />;
+        }
+      }}
+    />
+  );
+
   const location = useLocation();
   return (
     <Switch location={location}>
@@ -34,7 +48,10 @@ const App = ({firebase}) => {
       <Route exact path='/comingsoon' component={() => <Redirect to='/' />} />
       <Route exact path='/application' component={ApplicationPage} />
       <Route exact path='/mvapplication' component={MVApplicationPage} />
-      <Route path='/dashboard' component={Dashboard} />
+      <Route exact path='/login' component={LoginPage} />
+      <PrivateRoute path='/dashboard'>
+        <Dashboard />
+      </PrivateRoute>
       {/* PDFs */}
       <Route path='/SponsorshipProspectus.pdf' exact />
       <Route path='/PhotoReleaseForm.pdf' exact />

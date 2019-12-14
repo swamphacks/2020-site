@@ -15,6 +15,10 @@ class Firebase {
     this.firestore = firebase.firestore();
   }
 
+  checkSignedIn = () => {
+    return this.auth.currentUser ? true : false;
+  };
+
   signIn = async (email, password) => {
     await this.auth.signInWithEmailAndPassword(email, password);
   };
