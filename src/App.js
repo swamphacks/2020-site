@@ -39,6 +39,7 @@ const App = ({firebase}) => {
       <Route path='/SponsorshipProspectus.pdf' exact />
       <Route path='/PhotoReleaseForm.pdf' exact />
       <Route path='/DataUsageReleaseForm.pdf' exact />
+      <Route path='/SustainableSponsors.pdf' exact />
     </Switch>
   );
 };

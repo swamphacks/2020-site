@@ -6,6 +6,8 @@ import {withFirebase} from '../../components/Firebase';
 // Pages
 import HomeComponent from '../../components/Dashboard/HomeComponent';
 import Home from './Home';
+import Event from './Event';
+import Schedule from './Schedule';
 
 // Styled components
 const RootContainer = styled.div`
@@ -39,13 +41,13 @@ const routes = [
     label: 'Event',
     path: '/dashboard/event',
     exact: true,
-    main: () => <h2>2</h2>
+    main: Event
   },
   {
     label: 'Schedule',
     path: '/dashboard/schedule',
     exact: true,
-    main: () => <h2>2</h2>
+    main: Schedule
   },
   {
     label: 'Checklist',
