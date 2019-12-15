@@ -118,6 +118,9 @@ const HomeComponent = ({paths, data}) => {
                   <DrawerLink to={path}>{label}</DrawerLink>
                 </LinkContainer>
               ))}
+              <LinkContainer>
+                <DrawerLink to='/'>Logout</DrawerLink>
+              </LinkContainer>
             </Drawer>
           ))
         }

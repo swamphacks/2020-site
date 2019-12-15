@@ -15,6 +15,10 @@ class Firebase {
     this.firestore = firebase.firestore();
   }
 
+  sendPasswordResetEmail = async email => {
+    await this.auth.sendPasswordResetEmail(email);
+  };
+
   checkSignedIn = () => {
     return this.auth.currentUser ? true : false;
   };

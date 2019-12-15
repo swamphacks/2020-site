@@ -1,4 +1,4 @@
-import React, {useEffect} from 'react';
+import React, {useState} from 'react';
 import {Link, useHistory, useLocation} from 'react-router-dom';
 import {Button, Form, Input} from 'formik-semantic-ui';
 import {
@@ -68,6 +68,13 @@ const schema = yup.object().shape({
   password: yup.string().required('This field is required.')
 });
 
+const resetSchema = yup.object().shape({
+  email: yup
+    .string()
+    .email('Email must be a valid email.')
+    .required('This field is required.')
+});
+
 const errorComponent = ({message}) => (
   <Label basic color='red' pointing>
     {message}
@@ -75,6 +82,7 @@ const errorComponent = ({message}) => (
 );
 
 const LoginPage = ({firebase}) => {
+  const [forgotPassword, setForgotPassword] = useState(false);
   const history = useHistory();
   const location = useLocation();
   const {from} = location.state || {from: {pathname: '/'}};
@@ -91,8 +99,78 @@ const LoginPage = ({firebase}) => {
     }
   };
 
+  const _handleResetPassword = async (values, formikApi) => {
+    const {email} = values;
+    try {
+      await firebase.sendPasswordResetEmail(email);
+      formikApi.setSubmitting(false);
+      setForgotPassword(false);
+    } catch (error) {
+      if (error.code === 'auth/user-not-found') {
+        formikApi.setFieldError(
+          'email',
+          'There is no account associated with this email.'
+        );
+      } else {
+        formikApi.setFieldError(
+          'email',
+          `Unexpected error. Code: [${error.code}].`
+        );
+      }
+      formikApi.setSubmitting(false);
+    }
+  };
+
   return (
     <RootContainer>
+      <Transition visible={forgotPassword} animation='scale' duration={500}>
+        <Modal open={forgotPassword}>
+          <Modal.Header>Forgot your password?</Modal.Header>
+          <Modal.Content>
+            <StyledForm
+              onSubmit={_handleResetPassword}
+              validationSchema={resetSchema}
+              ignoreLoading
+              initialValues={{email: ''}}
+              style={{display: 'contents'}}
+            >
+              {formikProps => (
+                <React.Fragment>
+                  <Modal.Description>
+                    <p>
+                      It's okay, it happens. Just type in the email you used to
+                      apply and we'll send you a password reset link. When the
+                      window closes, check your email for the reset link.
+                    </p>
+                    <Input
+                      name='email'
+                      label='Email'
+                      inputProps={{placeholder: 'Email', type: 'email'}}
+                      fieldProps={{
+                        required: true
+                      }}
+                      errorComponent={errorComponent}
+                    />
+                  </Modal.Description>
+                  <div style={{width: '100%'}}>
+                    <ButtonGroup>
+                      <SUIButton onClick={() => setForgotPassword(false)}>
+                        Close
+                      </SUIButton>
+                      <Button.Submit
+                        loading={formikProps.isSubmitting}
+                        disabled={formikProps.isSubmitting}
+                      >
+                        Submit
+                      </Button.Submit>
+                    </ButtonGroup>
+                  </div>
+                </React.Fragment>
+              )}
+            </StyledForm>
+          </Modal.Content>
+        </Modal>
+      </Transition>
       <TitleContainer>
         <h1>Login</h1>
       </TitleContainer>
@@ -122,7 +200,7 @@ const LoginPage = ({firebase}) => {
               }}
               errorComponent={errorComponent}
             />
-            <div>
+            <div onClick={() => setForgotPassword(true)}>
               <CustomLink>Forgot your password?</CustomLink>
             </div>
             <ButtonGroup>
