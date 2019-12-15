@@ -1,4 +1,4 @@
-import React, {useEffect} from 'react';
+import React, {useEffect, useState} from 'react';
 import {Route, useLocation, Redirect, Switch} from 'react-router-dom';
 import styled from 'styled-components';
 import {withFirebase} from '../../components/Firebase';
@@ -33,6 +33,31 @@ const ContentContainer = styled.div`
 `;
 
 const Dashboard = ({firebase}) => {
+  const [dashboardData, setDashboardData] = useState({
+    name: '{name}',
+    email: '{email}',
+    status: '{status}'
+  });
+
+  useEffect(() => {
+    const unsubscribe = firebase.getDashboardData(val => {
+      setDashboardData(val);
+    });
+    return () => {
+      unsubscribe();
+    };
+  }, []);
+
+  if (!firebase.checkSignedIn()) {
+    return (
+      <Redirect
+        to={{
+          pathname: '/login',
+          state: {from: '/dashboard'}
+        }}
+      />
+    );
+  }
   return (
     <RootContainer>
       <SidebarContainer>
@@ -43,6 +68,7 @@ const Dashboard = ({firebase}) => {
               path: path
             }))
           ]}
+          data={dashboardData}
         />
       </SidebarContainer>
       <ContentContainer>

@@ -1,4 +1,4 @@
-import React, {useEffect} from 'react';
+import React, {useEffect, useState} from 'react';
 import {Route, useLocation, Redirect, Switch} from 'react-router-dom';
 import {withFirebase} from './components/Firebase';
 // import {Container} from 'semantic-ui-react';
@@ -27,18 +27,26 @@ const App = ({firebase}) => {
     // firebase.getNumberApplications();
   }, []);
 
-  const PrivateRoute = ({children: Component, ...rest}) => (
-    <Route
-      {...rest}
-      render={props => {
-        if (firebase.checkSignedIn() === true) {
-          return <Component {...props} />;
-        } else {
-          return <Redirect to='/login' />;
+  const PrivateRoute = ({children, ...rest}) => {
+    const signedIn = firebase.checkSignedIn();
+    return (
+      <Route
+        {...rest}
+        render={props =>
+          signedIn === true ? (
+            children
+          ) : (
+            <Redirect
+              to={{
+                pathname: '/login',
+                state: {from: rest.path}
+              }}
+            />
+          )
         }
-      }}
-    />
-  );
+      />
+    );
+  };
 
   const location = useLocation();
   return (
@@ -57,6 +65,10 @@ const App = ({firebase}) => {
       <Route path='/PhotoReleaseForm.pdf' exact />
       <Route path='/DataUsageReleaseForm.pdf' exact />
       <Route path='/SustainableSponsors.pdf' exact />
+      {/* 404 */}
+      <Route path='*'>
+        <h1>404: This page does not exist.</h1>
+      </Route>
     </Switch>
   );
 };

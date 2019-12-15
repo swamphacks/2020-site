@@ -61,6 +61,32 @@ class Firebase {
     return ref.set(data);
   };
 
+  getDashboardData = callback => {
+    const uid = this.auth.currentUser.uid;
+    const ref = this.firestore
+      .collection('years')
+      .doc('2020')
+      .collection('applications')
+      .where('uid', '==', uid);
+    const unsubscriber = ref.onSnapshot(snap => {
+      console.log('Data updated!');
+      let retData = {};
+      snap.docs.forEach(doc => {
+        const data = doc.data();
+        const {firstName, lastName, email, accepted} = data;
+        const status = accepted === true ? 'Accepted' : 'Pending';
+        const name = firstName + ' ' + lastName;
+        retData = {
+          name: name,
+          email: email,
+          status: status
+        };
+      });
+      callback(retData);
+    });
+    return unsubscriber;
+  };
+
   // getNumberApplications = async () => {
   //   await this.signInAnonymously();
   //   const ref = this.firestore

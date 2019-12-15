@@ -45,10 +45,10 @@ const Schedule = () => {
       <PageTitle title='Schedule' />
       <ContentContainer>
         {events.map(event => (
-          <EventContainer>
+          <EventContainer key={event.day}>
             <DayText>{event.day}</DayText>
             {event.events.map(({name, time}) => (
-              <EventText>
+              <EventText key={name + time}>
                 {name} - {time}
               </EventText>
             ))}

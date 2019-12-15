@@ -1,5 +1,5 @@
 import React, {useEffect} from 'react';
-import {Link, useHistory} from 'react-router-dom';
+import {Link, useHistory, useLocation} from 'react-router-dom';
 import {Button, Form, Input} from 'formik-semantic-ui';
 import {
   Grid,
@@ -76,13 +76,15 @@ const errorComponent = ({message}) => (
 
 const LoginPage = ({firebase}) => {
   const history = useHistory();
+  const location = useLocation();
+  const {from} = location.state || {from: {pathname: '/'}};
 
   const _handleSubmit = async (values, formikApi) => {
     const {email, password} = values;
     try {
       await firebase.signIn(email, password);
       formikApi.setSubmitting(false);
-      history.push();
+      history.replace(from);
     } catch (error) {
       console.log(error);
       formikApi.setSubmitting(false);

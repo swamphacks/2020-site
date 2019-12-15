@@ -52,7 +52,7 @@ const Help = () => {
       <PageTitle title='Help' />
       <ContentContainer>
         {faq.map(q => (
-          <QuestionContainer>
+          <QuestionContainer key={q.title}>
             <LabelText>{q.title}</LabelText>
             {q.content}
           </QuestionContainer>

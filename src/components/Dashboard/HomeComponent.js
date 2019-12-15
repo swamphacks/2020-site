@@ -90,7 +90,7 @@ const InfoText = styled.p`
   font-family: Montserrat, Helvetica, sans-serif;
 `;
 
-const HomeComponent = ({paths}) => {
+const HomeComponent = ({paths, data}) => {
   const [menuOpen, setMenuOpen] = useState(false);
   return (
     <RootContainer>
@@ -130,10 +130,10 @@ const HomeComponent = ({paths}) => {
         <Picture />
       </PictureContainer>
       <InfoContainer>
-        <NameText>John Smith</NameText>
-        <InfoText>jsmith@gmail.com</InfoText>
+        <NameText>{data.name}</NameText>
+        <InfoText>{data.email}</InfoText>
         <InfoText>Hacker</InfoText>
-        <InfoText>Application Status: Pending</InfoText>
+        <InfoText>Application Status: {data.status}</InfoText>
       </InfoContainer>
     </RootContainer>
   );

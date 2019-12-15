@@ -44,7 +44,7 @@ const Checklist = () => {
       <PageTitle title='Checklist' />
       <ContentContainer>
         {items.map((item, index) => (
-          <ChecklistContainer>
+          <ChecklistContainer key={index}>
             <LabelText>
               {index + 1}). <ContentText>{item}</ContentText>
             </LabelText>
