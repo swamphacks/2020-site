@@ -8,9 +8,9 @@ const PageRootContainer = styled.div`
   justify-content: center;
   flex-direction: column;
   padding: 40px;
-  margin-top: 100px;
+  padding-top: 140px;
   @media screen and (min-width: 1200px) {
-    margin-top: 0px;
+    padding-top: 40px;
   }
 `;
 

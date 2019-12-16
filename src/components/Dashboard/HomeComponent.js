@@ -9,15 +9,17 @@ import {withFirebase} from '../Firebase';
 // Styled components
 const RootContainer = styled.div`
   width: 100%;
-  height: 100vh;
+  min-height: 100vh;
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 40px 20px;
   flex-direction: column;
+  padding: 40px;
+  padding-top: 140px;
   position: relative;
   background-color: #8daa90;
   @media screen and (min-width: 1200px) {
+    padding-top: 40px;
     width: 33vw;
   }
 `;
@@ -101,7 +103,7 @@ const HomeComponent = ({firebase, paths}) => {
   };
 
   return (
-    <RootContainer>
+    <RootContainer style={{backgroundColor: '#8daa90'}}>
       {/* Hamburger Menu */}
       {isComputer && <HamburgerMenu paths={paths} logout={_handleLogout} />}
       {/* Title */}

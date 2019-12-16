@@ -6,7 +6,7 @@ import {Link} from 'react-router-dom';
 import HamburgerButton from '../HamburgerButton';
 
 const Drawer = styled.div`
-  position: absolute;
+  position: fixed;
   top: 0;
   left: 0;
   width: 100%;
@@ -17,6 +17,9 @@ const Drawer = styled.div`
   flex-direction: column;
   background-color: #8daa90;
   z-index: 40;
+  @media screen and (min-width: 1200px) {
+    position: absolute;
+  }
 `;
 
 const LinkContainer = styled.div`

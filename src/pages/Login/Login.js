@@ -42,7 +42,7 @@ const StyledForm = styled(Form)`
 
 const InputContainer = styled.div`
   padding: 20px 40px;
-  width: 80%;
+  width: 100%;
   max-width: 400px;
   @media screen and (min-width: 1200px) {
     width: 30%;
