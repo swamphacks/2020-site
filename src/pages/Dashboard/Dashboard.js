@@ -1,7 +1,8 @@
-import React, {useMemo, useState, useLayoutEffect} from 'react';
+import React, {useState, useLayoutEffect} from 'react';
 import {Route, useRouteMatch, Redirect, Switch} from 'react-router-dom';
 import styled from 'styled-components';
 import {withFirebase} from '../../components/Firebase';
+import useMediaQuery from 'react-use-media-query-hook';
 
 // Pages
 import HomeComponent from '../../components/Dashboard/HomeComponent';
@@ -11,6 +12,9 @@ import Schedule from './Schedule';
 import Checklist from './Checklist';
 import Help from './Help';
 import LoadingPage from '../Loading/LoadingPage';
+
+// Components
+import HamburgerMenu from '../../components/Dashboard/HamburgerMenu';
 
 // Styled components
 const RootContainer = styled.div`
@@ -26,32 +30,27 @@ const SidebarContainer = styled.div`
 `;
 
 const ContentContainer = styled.div`
-  width: 67%;
+  width: 100%;
   background-color: #5e765e;
   display: flex;
-  float: right;
   overflow: auto;
+  @media screen and (min-width: 1200px) {
+    width: 67%;
+    float: right;
+  }
 `;
 
 const Dashboard = ({firebase}) => {
   const [signedIn, setSignedIn] = useState(null);
-  const [dashboardData, setDashboardData] = useState({
-    name: '{name}',
-    email: '{email}',
-    status: '{status}'
-  });
   const {path, url} = useRouteMatch();
+  const isComputer = useMediaQuery('(min-width: 1200px)');
 
   useLayoutEffect(() => {
-    const unsubscribe1 = firebase.getDashboardData(val => {
-      setDashboardData(val);
-    });
-    const unsubscribe2 = firebase.checkSignedIn(val => {
+    const unsubscribe = firebase.checkSignedIn(val => {
       setSignedIn(val);
     });
     return () => {
-      unsubscribe1();
-      unsubscribe2();
+      unsubscribe();
     };
   }, []);
 
@@ -70,13 +69,17 @@ const Dashboard = ({firebase}) => {
     );
   }
 
+  const HomePage = isComputer
+    ? () => <Home />
+    : () => <HomeComponent paths={paths} />;
+
   // Routes
   const routes = [
     {
       label: 'Home',
       path: path,
-      exact: false,
-      main: Home
+      exact: true,
+      main: HomePage
     },
     {
       label: 'Event',
@@ -114,13 +117,18 @@ const Dashboard = ({firebase}) => {
 
   return (
     <RootContainer>
-      <SidebarContainer>
-        <HomeComponent
+      {isComputer && (
+        <SidebarContainer>
+          <HomeComponent paths={paths} />
+        </SidebarContainer>
+      )}
+      {!isComputer && (
+        <HamburgerMenu
           paths={paths}
-          data={dashboardData}
           logout={async () => await firebase.signOut()}
+          buttonStyle={{left: 30, position: 'fixed'}}
         />
-      </SidebarContainer>
+      )}
       <ContentContainer>
         <Switch>
           {routes.map((route, index) => (

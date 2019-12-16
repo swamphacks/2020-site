@@ -1,14 +1,14 @@
-import React, {useState} from 'react';
+import React, {useState, useLayoutEffect} from 'react';
 import styled from 'styled-components';
-import {Transition} from 'react-spring/renderprops';
-import {Link} from 'react-router-dom';
+import useMediaQuery from 'react-use-media-query-hook';
 
-import HamburgerButton from '../HamburgerButton';
+import HamburgerMenu from './HamburgerMenu';
 import SocialButton from '../SocialButton';
+import {withFirebase} from '../Firebase';
 
 // Styled components
 const RootContainer = styled.div`
-  width: 33vw;
+  width: 100%;
   height: 100vh;
   display: flex;
   align-items: center;
@@ -16,27 +16,35 @@ const RootContainer = styled.div`
   padding: 40px 20px;
   flex-direction: column;
   position: relative;
+  background-color: #8daa90;
+  @media screen and (min-width: 1200px) {
+    width: 33vw;
+  }
 `;
 
 const PictureContainer = styled.div`
-  padding: 20px 0px;
-  width: 50%;
   position: relative;
   display: flex;
   align-items: center;
   justify-content: center;
+  background-image: url('/images/outlineLouis.png');
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center center;
 `;
 
-const PictureOutline = styled.img`
-  width: 100%;
-  left: 0;
-  top: 0;
+const FakePicture = styled.img`
+  width: 250px;
+  opacity: 0;
 `;
 
-const Picture = styled.img`
-  width: 80%;
-  height: 200px;
-  background-color: red;
+const Initials = styled.p`
+  font-weight: 900;
+  font-size: 3.5rem;
+  font-family: Montserrat-Bold, Helvetica, sans-serif;
+  position: absolute;
+  padding-top: 30px;
+  padding-left: 5px;
 `;
 
 const InfoContainer = styled.div`
@@ -51,48 +59,7 @@ const WelcomeText = styled.h1`
   font-size: 2.75rem;
   font-family: Montserrat-Bold, Helvetica, sans-serif;
   text-align: center;
-`;
-
-const Drawer = styled.div`
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  flex-direction: column;
-  background-color: #8daa90;
-  z-index: 40;
-`;
-
-const LinkContainer = styled.div`
-  padding: 10px 0px;
-`;
-
-const DrawerLink = styled(Link)`
-  font-size: 1.75rem;
-  color: white;
-  text-decoration: none;
-  :hover {
-    text-decoration: underline;
-    cursor: pointer;
-    color: white;
-  }
-  font-family: Montserrat-Bold, Helvetica, sans-serif;
-`;
-
-const LogoutLink = styled.div`
-  font-size: 1.75rem;
-  color: white;
-  text-decoration: none;
-  :hover {
-    text-decoration: underline;
-    cursor: pointer;
-    color: white;
-  }
-  font-family: Montserrat-Bold, Helvetica, sans-serif;
+  padding-bottom: 40px;
 `;
 
 const NameText = styled.h2`
@@ -111,51 +78,38 @@ const SocialContainer = styled.div`
   padding: 40px;
 `;
 
-const HomeComponent = ({paths, data, logout}) => {
-  const [menuOpen, setMenuOpen] = useState(false);
+const HomeComponent = ({firebase, paths}) => {
+  const isComputer = useMediaQuery('(min-width: 1200px)');
+  const [data, setData] = useState({
+    initials: '',
+    name: '{name}',
+    email: '{email}',
+    status: '{status}'
+  });
+
+  useLayoutEffect(() => {
+    const unsubscribe = firebase.getDashboardData(val => {
+      setData(val);
+    });
+    return () => {
+      unsubscribe();
+    };
+  }, []);
+
+  const _handleLogout = async () => {
+    await firebase.signOut();
+  };
+
   return (
     <RootContainer>
       {/* Hamburger Menu */}
-      <HamburgerButton
-        onClick={() => setMenuOpen(!menuOpen)}
-        color='white'
-        style={{position: 'absolute', top: 30, right: 30, zIndex: 41}}
-        open={menuOpen}
-      />
-      <Transition
-        items={menuOpen}
-        from={{opacity: 0}}
-        enter={{opacity: 1}}
-        leave={{opacity: 0}}
-      >
-        {menuOpen =>
-          menuOpen &&
-          (props => (
-            <Drawer style={props}>
-              {paths.map(({label, path}, index) => (
-                <LinkContainer
-                  onClick={() => setMenuOpen(false)}
-                  key={label + index}
-                >
-                  <DrawerLink to={path}>{label}</DrawerLink>
-                </LinkContainer>
-              ))}
-              <LinkContainer>
-                <DrawerLink to='/'>Return to Main Site</DrawerLink>
-              </LinkContainer>
-              <LinkContainer>
-                <LogoutLink onClick={logout}>Logout</LogoutLink>
-              </LinkContainer>
-            </Drawer>
-          ))
-        }
-      </Transition>
+      {isComputer && <HamburgerMenu paths={paths} logout={_handleLogout} />}
       {/* Title */}
       <WelcomeText>Welcome to SwampHacks VI</WelcomeText>
       {/* Picture */}
       <PictureContainer>
-        <PictureOutline src='/images/outlineLouis.png'></PictureOutline>
-        <Picture />
+        <Initials>{data.initials}</Initials>
+        <FakePicture src='/images/outlineLouis.png' />
       </PictureContainer>
       <InfoContainer>
         <NameText>{data.name}</NameText>
@@ -184,4 +138,4 @@ const HomeComponent = ({paths, data, logout}) => {
   );
 };
 
-export default React.memo(HomeComponent);
+export default React.memo(withFirebase(HomeComponent));

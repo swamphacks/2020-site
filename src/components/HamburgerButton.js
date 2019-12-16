@@ -3,10 +3,6 @@ import styled from 'styled-components';
 
 const Icon = styled.svg`
   width: 32px;
-`;
-
-const Button = styled.div`
-  padding: 10px;
   -webkit-transition: transform 0.2s;
   -ms-transition: transform 0.2s;
   transition: transform 0.2s;
@@ -16,6 +12,10 @@ const Button = styled.div`
     transform: scale(1.1);
     cursor: pointer;
   }
+`;
+
+const Button = styled.div`
+  padding: 10px;
 `;
 
 const HamburgerButton = ({color, open, ...props}) => {

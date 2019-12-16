@@ -42,7 +42,11 @@ const StyledForm = styled(Form)`
 
 const InputContainer = styled.div`
   padding: 20px 40px;
-  width: 30%;
+  width: 80%;
+  max-width: 400px;
+  @media screen and (min-width: 1200px) {
+    width: 30%;
+  }
 `;
 
 const ButtonGroup = styled.div`

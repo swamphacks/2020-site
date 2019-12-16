@@ -2,18 +2,9 @@ import React, {useEffect} from 'react';
 import styled from 'styled-components';
 
 import PageTitle from '../../components/Dashboard/PageTitle';
+import {PageRootContainer as RootContainer} from '../../components/Dashboard/PageRootContainer';
 
 // Styled components
-const RootContainer = styled.div`
-  width: 100%;
-  min-height: 100vh;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  flex-direction: column;
-  padding: 40px;
-`;
-
 const ContentContainer = styled.div`
   width: 100%;
   flex: 1;

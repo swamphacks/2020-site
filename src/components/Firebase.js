@@ -84,7 +84,11 @@ class Firebase {
         const {firstName, lastName, email, accepted} = data;
         const status = accepted === true ? 'Accepted' : 'Pending';
         const name = firstName + ' ' + lastName;
+        const fi = firstName.substr(0, 1);
+        const li = lastName.substr(0, 1);
+        const initials = fi + li;
         retData = {
+          initials: initials,
           name: name,
           email: email,
           status: status
