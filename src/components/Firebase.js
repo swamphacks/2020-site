@@ -19,8 +19,12 @@ class Firebase {
     await this.auth.sendPasswordResetEmail(email);
   };
 
-  checkSignedIn = () => {
-    return this.auth.currentUser ? true : false;
+  checkSignedIn = callback => {
+    const unsubscriber = this.auth.onAuthStateChanged(user => {
+      const val = user !== null ? true : false;
+      callback(val);
+    });
+    return unsubscriber;
   };
 
   signIn = async (email, password) => {

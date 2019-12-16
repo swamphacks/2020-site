@@ -4,6 +4,7 @@ import {Transition} from 'react-spring/renderprops';
 import {Link} from 'react-router-dom';
 
 import HamburgerButton from '../HamburgerButton';
+import SocialButton from '../SocialButton';
 
 // Styled components
 const RootContainer = styled.div`
@@ -82,6 +83,18 @@ const DrawerLink = styled(Link)`
   font-family: Montserrat-Bold, Helvetica, sans-serif;
 `;
 
+const LogoutLink = styled.div`
+  font-size: 1.75rem;
+  color: white;
+  text-decoration: none;
+  :hover {
+    text-decoration: underline;
+    cursor: pointer;
+    color: white;
+  }
+  font-family: Montserrat-Bold, Helvetica, sans-serif;
+`;
+
 const NameText = styled.h2`
   font-family: Montserrat-Bold, Helvetica, sans-serif;
 `;
@@ -90,7 +103,15 @@ const InfoText = styled.p`
   font-family: Montserrat, Helvetica, sans-serif;
 `;
 
-const HomeComponent = ({paths, data}) => {
+const SocialContainer = styled.div`
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 40px;
+`;
+
+const HomeComponent = ({paths, data, logout}) => {
   const [menuOpen, setMenuOpen] = useState(false);
   return (
     <RootContainer>
@@ -98,7 +119,8 @@ const HomeComponent = ({paths, data}) => {
       <HamburgerButton
         onClick={() => setMenuOpen(!menuOpen)}
         color='white'
-        style={{position: 'absolute', top: 20, right: 20, zIndex: 41}}
+        style={{position: 'absolute', top: 30, right: 30, zIndex: 41}}
+        open={menuOpen}
       />
       <Transition
         items={menuOpen}
@@ -119,7 +141,10 @@ const HomeComponent = ({paths, data}) => {
                 </LinkContainer>
               ))}
               <LinkContainer>
-                <DrawerLink to='/'>Logout</DrawerLink>
+                <DrawerLink to='/'>Return to Main Site</DrawerLink>
+              </LinkContainer>
+              <LinkContainer>
+                <LogoutLink onClick={logout}>Logout</LogoutLink>
               </LinkContainer>
             </Drawer>
           ))
@@ -138,8 +163,25 @@ const HomeComponent = ({paths, data}) => {
         <InfoText>Hacker</InfoText>
         <InfoText>Application Status: {data.status}</InfoText>
       </InfoContainer>
+      {/* Social Buttons */}
+      <SocialContainer>
+        <SocialButton
+          facebook
+          link='https://www.facebook.com/SwampHacks/?ref=br_rs'
+        />
+        <SocialButton
+          instagram
+          link='https://www.instagram.com/ufswamphacks/'
+        />
+        <SocialButton twitter link='https://twitter.com/swamphacks?lang=en' />
+        <SocialButton
+          snapchat
+          link='https://www.snapchat.com/add/swamphackssnaps'
+        />
+        <SocialButton slack link='/' />
+      </SocialContainer>
     </RootContainer>
   );
 };
 
-export default HomeComponent;
+export default React.memo(HomeComponent);

@@ -9,6 +9,7 @@ import MainPage from './pages/Main/MainPage';
 import MVApplicationPage from './pages/MentorVolunteerApp/MVApplicationPage';
 import Dashboard from './pages/Dashboard/Dashboard';
 import LoginPage from './pages/Login/Login';
+import LoadingPage from './pages/Loading/LoadingPage';
 
 // const Placeholder = () => {
 //   return (
@@ -23,12 +24,20 @@ import LoginPage from './pages/Login/Login';
 // };
 
 const App = ({firebase}) => {
+  const [signedIn, setSignedIn] = useState(null);
+  const location = useLocation();
+
   useEffect(() => {
     // firebase.getNumberApplications();
+    const unsubscribe = firebase.checkSignedIn(val => {
+      setSignedIn(val);
+    });
+    return () => {
+      unsubscribe();
+    };
   }, []);
 
   const PrivateRoute = ({children, ...rest}) => {
-    const signedIn = firebase.checkSignedIn();
     return (
       <Route
         {...rest}
@@ -48,7 +57,10 @@ const App = ({firebase}) => {
     );
   };
 
-  const location = useLocation();
+  if (signedIn === null) {
+    return <LoadingPage />;
+  }
+
   return (
     <Switch location={location}>
       <Route exact path='/' component={MainPage} />

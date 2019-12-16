@@ -3,6 +3,10 @@ import styled from 'styled-components';
 
 const Icon = styled.svg`
   width: 32px;
+`;
+
+const Button = styled.div`
+  padding: 10px;
   -webkit-transition: transform 0.2s;
   -ms-transition: transform 0.2s;
   transition: transform 0.2s;
@@ -14,16 +18,17 @@ const Icon = styled.svg`
   }
 `;
 
-const Button = styled.div`
-  padding: 10px;
-`;
-
-const HamburgerButton = ({color, ...props}) => {
+const HamburgerButton = ({color, open, ...props}) => {
   const fill = color || 'black';
   return (
     <Button {...props}>
-      <Icon viewBox='0 0 32 32' fill={fill}>
-        <path d='M4,10h24c1.104,0,2-0.896,2-2s-0.896-2-2-2H4C2.896,6,2,6.896,2,8S2.896,10,4,10z M28,14H4c-1.104,0-2,0.896-2,2  s0.896,2,2,2h24c1.104,0,2-0.896,2-2S29.104,14,28,14z M28,22H4c-1.104,0-2,0.896-2,2s0.896,2,2,2h24c1.104,0,2-0.896,2-2  S29.104,22,28,22z' />
+      <Icon viewBox='0 0 24 24' fill={fill}>
+        {!open && (
+          <path d='M24 6h-24v-4h24v4zm0 4h-24v4h24v-4zm0 8h-24v4h24v-4z' />
+        )}
+        {open && (
+          <path d='M23.954 21.03l-9.184-9.095 9.092-9.174-2.832-2.807-9.09 9.179-9.176-9.088-2.81 2.81 9.186 9.105-9.095 9.184 2.81 2.81 9.112-9.192 9.18 9.1z' />
+        )}
       </Icon>
     </Button>
   );

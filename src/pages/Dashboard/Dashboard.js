@@ -1,5 +1,5 @@
-import React, {useEffect, useState} from 'react';
-import {Route, useLocation, Redirect, Switch} from 'react-router-dom';
+import React, {useMemo, useState, useLayoutEffect} from 'react';
+import {Route, useRouteMatch, Redirect, Switch} from 'react-router-dom';
 import styled from 'styled-components';
 import {withFirebase} from '../../components/Firebase';
 
@@ -10,6 +10,7 @@ import Event from './Event';
 import Schedule from './Schedule';
 import Checklist from './Checklist';
 import Help from './Help';
+import LoadingPage from '../Loading/LoadingPage';
 
 // Styled components
 const RootContainer = styled.div`
@@ -33,22 +34,32 @@ const ContentContainer = styled.div`
 `;
 
 const Dashboard = ({firebase}) => {
+  const [signedIn, setSignedIn] = useState(null);
   const [dashboardData, setDashboardData] = useState({
     name: '{name}',
     email: '{email}',
     status: '{status}'
   });
+  const {path, url} = useRouteMatch();
 
-  useEffect(() => {
-    const unsubscribe = firebase.getDashboardData(val => {
+  useLayoutEffect(() => {
+    const unsubscribe1 = firebase.getDashboardData(val => {
       setDashboardData(val);
     });
+    const unsubscribe2 = firebase.checkSignedIn(val => {
+      setSignedIn(val);
+    });
     return () => {
-      unsubscribe();
+      unsubscribe1();
+      unsubscribe2();
     };
   }, []);
 
-  if (!firebase.checkSignedIn()) {
+  if (signedIn === null) {
+    return <LoadingPage />;
+  }
+
+  if (!signedIn) {
     return (
       <Redirect
         to={{
@@ -58,17 +69,56 @@ const Dashboard = ({firebase}) => {
       />
     );
   }
+
+  // Routes
+  const routes = [
+    {
+      label: 'Home',
+      path: path,
+      exact: false,
+      main: Home
+    },
+    {
+      label: 'Event',
+      path: `${path}/event`,
+      exact: false,
+      main: Event
+    },
+    {
+      label: 'Schedule',
+      path: `${path}/schedule`,
+      exact: false,
+      main: Schedule
+    },
+    {
+      label: 'Checklist',
+      path: `${path}/checklist`,
+      exact: false,
+      main: Checklist
+    },
+    {
+      label: 'Help',
+      path: `${path}/help`,
+      exact: false,
+      main: Help
+    }
+  ];
+
+  // Paths
+  const paths = [
+    ...routes.map(({label, path}) => ({
+      label: label,
+      path: path
+    }))
+  ];
+
   return (
     <RootContainer>
       <SidebarContainer>
         <HomeComponent
-          paths={[
-            ...routes.map(({label, path}) => ({
-              label: label,
-              path: path
-            }))
-          ]}
+          paths={paths}
           data={dashboardData}
+          logout={async () => await firebase.signOut()}
         />
       </SidebarContainer>
       <ContentContainer>
@@ -86,39 +136,5 @@ const Dashboard = ({firebase}) => {
     </RootContainer>
   );
 };
-
-// Routes
-const routes = [
-  {
-    label: 'Home',
-    path: '/dashboard',
-    exact: true,
-    main: Home
-  },
-  {
-    label: 'Event',
-    path: '/dashboard/event',
-    exact: true,
-    main: Event
-  },
-  {
-    label: 'Schedule',
-    path: '/dashboard/schedule',
-    exact: true,
-    main: Schedule
-  },
-  {
-    label: 'Checklist',
-    path: '/dashboard/checklist',
-    exact: true,
-    main: Checklist
-  },
-  {
-    label: 'Help',
-    path: '/dashboard/help',
-    exact: true,
-    main: Help
-  }
-];
 
 export default withFirebase(Dashboard);
