@@ -12,7 +12,6 @@ const RootContainer = styled.div`
   min-height: 100vh;
   display: flex;
   align-items: center;
-  justify-content: center;
   flex-direction: column;
   padding: 40px;
   padding-top: 140px;
@@ -120,22 +119,26 @@ const HomeComponent = ({firebase, paths}) => {
         <InfoText>Application Status: {data.status}</InfoText>
       </InfoContainer>
       {/* Social Buttons */}
-      <SocialContainer>
-        <SocialButton
-          facebook
-          link='https://www.facebook.com/SwampHacks/?ref=br_rs'
-        />
-        <SocialButton
-          instagram
-          link='https://www.instagram.com/ufswamphacks/'
-        />
-        <SocialButton twitter link='https://twitter.com/swamphacks?lang=en' />
-        <SocialButton
-          snapchat
-          link='https://www.snapchat.com/add/swamphackssnaps'
-        />
-        <SocialButton slack link='/' />
-      </SocialContainer>
+      <div style={isComputer ? {position: 'absolute', bottom: 0} : {}}>
+        <SocialContainer style={{paddingBottom: 0}}>
+          <SocialButton slack link='/' big />
+        </SocialContainer>
+        <SocialContainer>
+          <SocialButton
+            facebook
+            link='https://www.facebook.com/SwampHacks/?ref=br_rs'
+          />
+          <SocialButton
+            instagram
+            link='https://www.instagram.com/ufswamphacks/'
+          />
+          <SocialButton twitter link='https://twitter.com/swamphacks?lang=en' />
+          <SocialButton
+            snapchat
+            link='https://www.snapchat.com/add/swamphackssnaps'
+          />
+        </SocialContainer>
+      </div>
     </RootContainer>
   );
 };

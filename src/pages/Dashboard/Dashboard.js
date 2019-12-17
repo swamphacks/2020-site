@@ -8,6 +8,7 @@ import useMediaQuery from 'react-use-media-query-hook';
 import HomeComponent from '../../components/Dashboard/HomeComponent';
 import Home from './Home';
 import Event from './Event';
+import TravelInfo from './TravelInfo';
 import Schedule from './Schedule';
 import Checklist from './Checklist';
 import Help from './Help';
@@ -26,14 +27,15 @@ const SidebarContainer = styled.div`
   background-color: #8daa90;
   display: flex;
   position: fixed;
-  overflow: auto;
+  overflow-y: auto;
+  max-height: 100vh;
 `;
 
 const ContentContainer = styled.div`
   width: 100%;
   background-color: #5e765e;
   display: flex;
-  overflow: auto;
+  overflow-y: auto;
   @media screen and (min-width: 1200px) {
     width: 67%;
     float: right;
@@ -86,6 +88,12 @@ const Dashboard = ({firebase}) => {
       path: `${path}/event`,
       exact: false,
       main: Event
+    },
+    {
+      label: 'Travel Info',
+      path: `${path}/travel-info`,
+      exact: false,
+      main: TravelInfo
     },
     {
       label: 'Schedule',

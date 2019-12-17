@@ -99,16 +99,16 @@ class Firebase {
     return unsubscriber;
   };
 
-  // getNumberApplications = async () => {
-  //   await this.signInAnonymously();
-  //   const ref = this.firestore
-  //     .collection('years')
-  //     .doc('2020')
-  //     .collection('applications');
-  //   const applications = await ref.get();
-  //   console.log(`Number of applications: ${applications.size}`);
-  //   await this.signOut();
-  // };
+  getNumberApplications = async () => {
+    await this.signInAnonymously();
+    const ref = this.firestore
+      .collection('years')
+      .doc('2020')
+      .collection('applications');
+    const applications = await ref.get();
+    console.log(`Number of applications: ${applications.size}`);
+    await this.signOut();
+  };
 
   // getTravelApplicationData = async () => {
   //   const ref = this.firestore

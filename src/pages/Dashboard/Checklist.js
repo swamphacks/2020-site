@@ -3,6 +3,7 @@ import styled from 'styled-components';
 
 import PageTitle from '../../components/Dashboard/PageTitle';
 import {PageRootContainer as RootContainer} from '../../components/Dashboard/PageRootContainer';
+import ChecklistItem from '../../components/Dashboard/ChecklistItem';
 
 // Styled components
 const ContentContainer = styled.div`
@@ -20,15 +21,6 @@ const ChecklistContainer = styled.div`
   max-width: 680px;
 `;
 
-const LabelText = styled.h3`
-  font-family: Montserrat-Bold, Helvetica, sans-serif;
-`;
-
-const ContentText = styled.p`
-  font-family: Montserrat, Helvetica, sans-serif;
-  display: inline;
-`;
-
 const Checklist = () => {
   return (
     <RootContainer>
@@ -36,9 +28,7 @@ const Checklist = () => {
       <ContentContainer>
         {items.map((item, index) => (
           <ChecklistContainer key={index}>
-            <LabelText>
-              {index + 1}). <ContentText>{item}</ContentText>
-            </LabelText>
+            <ChecklistItem label={item} />
           </ChecklistContainer>
         ))}
       </ContentContainer>
