@@ -13,6 +13,8 @@ import {
   Button as SUIButton,
   Modal
 } from 'semantic-ui-react';
+import useMediaQuery from 'react-use-media-query-hook';
+
 import FileUploadInput from '../../components/FileUpload';
 import {withFirebase} from '../../components/Firebase';
 
@@ -41,6 +43,7 @@ const ButtonGroup = styled.div`
 `;
 
 const ApplicationPage = ({firebase}) => {
+  const isComputer = useMediaQuery('(min-width: 992px)');
   const [currSection, setCurrSection] = useState(0);
   const [history, setHistory] = useState([
     ...sections.map(sec => sec.initialValues)
@@ -134,6 +137,28 @@ const ApplicationPage = ({firebase}) => {
       smooth: true
     });
   };
+
+  if (!isComputer) {
+    return (
+      <div
+        style={{
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center',
+          flex: 1,
+          minHeight: '100vh',
+          padding: 40,
+          flexDirection: 'column'
+        }}
+      >
+        <h1>Oof.</h1>
+        <p>
+          Mobile devices are not currently supported for applying. Please apply
+          using a computer. We apologize for the inconvenience.
+        </p>
+      </div>
+    );
+  }
 
   // See https://www.npmjs.com/package/formik-semantic-ui
   // For documentation on some of these
