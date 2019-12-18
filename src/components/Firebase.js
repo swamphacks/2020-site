@@ -51,22 +51,34 @@ class Firebase {
     return fullPath;
   };
 
-  submitApplication = data => {
+  submitApplication = async data => {
     const ref = this.firestore
       .collection('years')
       .doc('2020')
       .collection('applications')
       .doc();
-    return ref.set({...data, uid: this.auth.currentUser.uid});
+    const metaRef = this.firestore
+      .collection('years')
+      .doc('2020')
+      .collection('metadata')
+      .doc('applications');
+    await ref.set({...data, uid: this.auth.currentUser.uid});
+    await metaRef.update({size: firebase.firestore.FieldValue.increment(1)});
   };
 
-  submitMentorVolunteerApplication = data => {
+  submitMentorVolunteerApplication = async data => {
     const ref = this.firestore
       .collection('years')
       .doc('2020')
       .collection('mentorVolunteerApplications')
       .doc();
-    return ref.set(data);
+    const metaRef = this.firestore
+      .collection('years')
+      .doc('2020')
+      .collection('metadata')
+      .doc('mentorVolunteerApplications');
+    await ref.set(data);
+    await metaRef.update({size: firebase.firestore.FieldValue.increment(1)});
   };
 
   getDashboardData = callback => {
