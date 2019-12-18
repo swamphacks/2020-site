@@ -119,6 +119,26 @@ class Firebase {
       .collection('applications');
     const applications = await ref.get();
     console.log(`Number of applications: ${applications.size}`);
+    // const metaRef = this.firestore
+    //   .collection('years')
+    //   .doc('2020')
+    //   .collection('metadata')
+    //   .doc('applications');
+    // await metaRef.update({size: applications.size});
+    const ref2 = this.firestore
+      .collection('years')
+      .doc('2020')
+      .collection('mentorVolunteerApplications');
+    const mvApplications = await ref2.get();
+    console.log(
+      `Number of mentor-volunteer applications: ${mvApplications.size}`
+    );
+    // const metaRef2 = this.firestore
+    //   .collection('years')
+    //   .doc('2020')
+    //   .collection('metadata')
+    //   .doc('mentorVolunteerApplications');
+    // await metaRef2.update({size: mvApplications.size});
     await this.signOut();
   };
 

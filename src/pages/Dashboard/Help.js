@@ -139,10 +139,12 @@ const faq = [
     title: 'What happens after I apply?',
     content: (
       <ContentText>
-        After we receive your application, we send an email regarding your
-        participant status. That email will contain instructions to set up your
-        dashboard account. This account will contain your event registration
-        information. Your dashboard will also indicate your application status.
+        After we receive your application, you should see a pop-up that tell you
+        that your application has been received. Just hold tight, when
+        applications close, we send an email regarding your participant status.
+        That email will contain instructions to access your dashboard account.
+        This account will contain your event registration information. Your
+        dashboard will also indicate your application status.
       </ContentText>
     )
   },
