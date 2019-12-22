@@ -81,6 +81,43 @@ class Firebase {
     await metaRef.update({size: firebase.firestore.FieldValue.increment(1)});
   };
 
+  getCheckinCode = async () => {
+    const ref = this.firestore
+      .collection('tokens')
+      .where('used', '==', false)
+      .limit(1);
+    let code = null;
+    const docs = await ref.get();
+    docs.forEach(doc => {
+      code = doc.id;
+    });
+    const nf = this.firestore.collection('tokens').doc(code);
+    await nf.update({used: true});
+    return code;
+  };
+
+  testBoy = async () => {
+    await this.signInAnonymously();
+    const code = await this.getCheckinCode();
+    const ref = this.firestore
+      .collection('years')
+      .doc('2020')
+      .collection('applications')
+      .where('email', '==', 'cz8ch8ry@gmail.com');
+    const docs = await ref.get();
+    let id = null;
+    docs.forEach(doc => {
+      id = doc.id;
+    });
+    const nf = this.firestore
+      .collection('years')
+      .doc('2020')
+      .collection('applications')
+      .doc(id);
+    await nf.update({checkinCode: code});
+    await this.signOut();
+  };
+
   getDashboardData = callback => {
     const uid = this.auth.currentUser.uid;
     const ref = this.firestore
@@ -93,7 +130,7 @@ class Firebase {
       let retData = {};
       snap.docs.forEach(doc => {
         const data = doc.data();
-        const {firstName, lastName, email, accepted} = data;
+        const {firstName, lastName, email, accepted, checkinCode} = data;
         const status = accepted === true ? 'Accepted' : 'Pending';
         const name = firstName + ' ' + lastName;
         const fi = firstName.substr(0, 1);
@@ -103,7 +140,8 @@ class Firebase {
           initials: initials,
           name: name,
           email: email,
-          status: status
+          status: status,
+          code: checkinCode
         };
       });
       callback(retData);

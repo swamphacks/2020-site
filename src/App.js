@@ -10,6 +10,7 @@ import MVApplicationPage from './pages/MentorVolunteerApp/MVApplicationPage';
 import Dashboard from './pages/Dashboard/Dashboard';
 import LoginPage from './pages/Login/Login';
 import LoadingPage from './pages/Loading/LoadingPage';
+import ClosedAppPage from './pages/ClosedApp/ClosedApp';
 
 // const Placeholder = () => {
 //   return (
@@ -28,7 +29,8 @@ const App = ({firebase}) => {
   const location = useLocation();
 
   useEffect(() => {
-    // firebase.getNumberApplications();
+    // Test code
+    // End test code
     const unsubscribe = firebase.checkSignedIn(val => {
       setSignedIn(val);
     });
@@ -66,8 +68,8 @@ const App = ({firebase}) => {
       <Route exact path='/' component={MainPage} />
       {/* <Route exact path='/' component={Placeholder} /> */}
       <Route exact path='/comingsoon' component={() => <Redirect to='/' />} />
-      <Route exact path='/application' component={ApplicationPage} />
-      <Route exact path='/mvapplication' component={MVApplicationPage} />
+      <Route exact path='/application' component={ClosedAppPage} />
+      <Route exact path='/mvapplication' component={ClosedAppPage} />
       <Route exact path='/login' component={LoginPage} />
       <PrivateRoute path='/dashboard'>
         <Dashboard />

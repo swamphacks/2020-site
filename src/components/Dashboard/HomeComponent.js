@@ -67,6 +67,10 @@ const NameText = styled.h2`
   font-family: Montserrat-Bold, Helvetica, sans-serif;
 `;
 
+const CodeText = styled.h4`
+  font-family: Montserrat-Bold, Helvetica, sans-serif;
+`;
+
 const InfoText = styled.p`
   font-family: Montserrat, Helvetica, sans-serif;
 `;
@@ -85,7 +89,8 @@ const HomeComponent = ({firebase, paths}) => {
     initials: '',
     name: '{name}',
     email: '{email}',
-    status: '{status}'
+    status: '{status}',
+    code: '{code}'
   });
 
   useLayoutEffect(() => {
@@ -117,11 +122,16 @@ const HomeComponent = ({firebase, paths}) => {
         <InfoText>{data.email}</InfoText>
         <InfoText>Hacker</InfoText>
         <InfoText>Application Status: {data.status}</InfoText>
+        <CodeText>{data.code}</CodeText>
       </InfoContainer>
       {/* Social Buttons */}
       <div style={isComputer ? {position: 'absolute', bottom: 0} : {}}>
         <SocialContainer style={{paddingBottom: 0}}>
-          <SocialButton slack link='/' big />
+          <SocialButton
+            slack
+            link='https://join.slack.com/t/swamphacks-vi/shared_invite/enQtODczMDY5NTc5MjMzLTY0ODViYjZiZjljYzdkNDY3ZDNiNjYyNWRkYjk3YTlkNzMyMjlkYTFmN2ExYTc1MGQ3NDEzYjk5MDBiZTI2YjU'
+            big
+          />
         </SocialContainer>
         <SocialContainer>
           <SocialButton
