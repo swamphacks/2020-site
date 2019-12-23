@@ -237,6 +237,33 @@ class Firebase {
     window.open(encodedUri);
     await this.signOut();
   };
+
+  acceptSomePeeps = async () => {
+    await this.signInAnonymously();
+    const ref = this.firestore
+      .collection('years')
+      .doc('2020')
+      .collection('applications');
+    const docs = await ref.get();
+    let ids = [];
+    docs.forEach(doc => {
+      if (doc.data().lastName !== 'Goldstein') {
+        ids.push(doc.id);
+      }
+    });
+    for (let i = 0; i < ids.length; i++) {
+      const id = ids[i];
+      const nf = this.firestore
+        .collection('years')
+        .doc('2020')
+        .collection('applications')
+        .doc(id);
+      console.log(`${i}`);
+      await nf.update({accepted: true});
+    }
+    await this.signOut();
+    console.log('Success');
+  };
 }
 
 const withFirebase = Component => props => (

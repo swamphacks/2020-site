@@ -414,6 +414,10 @@ const faq = [
     content: <p>Applications will close on January 10th.</p>
   },
   {
+    title: 'When do I need to confirm by?',
+    content: <p>The last day to confirm your acceptance is January 22nd.</p>
+  },
+  {
     title: 'Is there a Code of Conduct?',
     content: (
       <p>
