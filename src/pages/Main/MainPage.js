@@ -411,7 +411,7 @@ const faq = [
   },
   {
     title: 'When do applications close?',
-    content: <p>Applications will close on December 21st.</p>
+    content: <p>Applications will close on January 10th.</p>
   },
   {
     title: 'Is there a Code of Conduct?',

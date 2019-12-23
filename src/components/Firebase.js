@@ -62,7 +62,12 @@ class Firebase {
       .doc('2020')
       .collection('metadata')
       .doc('applications');
-    await ref.set({...data, uid: this.auth.currentUser.uid});
+    const checkinCode = await this.getCheckinCode();
+    await ref.set({
+      ...data,
+      uid: this.auth.currentUser.uid,
+      checkinCode: checkinCode
+    });
     await metaRef.update({size: firebase.firestore.FieldValue.increment(1)});
   };
 

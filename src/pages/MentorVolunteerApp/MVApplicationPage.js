@@ -92,8 +92,7 @@ const MVApplicationPage = ({firebase}) => {
         await firebase.submitMentorVolunteerApplication({
           ...relevantValues,
           resumePath: resumePath,
-          dateApplied: date,
-          accepted: false
+          dateApplied: date
         });
         console.log('Uploaded!');
         await firebase.signOut();

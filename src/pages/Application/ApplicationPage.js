@@ -97,8 +97,7 @@ const ApplicationPage = ({firebase}) => {
         await firebase.submitApplication({
           ...relevantValues,
           resumePath: resumePath,
-          dateApplied: date,
-          accepted: false
+          dateApplied: date
         });
         console.log('Uploaded!');
         // await firebase.signOut();
@@ -315,7 +314,12 @@ const ApplicationPage = ({firebase}) => {
                   })}
                   <ButtonGroup>
                     {currSection === 0 && (
-                      <SUIButton as={Link} to='/' basic color='black'>
+                      <SUIButton
+                        as='a'
+                        href='https://dashboard.swamphacks.com'
+                        basic
+                        color='black'
+                      >
                         Cancel
                       </SUIButton>
                     )}
