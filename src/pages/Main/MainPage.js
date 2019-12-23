@@ -521,8 +521,9 @@ const MainPage = props => {
           <MainTitle />
           <ButtonContainer>
             <WoodButton
+              login
               onClick={() => {
-                props.history.push('/application');
+                window.location.href = 'https://dashboard.swamphacks.com';
               }}
             />
             <WoodButton

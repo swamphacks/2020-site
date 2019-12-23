@@ -96,26 +96,32 @@ class Firebase {
     return code;
   };
 
-  testBoy = async () => {
+  assignTheCodes = async () => {
     await this.signInAnonymously();
-    const code = await this.getCheckinCode();
     const ref = this.firestore
       .collection('years')
       .doc('2020')
-      .collection('applications')
-      .where('email', '==', 'cz8ch8ry@gmail.com');
+      .collection('applications');
     const docs = await ref.get();
-    let id = null;
+    let ids = [];
     docs.forEach(doc => {
-      id = doc.id;
+      if (doc.data().email !== 'cz8ch8ry@gmail.com') {
+        ids.push(doc.id);
+      }
     });
-    const nf = this.firestore
-      .collection('years')
-      .doc('2020')
-      .collection('applications')
-      .doc(id);
-    await nf.update({checkinCode: code});
+    for (let i = 0; i < ids.length; i++) {
+      const id = ids[i];
+      const nf = this.firestore
+        .collection('years')
+        .doc('2020')
+        .collection('applications')
+        .doc(id);
+      const code = await this.getCheckinCode();
+      console.log(`${i} - ${code}`);
+      await nf.update({checkinCode: code});
+    }
     await this.signOut();
+    console.log('Success');
   };
 
   getDashboardData = callback => {
@@ -180,46 +186,52 @@ class Firebase {
     await this.signOut();
   };
 
-  // getTravelApplicationData = async () => {
-  //   const ref = this.firestore
-  //     .collection('years')
-  //     .doc('2020')
-  //     .collection('applications')
-  //     .where('needsTravelAssist', '==', 'Yes');
-  //   const apps = await ref.get();
-  //   let csvData = [
-  //     [
-  //       'Last Name',
-  //       'First Name',
-  //       'School',
-  //       'Date of Birth',
-  //       'Email Address',
-  //       'Travel Types Considered'
-  //     ]
-  //   ];
-  //   apps.docs.forEach(doc => {
-  //     const {
-  //       firstName,
-  //       lastName,
-  //       dateOfBirth,
-  //       school,
-  //       email,
-  //       travelType
-  //     } = doc.data();
-  //     let t = '"';
-  //     travelType.forEach(e => {
-  //       t += e;
-  //       t += ', ';
-  //     });
-  //     t += '"';
-  //     const row = [lastName, firstName, school, dateOfBirth, email, t];
-  //     csvData.push(row);
-  //   });
-  //   let csvContent =
-  //     'data:text/csv;charset=utf-8,' + csvData.map(e => e.join(',')).join('\n');
-  //   var encodedUri = encodeURI(csvContent);
-  //   window.open(encodedUri);
-  // };
+  getApplicants = async () => {
+    await this.signInAnonymously();
+    const ref = this.firestore
+      .collection('years')
+      .doc('2020')
+      .collection('applications');
+    const apps = await ref.get();
+    let csvData = [
+      [
+        'Last Name',
+        'First Name',
+        'School',
+        'Date of Birth',
+        'Email Address',
+        'Phone Number',
+        'Check-In Code'
+      ]
+    ];
+    apps.docs.forEach(doc => {
+      const {
+        firstName,
+        lastName,
+        dateOfBirth,
+        school,
+        email,
+        phone,
+        checkinCode
+      } = doc.data();
+      let modSchool = `"${school}"`;
+      const row = [
+        lastName,
+        firstName,
+        school,
+        dateOfBirth,
+        email,
+        phone,
+        checkinCode
+      ];
+      csvData.push(row);
+    });
+    let csvContent =
+      'data:text/csv;charset=utf-8,' + csvData.map(e => e.join(',')).join('\n');
+    var encodedUri = encodeURI(csvContent);
+    window.open(encodedUri);
+    await this.signOut();
+  };
 }
 
 const withFirebase = Component => props => (

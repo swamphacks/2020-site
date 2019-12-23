@@ -2,7 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 
 const CustomButton = styled.img`
-  width: 160px;
+  width: 240px;
   padding: 5px 0px;
   v=-webkit-transition: transform 0.2s;
   -webkit-transition: -webkit-transform 0.2s;
@@ -18,10 +18,11 @@ const CustomButton = styled.img`
   }
 `;
 
-const WoodButton = ({register, sponsor, mentorVolunteer, onClick}) => {
+const WoodButton = ({register, sponsor, mentorVolunteer, onClick, login}) => {
   let src = '/images/registerButton.svg';
-  if (sponsor) src = '/images/sponsorButton.svg';
-  if (mentorVolunteer) src = '/images/mvButton.svg';
+  if (login) src = '/images/loginButton.svg';
+  if (sponsor) src = '/images/newSponsorButton.svg';
+  if (mentorVolunteer) src = '/images/newMVButton.svg';
   return <CustomButton src={src} onClick={onClick} />;
 };
 
