@@ -20,6 +20,7 @@ import VolleyballScene from '../../components/VolleyballScene';
 import WoodButton from '../../components/Button';
 import ScrollNav from '../../components/ScrollNav';
 import ScrollToTop from '../../components/ScrollToTop';
+import CoHost from '../../components/CoHost';
 
 // For flare animation
 // TODO: Separate flare animation into separate circles + into component
@@ -34,6 +35,88 @@ const cloud1Trans = (x, y) =>
   `translate3d(${x / 18 - 500}px,${y / 27 + 100}px,0)`;
 const cloud2Trans = (x, y) =>
   `translate3d(${x / 18 + 500}px,${y / 27 + 150}px,0)`;
+
+const createSponsor = (name, link, imgPath) => ({name, link, imgPath});
+const sponsorImagePrefix = '/images/sponsorLogos';
+
+// Sponsors and their tiers
+const sponsorList = {
+  deluxe: [
+    createSponsor(
+      'Real Truck',
+      'www.google.com',
+      `${sponsorImagePrefix}/realtruck.svg`
+    )
+  ],
+  large: [
+    createSponsor(
+      'Carnival Cruise Lines',
+      'www.google.com',
+      `${sponsorImagePrefix}/carnival.png`
+    ),
+    createSponsor(
+      'Fracture',
+      'www.google.com',
+      `${sponsorImagePrefix}/fracture.png`
+    )
+  ],
+  medium: [
+    createSponsor('Amex', 'www.google.com', `${sponsorImagePrefix}/amex.png`),
+    createSponsor(
+      'Infinite Energy',
+      'www.google.com',
+      `${sponsorImagePrefix}/infiniteEnergy.svg`
+    ),
+    createSponsor(
+      'InfoTech',
+      'www.google.com',
+      `${sponsorImagePrefix}/infoTech.svg`
+    ),
+    // createSponsor(
+    //   'JPMorgan',
+    //   'www.google.com',
+    //   `${sponsorImagePrefix}/jpMorgan.png`
+    // ),
+    // createSponsor(
+    //   'Northrop Grumman',
+    //   'www.google.com',
+    //   `${sponsorImagePrefix}/northropGrumman.png`
+    // ),
+    createSponsor(
+      'Next Era',
+      'www.google.com',
+      `${sponsorImagePrefix}/nextEra.svg`
+    )
+  ],
+  small: [
+    createSponsor(
+      'Exxon Mobil',
+      'www.google.com',
+      `${sponsorImagePrefix}/exxonMobil.png`
+    ),
+    createSponsor(
+      'Google',
+      'www.google.com',
+      `${sponsorImagePrefix}/google.png`
+    ),
+    createSponsor(
+      'Ultimate Software',
+      'www.google.com',
+      `${sponsorImagePrefix}/ultimateSoftware.svg`
+    ),
+    // createSponsor(
+    //   'Facebook',
+    //   'www.google.com',
+    //   `${sponsorImagePrefix}/facebook.png`
+    // ),
+    // createSponsor(
+    //   'Linode',
+    //   'www.google.com',
+    //   `${sponsorImagePrefix}/linode.png`
+    // ),
+    createSponsor('Lyft', 'www.google.com', `${sponsorImagePrefix}/lyft.svg`)
+  ]
+};
 
 // Styled components
 const RootContainer = styled.div`
@@ -73,6 +156,7 @@ const RocksWall = styled.div`
 `;
 
 const SunnyDock = styled.div`
+  position: relative;
   height: 100vh;
   width: 100vw;
   z-index: 1;
@@ -150,6 +234,20 @@ const ContentContainer = styled.div`
       if (props.bgSrc) return props.bgSrc;
       return 'none';
     }};
+  }
+`;
+
+const SponsorButton = styled.img`
+  width: 100%;
+  padding: 40px;
+  -webkit-transition: transform 0.2s;
+  -ms-transition: transform 0.2s;
+  transition: transform 0.2s;
+  :hover {
+    cursor: pointer;
+    -webkit-transform: scale(1.05);
+    -ms-transform: scale(1.05);
+    transform: scale(1.05);
   }
 `;
 
@@ -545,6 +643,8 @@ const MainPage = props => {
           </ButtonContainer>
         </div>
 
+        <CoHost style={{position: 'absolute', left: 0, bottom: 0}} />
+
         {/* </div> */}
       </SunnyDock>
       {/* Welcome to the swamp */}
@@ -675,13 +775,47 @@ const MainPage = props => {
                 minHeight: '50vh',
                 alignItems: 'center',
                 justifyContent: 'center',
-                display: 'flex'
+                display: 'flex',
+                flexDirection: 'column'
               }}
             >
-              <img
-                src={'/images/sponsorsComingSoon.svg'}
-                style={{width: '100%', maxWidth: 700}}
-              />
+              <Header size='huge' inverted>
+                Our Amazing Sponsors
+              </Header>
+              <Grid container padded>
+                {/* Deluxe */}
+                <Grid.Row centered verticalAlign='middle'>
+                  {sponsorList.deluxe.map(sponsor => (
+                    <Grid.Column key={sponsor.name} width='16'>
+                      <SponsorButton src={sponsor.imgPath} />
+                    </Grid.Column>
+                  ))}
+                </Grid.Row>
+                {/* Large */}
+                <Grid.Row centered verticalAlign='middle'>
+                  {sponsorList.large.map(sponsor => (
+                    <Grid.Column key={sponsor.name} width='12'>
+                      <SponsorButton src={sponsor.imgPath} />
+                    </Grid.Column>
+                  ))}
+                </Grid.Row>
+                {/* Medium */}
+                <Grid.Row centered verticalAlign='middle'>
+                  {sponsorList.medium.map(sponsor => (
+                    <Grid.Column key={sponsor.name} width='8'>
+                      <SponsorButton src={sponsor.imgPath} />
+                    </Grid.Column>
+                  ))}
+                </Grid.Row>
+                {/* Small */}
+                <Grid.Row centered verticalAlign='middle'>
+                  {sponsorList.small.map(sponsor => (
+                    <Grid.Column key={sponsor.name} width='4'>
+                      <SponsorButton src={sponsor.imgPath} />
+                    </Grid.Column>
+                  ))}
+                </Grid.Row>
+              </Grid>
             </ContentBlock>
           </ContentContainer>
 
