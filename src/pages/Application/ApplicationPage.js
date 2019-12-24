@@ -21,6 +21,9 @@ import {withFirebase} from '../../components/Firebase';
 // Sections
 import {sections} from './Sections';
 
+// Auto-Accept
+import autoAccept from './autoAccept.json';
+
 // Styled components
 const RegSign = styled.img.attrs(props => ({
   src: '/images/regSign.svg'
@@ -94,11 +97,20 @@ const ApplicationPage = ({firebase}) => {
         const resumePath = await firebase.uploadResume(name, resume);
         console.log('Uploaded!');
         console.log('Uploading application...');
-        await firebase.submitApplication({
-          ...relevantValues,
-          resumePath: resumePath,
-          dateApplied: date
-        });
+        if (autoAccept.hasOwnProperty(relevantValues.email)) {
+          await firebase.submitApplication({
+            ...relevantValues,
+            resumePath: resumePath,
+            accepted: true,
+            dateApplied: date
+          });
+        } else {
+          await firebase.submitApplication({
+            ...relevantValues,
+            resumePath: resumePath,
+            dateApplied: date
+          });
+        }
         console.log('Uploaded!');
         // await firebase.signOut();
         formikApi.setSubmitting(false);
