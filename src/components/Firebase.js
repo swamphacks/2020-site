@@ -63,8 +63,11 @@ class Firebase {
       .collection('metadata')
       .doc('applications');
     const checkinCode = await this.getCheckinCode();
+    let {email, ...rest} = data;
+    email = email.toLowerCase();
     await ref.set({
-      ...data,
+      ...rest,
+      email: email,
       uid: this.auth.currentUser.uid,
       checkinCode: checkinCode
     });
@@ -82,7 +85,9 @@ class Firebase {
       .doc('2020')
       .collection('metadata')
       .doc('mentorVolunteerApplications');
-    await ref.set(data);
+    let {email, ...rest} = data;
+    email = email.toLowerCase();
+    await ref.set({...rest, email: email});
     await metaRef.update({size: firebase.firestore.FieldValue.increment(1)});
   };
 
