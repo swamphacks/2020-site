@@ -69,6 +69,7 @@ const App = ({firebase}) => {
       {/* <Route exact path='/' component={Placeholder} /> */}
       <Route exact path='/comingsoon' component={() => <Redirect to='/' />} />
       <Route exact path='/application' component={ApplicationPage} />
+      <Route exact path='/application?v=1.1' component={ApplicationPage} />
       <Route exact path='/mvapplication' component={MVApplicationPage} />
       <Route exact path='/login' component={LoginPage} />
       <PrivateRoute path='/dashboard'>
