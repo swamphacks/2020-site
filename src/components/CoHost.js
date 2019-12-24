@@ -44,7 +44,10 @@ const CoHost = props => {
     <RootContainer {...props}>
       <ContentContainer>
         <Text>Co-Hosted by:</Text>
-        <Image src='/images/sponsorLogos/realtruckDark.svg' />
+        <Image
+          src='/images/sponsorLogos/realtruckDark.svg'
+          onClick={() => window.open('https://realtruck.com', '_blank')}
+        />
       </ContentContainer>
     </RootContainer>
   );

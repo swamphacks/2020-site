@@ -44,32 +44,36 @@ const sponsorList = {
   deluxe: [
     createSponsor(
       'Real Truck',
-      'www.google.com',
+      'https://realtruck.com',
       `${sponsorImagePrefix}/realtruck.svg`
     )
   ],
   large: [
     createSponsor(
       'Carnival Cruise Lines',
-      'www.google.com',
+      'https://www.carnival.com',
       `${sponsorImagePrefix}/carnival.png`
     ),
     createSponsor(
       'Fracture',
-      'www.google.com',
+      'https://fractureme.com',
       `${sponsorImagePrefix}/fracture.png`
     )
   ],
   medium: [
-    createSponsor('Amex', 'www.google.com', `${sponsorImagePrefix}/amex.png`),
+    createSponsor(
+      'Amex',
+      'https://www.americanexpress.com',
+      `${sponsorImagePrefix}/amex.png`
+    ),
     createSponsor(
       'Infinite Energy',
-      'www.google.com',
+      'https://www.infiniteenergy.com',
       `${sponsorImagePrefix}/infiniteEnergy.svg`
     ),
     createSponsor(
       'InfoTech',
-      'www.google.com',
+      'https://www.infotechinc.com',
       `${sponsorImagePrefix}/infoTech.svg`
     ),
     // createSponsor(
@@ -84,24 +88,24 @@ const sponsorList = {
     // ),
     createSponsor(
       'Next Era',
-      'www.google.com',
+      'http://www.nexteraenergy.com',
       `${sponsorImagePrefix}/nextEra.svg`
     )
   ],
   small: [
     createSponsor(
       'Exxon Mobil',
-      'www.google.com',
+      'https://corporate.exxonmobil.com',
       `${sponsorImagePrefix}/exxonMobil.png`
     ),
     createSponsor(
       'Google',
-      'www.google.com',
+      'https://about.google',
       `${sponsorImagePrefix}/google.png`
     ),
     createSponsor(
       'Ultimate Software',
-      'www.google.com',
+      'https://www.ultimatesoftware.com',
       `${sponsorImagePrefix}/ultimateSoftware.svg`
     ),
     // createSponsor(
@@ -109,12 +113,17 @@ const sponsorList = {
     //   'www.google.com',
     //   `${sponsorImagePrefix}/facebook.png`
     // ),
-    // createSponsor(
-    //   'Linode',
-    //   'www.google.com',
-    //   `${sponsorImagePrefix}/linode.png`
-    // ),
-    createSponsor('Lyft', 'www.google.com', `${sponsorImagePrefix}/lyft.svg`)
+    createSponsor(
+      'Linode',
+      'https://www.linode.com',
+      `${sponsorImagePrefix}/linode.svg`
+    ),
+    // createSponsor('P&G', 'https://us.pg.com', `${sponsorImagePrefix}/pg.jpg`),
+    createSponsor(
+      'Lyft',
+      'https://www.lyft.com',
+      `${sponsorImagePrefix}/lyft.svg`
+    )
   ]
 };
 
@@ -237,7 +246,9 @@ const ContentContainer = styled.div`
   }
 `;
 
-const SponsorButton = styled.img`
+const SponsorButton = styled.img.attrs(props => ({
+  onClick: () => window.open(props.link, '_blank')
+}))`
   width: 100%;
   padding: 40px;
   -webkit-transition: transform 0.2s;
@@ -787,31 +798,43 @@ const MainPage = props => {
                 <Grid.Row centered verticalAlign='middle'>
                   {sponsorList.deluxe.map(sponsor => (
                     <Grid.Column key={sponsor.name} width='16'>
-                      <SponsorButton src={sponsor.imgPath} />
+                      <SponsorButton
+                        src={sponsor.imgPath}
+                        link={sponsor.link}
+                      />
                     </Grid.Column>
                   ))}
                 </Grid.Row>
                 {/* Large */}
                 <Grid.Row centered verticalAlign='middle'>
                   {sponsorList.large.map(sponsor => (
-                    <Grid.Column key={sponsor.name} width='12'>
-                      <SponsorButton src={sponsor.imgPath} />
+                    <Grid.Column key={sponsor.name} computer='12' mobile='14'>
+                      <SponsorButton
+                        src={sponsor.imgPath}
+                        link={sponsor.link}
+                      />
                     </Grid.Column>
                   ))}
                 </Grid.Row>
                 {/* Medium */}
                 <Grid.Row centered verticalAlign='middle'>
                   {sponsorList.medium.map(sponsor => (
-                    <Grid.Column key={sponsor.name} width='8'>
-                      <SponsorButton src={sponsor.imgPath} />
+                    <Grid.Column key={sponsor.name} computer='8' mobile='11'>
+                      <SponsorButton
+                        src={sponsor.imgPath}
+                        link={sponsor.link}
+                      />
                     </Grid.Column>
                   ))}
                 </Grid.Row>
                 {/* Small */}
                 <Grid.Row centered verticalAlign='middle'>
                   {sponsorList.small.map(sponsor => (
-                    <Grid.Column key={sponsor.name} width='4'>
-                      <SponsorButton src={sponsor.imgPath} />
+                    <Grid.Column key={sponsor.name} computer='4' mobile='7'>
+                      <SponsorButton
+                        src={sponsor.imgPath}
+                        link={sponsor.link}
+                      />
                     </Grid.Column>
                   ))}
                 </Grid.Row>
