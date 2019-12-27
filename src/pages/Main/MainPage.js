@@ -132,11 +132,11 @@ const sponsorList = {
     )
   ],
   extras: [
-    // createSponsor(
-    //   'Stickermule',
-    //   'http://hackp.ac/mlh-stickermule-hackathons',
-    //   `${sponsorImagePrefix}/stickermule.png`
-    // )
+    createSponsor(
+      'Stickermule',
+      'http://hackp.ac/mlh-stickermule-hackathons',
+      `${sponsorImagePrefix}/stickermule.svg`
+    )
   ]
 };
 
