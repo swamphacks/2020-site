@@ -1,5 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
+import useMediaQuery from 'react-use-media-query-hook';
 
 // Styled Components
 const RootContainer = styled.div`
@@ -19,14 +20,14 @@ const ContentContainer = styled.div`
 `;
 
 const Text = styled.p`
-  font-size: 1.5rem;
+  font-size: ${props => (props.small ? '1em' : '1.5em')};
   position: absolute;
-  top: -40px;
+  top: ${props => (props.small ? '-30px' : '-40px')};
   left: 0;
 `;
 
 const Image = styled.img`
-  width: 300px;
+  width: ${props => (props.small ? '150px' : '300px')};
   -webkit-transition: transform 0.2s;
   -ms-transition: transform 0.2s;
   transition: transform 0.2s;
@@ -40,13 +41,15 @@ const Image = styled.img`
 `;
 
 const CoHost = props => {
+  const isComputer = useMediaQuery('(min-width: 992px)');
   return (
     <RootContainer {...props}>
       <ContentContainer>
-        <Text>Co-Hosted by:</Text>
+        <Text small={!isComputer}>Co-Hosted by:</Text>
         <Image
           src='/images/sponsorLogos/realtruckDark.svg'
           onClick={() => window.open('https://realtruck.com', '_blank')}
+          small={!isComputer}
         />
       </ContentContainer>
     </RootContainer>

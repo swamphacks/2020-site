@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from 'react';
+import React from 'react';
 import styled from 'styled-components';
 // Semantic UI
 import {
@@ -36,7 +36,12 @@ const cloud1Trans = (x, y) =>
 const cloud2Trans = (x, y) =>
   `translate3d(${x / 18 + 500}px,${y / 27 + 150}px,0)`;
 
-const createSponsor = (name, link, imgPath) => ({name, link, imgPath});
+const createSponsor = (name, link, imgPath, long) => ({
+  name,
+  link,
+  imgPath,
+  long: long
+});
 const sponsorImagePrefix = '/images/sponsorLogos';
 
 // Sponsors and their tiers
@@ -108,11 +113,12 @@ const sponsorList = {
       'https://www.ultimatesoftware.com',
       `${sponsorImagePrefix}/ultimateSoftware.svg`
     ),
-    // createSponsor(
-    //   'Facebook',
-    //   'www.google.com',
-    //   `${sponsorImagePrefix}/facebook.png`
-    // ),
+    createSponsor(
+      'Facebook',
+      'www.google.com',
+      `${sponsorImagePrefix}/facebook.png`,
+      true
+    ),
     createSponsor(
       'Linode',
       'https://www.linode.com',
@@ -124,6 +130,13 @@ const sponsorList = {
       'https://www.lyft.com',
       `${sponsorImagePrefix}/lyft.svg`
     )
+  ],
+  extras: [
+    // createSponsor(
+    //   'Stickermule',
+    //   'http://hackp.ac/mlh-stickermule-hackathons',
+    //   `${sponsorImagePrefix}/stickermule.png`
+    // )
   ]
 };
 
@@ -658,6 +671,7 @@ const MainPage = props => {
 
         {/* </div> */}
       </SunnyDock>
+
       {/* Welcome to the swamp */}
       <Element name='aboutSection'>
         <ContentContainer
@@ -830,6 +844,21 @@ const MainPage = props => {
                 {/* Small */}
                 <Grid.Row centered verticalAlign='middle'>
                   {sponsorList.small.map(sponsor => (
+                    <Grid.Column
+                      key={sponsor.name}
+                      computer={sponsor.long ? '7' : '4'}
+                      mobile={sponsor.long ? '12' : '7'}
+                    >
+                      <SponsorButton
+                        src={sponsor.imgPath}
+                        link={sponsor.link}
+                      />
+                    </Grid.Column>
+                  ))}
+                </Grid.Row>
+                {/* Extras */}
+                <Grid.Row centered verticalAlign='middle'>
+                  {sponsorList.extras.map(sponsor => (
                     <Grid.Column key={sponsor.name} computer='4' mobile='7'>
                       <SponsorButton
                         src={sponsor.imgPath}
