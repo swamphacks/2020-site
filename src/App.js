@@ -10,6 +10,7 @@ import MVApplicationPage from './pages/MentorVolunteerApp/MVApplicationPage';
 import LoginPage from './pages/Login/Login';
 import LoadingPage from './pages/Loading/LoadingPage';
 import ClosedAppPage from './pages/ClosedApp/ClosedApp';
+import LiveGreen from './pages/LiveGreen/LiveGreen';
 
 // const Placeholder = () => {
 //   return (
@@ -48,13 +49,7 @@ const App = ({firebase}) => {
       <Route path='/DataUsageReleaseForm.pdf' exact />
       <Route path='/SustainableSponsors.pdf' exact />
       {/* LiveGreen */}
-      <Route
-        path='/livegreen'
-        exact
-        component={() =>
-          window.location.assign('https://livegreen.io/swamphacks')
-        }
-      />
+      <Route path='/livegreen' exact component={LiveGreen} />
       {/* 404 */}
       <Route path='*'>
         <h1>404: This page does not exist.</h1>
