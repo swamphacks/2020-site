@@ -47,6 +47,14 @@ const App = ({firebase}) => {
       <Route path='/PhotoReleaseForm.pdf' exact />
       <Route path='/DataUsageReleaseForm.pdf' exact />
       <Route path='/SustainableSponsors.pdf' exact />
+      {/* LiveGreen */}
+      <Route
+        path='/livegreen'
+        exact
+        component={() =>
+          window.location.assign('https://livegreen.io/swamphacks')
+        }
+      />
       {/* 404 */}
       <Route path='*'>
         <h1>404: This page does not exist.</h1>
