@@ -14,10 +14,10 @@ const RootContainer = styled.div`
 const ClosedAppPage = () => {
   return (
     <RootContainer>
-      <h1>Applications are currently closed BUT...</h1>
+      <h1>Applications are currently closed.</h1>
       <p>
-        Applications for SwampHacks VI are currently closed, but stay tuned for
-        a HUGE announcement!
+        Applications for SwampHacks VI are currently closed, sorry! Missed out
+        this year? Be sure to apply next year!
       </p>
     </RootContainer>
   );

@@ -15,6 +15,20 @@ class Firebase {
     this.firestore = firebase.firestore();
   }
 
+  checkMentorVolunteerApplicationsOpen = async callback => {
+    const ref = this.firestore.collection('years').doc('2020');
+    const fields = await ref.get();
+    const val = fields.data().mentorVolunteerApplicationsOpen;
+    callback(val);
+  };
+
+  checkHackerApplicationsOpen = async callback => {
+    const ref = this.firestore.collection('years').doc('2020');
+    const fields = await ref.get();
+    const val = fields.data().hackerApplicationsOpen;
+    callback(val);
+  };
+
   sendPasswordResetEmail = async email => {
     await this.auth.sendPasswordResetEmail(email);
   };

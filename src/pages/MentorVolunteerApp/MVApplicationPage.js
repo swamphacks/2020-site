@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useState, useLayoutEffect} from 'react';
 import styled from 'styled-components';
 import {Button, Form, Input, Checkbox, TextArea} from 'formik-semantic-ui';
 import DropdownCustom from '../../components/formik-semantic-ui-custom/DropdownCustom';
@@ -15,6 +15,8 @@ import {
 } from 'semantic-ui-react';
 import useMediaQuery from 'react-use-media-query-hook';
 
+import LoadingPage from '../Loading/LoadingPage';
+import ClosedAppPage from '../ClosedApp/ClosedApp';
 import FileUploadInput from '../../components/FileUpload';
 import {withFirebase} from '../../components/Firebase';
 
@@ -49,6 +51,13 @@ const MVApplicationPage = ({firebase}) => {
     ...sections.map(sec => sec.initialValues)
   ]);
   const [isSubmitted, setIsSubmitted] = useState(false);
+  const [applicationsOpen, setApplicationsOpen] = useState(null);
+
+  useLayoutEffect(() => {
+    firebase.checkMentorVolunteerApplicationsOpen(val =>
+      setApplicationsOpen(val)
+    );
+  }, []);
 
   const _handleSubmit = async (values, formikApi) => {
     let newHistory = history;
@@ -125,6 +134,12 @@ const MVApplicationPage = ({firebase}) => {
       smooth: true
     });
   };
+
+  if (applicationsOpen === null) {
+    return <LoadingPage />;
+  } else if (!applicationsOpen) {
+    return <ClosedAppPage />;
+  }
 
   if (!isComputer) {
     return (
