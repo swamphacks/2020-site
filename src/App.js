@@ -41,6 +41,8 @@ const App = ({firebase}) => {
       <Route exact path='/comingsoon' component={() => <Redirect to='/' />} />
       <Route exact path='/application' component={ApplicationPage} />
       <Route exact path='/application?v=1.1' component={ApplicationPage} />
+      {/* Added c.carrasquillo@ufl.edu to auto-accept */}
+      <Route exact path='/application?v=1.2' component={ApplicationPage} />
       <Route exact path='/mvapplication' component={MVApplicationPage} />
       <Route exact path='/login' component={LoginPage} />
       {/* PDFs */}
