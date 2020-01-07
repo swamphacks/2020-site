@@ -86,11 +86,11 @@ const sponsorList = {
     //   'www.google.com',
     //   `${sponsorImagePrefix}/jpMorgan.png`
     // ),
-    // createSponsor(
-    //   'Northrop Grumman',
-    //   'www.google.com',
-    //   `${sponsorImagePrefix}/northropGrumman.png`
-    // ),
+    createSponsor(
+      'Northrop Grumman',
+      'https://www.northropgrumman.com/Pages/default.aspx',
+      `${sponsorImagePrefix}/northrop.svg`
+    ),
     createSponsor(
       'Next Era',
       'http://www.nexteraenergy.com',
