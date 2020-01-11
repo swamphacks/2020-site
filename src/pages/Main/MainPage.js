@@ -81,11 +81,11 @@ const sponsorList = {
       'https://www.infotechinc.com',
       `${sponsorImagePrefix}/infoTech.svg`
     ),
-    // createSponsor(
-    //   'JPMorgan',
-    //   'www.google.com',
-    //   `${sponsorImagePrefix}/jpMorgan.png`
-    // ),
+    createSponsor(
+      'JPMorgan',
+      'https://www.jpmorganchase.com',
+      `${sponsorImagePrefix}/jpMorgan.png`
+    ),
     createSponsor(
       'Northrop Grumman',
       'https://www.northropgrumman.com/Pages/default.aspx',
