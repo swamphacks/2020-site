@@ -1,6 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import useMediaQuery from 'react-use-media-query-hook';
+import {Header} from 'semantic-ui-react';
 
 // Styled Components
 const RootContainer = styled.div`
@@ -19,7 +20,7 @@ const ContentContainer = styled.div`
   flex-direction: column;
 `;
 
-const Text = styled.p`
+const Text = styled(Header)`
   font-size: ${props => (props.small ? '1em' : '1.5em')};
   position: absolute;
   top: ${props => (props.small ? '-30px' : '-40px')};

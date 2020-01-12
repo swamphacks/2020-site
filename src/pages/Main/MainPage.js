@@ -124,7 +124,7 @@ const sponsorList = {
       'https://www.linode.com',
       `${sponsorImagePrefix}/linode.svg`
     ),
-    // createSponsor('P&G', 'https://us.pg.com', `${sponsorImagePrefix}/pg.jpg`),
+    createSponsor('P&G', 'https://us.pg.com', `${sponsorImagePrefix}/pg.png`),
     createSponsor(
       'Lyft',
       'https://www.lyft.com',

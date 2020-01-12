@@ -16,8 +16,9 @@ const ClosedAppPage = () => {
     <RootContainer>
       <h1>Applications are currently closed.</h1>
       <p>
-        Applications for SwampHacks VI are currently closed, sorry! Missed out
-        this year? Be sure to apply next year!
+        Applications for SwampHacks VI are currently closed, sorry! Didn't get
+        to apply? You can try to attend as a walk-on, but spots will be
+        extremely limited!
       </p>
     </RootContainer>
   );
