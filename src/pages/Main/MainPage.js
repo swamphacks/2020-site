@@ -136,6 +136,11 @@ const sponsorList = {
       'Stickermule',
       'http://hackp.ac/mlh-stickermule-hackathons',
       `${sponsorImagePrefix}/stickermule.svg`
+    ),
+    createSponsor(
+      'UltraPress',
+      'https://ultrapress.com/',
+      `${sponsorImagePrefix}/ultraPress.png`
     )
   ]
 };
