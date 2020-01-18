@@ -18,10 +18,11 @@ const ContentContainer = styled.div`
   align-items: center;
   justify-content: center;
   flex-direction: column;
+  white-space: nowrap;
 `;
 
 const Text = styled(Header)`
-  font-size: ${props => (props.small ? '1em' : '1.5em')};
+  font-size: ${props => (props.small ? '0.7em' : '1.5em')};
   position: absolute;
   top: ${props => (props.small ? '-30px' : '-40px')};
   left: 0;
