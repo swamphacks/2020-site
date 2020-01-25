@@ -11,15 +11,19 @@ const RootContainer = styled.div`
   padding: 40px;
 `;
 
-const ClosedAppPage = () => {
+const ClosedAppPage = ({ message }) => {
   return (
     <RootContainer>
       <h1>Applications are currently closed.</h1>
-      <p>
-        Applications for SwampHacks VI are currently closed, sorry! Didn't get
-        to apply? You can try to attend as a walk-on, but spots will be
-        extremely limited!
-      </p>
+      {message ? (
+        <p>{message}</p>
+      ) : (
+        <p>
+          Applications for SwampHacks VI are currently closed, sorry! Didn't get
+          to apply? You can try to attend as a walk-on, but spots will be
+          extremely limited!
+        </p>
+      )}
     </RootContainer>
   );
 };

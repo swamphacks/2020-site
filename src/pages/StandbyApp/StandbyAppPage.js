@@ -13,19 +13,18 @@ import {
   Button as SUIButton,
   Modal
 } from 'semantic-ui-react';
-import useMediaQuery from 'react-use-media-query-hook';
 
-import LoadingPage from '../Loading/LoadingPage';
-import ClosedAppPage from '../ClosedApp/ClosedApp';
 import FileUploadInput from '../../components/FileUpload';
 import { withFirebase } from '../../components/Firebase';
+import LoadingPage from '../Loading/LoadingPage';
+import ClosedAppPage from '../ClosedApp/ClosedApp';
 
 // Sections
 import { sections } from './Sections';
 
 // Styled components
 const RegSign = styled.img.attrs(props => ({
-  src: '/images/mvSign.svg'
+  src: '/images/regSign.svg'
 }))`
   max-width: 600px;
   width: 80vw;
@@ -44,8 +43,7 @@ const ButtonGroup = styled.div`
   justify-content: flex-end;
 `;
 
-const MVApplicationPage = ({ firebase }) => {
-  const isComputer = useMediaQuery('(min-width: 992px)');
+const StandbyAppPage = ({ firebase }) => {
   const [currSection, setCurrSection] = useState(0);
   const [history, setHistory] = useState([
     ...sections.map(sec => sec.initialValues)
@@ -56,7 +54,7 @@ const MVApplicationPage = ({ firebase }) => {
   useLayoutEffect(() => {
     const getConfig = async () => {
       const { data } = await firebase.getYearConfig();
-      setApplicationsOpen(data.mentorVolunteerAppsOpen);
+      setApplicationsOpen(data.standbyAppsOpen);
     };
     getConfig();
   }, []);
@@ -81,43 +79,39 @@ const MVApplicationPage = ({ firebase }) => {
       for (let i = 0; i < newHistory.length; i++) {
         combined = { ...combined, ...newHistory[i] };
       }
-      const { resume, ...relevantValues } = combined;
-      console.log(resume);
-      const date = Date.now();
+      const {
+        resume,
+        confirmPassword,
+        mlhCodeOfConduct,
+        regDataSharing,
+        statisticsUsage,
+        photoRelease,
+        confirmTrue,
+        ...relevantValues
+      } = combined;
       // Submit to database
       try {
-        console.log('Logging in...');
-        await firebase.signInAnonymously();
-        console.log('Logged in!');
-        let resumePath = 'none';
-        if (resume) {
-          const name =
-            relevantValues.lastName +
-            relevantValues.firstName +
-            date.toString();
-          console.log('Uploading resume...');
-          resumePath = await firebase.uploadResume(name, resume);
-          console.log('Uploaded!');
-        }
-        console.log('Uploading application...');
-        await firebase.submitMentorVolunteerApplication({
-          ...relevantValues,
-          resumePath: resumePath,
-          dateApplied: date
+        await firebase.submitApplication({
+          type: 'standby',
+          applicationData: relevantValues
         });
-        console.log('Uploaded!');
-        await firebase.signOut();
         formikApi.setSubmitting(false);
         setIsSubmitted(true);
       } catch (error) {
         console.log(error);
         var errorCode = error.code;
-        formikApi.setFieldError(
-          'email',
-          'An unexpected error occurred. Please try again.  If error persists, please contact support with error code: [' +
-            errorCode +
-            '].'
-        );
+        if (errorCode === 'auth/email-already-in-use') {
+          formikApi.setFieldError('email', 'This email is already in use.');
+        } else if (errorCode === 'auth/invalid-email') {
+          formikApi.setFieldError('email', 'This email is not valid.');
+        } else {
+          formikApi.setFieldError(
+            'email',
+            'An unexpected error occurred. Please try again.  If error persists, please contact support with error code: [' +
+              errorCode +
+              '].'
+          );
+        }
         formikApi.setSubmitting(false);
         animateScroll.scrollToTop({
           duration: 200,
@@ -140,28 +134,8 @@ const MVApplicationPage = ({ firebase }) => {
   if (applicationsOpen === null) {
     return <LoadingPage />;
   } else if (!applicationsOpen) {
-    return <ClosedAppPage />;
-  }
-
-  if (!isComputer) {
     return (
-      <div
-        style={{
-          display: 'flex',
-          alignItems: 'center',
-          justifyContent: 'center',
-          flex: 1,
-          minHeight: '100vh',
-          padding: 40,
-          flexDirection: 'column'
-        }}
-      >
-        <h1>Oof.</h1>
-        <p>
-          Mobile devices are not currently supported for applying. Please apply
-          using a computer. We apologize for the inconvenience.
-        </p>
-      </div>
+      <ClosedAppPage message='Standby applications are currently closed.' />
     );
   }
 
@@ -182,8 +156,8 @@ const MVApplicationPage = ({ firebase }) => {
           <Modal.Content>
             <Modal.Description>
               <p>
-                We will send you an email when we have made a decision about
-                your application.
+                Thanks for applying. Check for an email within the next few
+                minutes with more instructions on the standby process.
               </p>
             </Modal.Description>
             <ButtonGroup>
@@ -317,11 +291,6 @@ const MVApplicationPage = ({ firebase }) => {
                     }
                   })}
                   <ButtonGroup>
-                    {currSection === 0 && (
-                      <SUIButton as={Link} to='/' basic color='black'>
-                        Cancel
-                      </SUIButton>
-                    )}
                     {currSection > 0 && (
                       <Button.Reset basic color='black'>
                         Back
@@ -344,4 +313,4 @@ const MVApplicationPage = ({ firebase }) => {
   );
 };
 
-export default withFirebase(MVApplicationPage);
+export default withFirebase(StandbyAppPage);

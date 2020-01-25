@@ -1,6 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
-import {Button, Form, Label} from 'semantic-ui-react';
+import { Button, Form, Label } from 'semantic-ui-react';
 
 const Container = styled.div`
   display: flex;
@@ -13,8 +13,8 @@ const ValueLabel = styled.p`
   padding: 0px 10px;
 `;
 
-const FileUploadInput = ({formikProps, name, fieldProps, ...props}) => {
-  const {setFieldTouched, setFieldValue} = formikProps;
+const FileUploadInput = ({ formikProps, name, fieldProps, ...props }) => {
+  const { setFieldTouched, setFieldValue } = formikProps;
   return (
     <Form.Field {...fieldProps} error={formikProps.errors[name] ? true : false}>
       <label>{props.label}</label>
@@ -27,7 +27,7 @@ const FileUploadInput = ({formikProps, name, fieldProps, ...props}) => {
           setFieldValue(name, e.currentTarget.files[0]);
         }}
         id={name}
-        style={{display: 'none'}}
+        style={{ display: 'none' }}
       />
 
       <Container>

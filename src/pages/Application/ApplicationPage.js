@@ -1,9 +1,9 @@
-import React, {useState, useLayoutEffect} from 'react';
+import React, { useState, useLayoutEffect } from 'react';
 import styled from 'styled-components';
-import {Button, Form, Input, Checkbox, TextArea} from 'formik-semantic-ui';
+import { Button, Form, Input, Checkbox, TextArea } from 'formik-semantic-ui';
 import DropdownCustom from '../../components/formik-semantic-ui-custom/DropdownCustom';
-import {animateScroll} from 'react-scroll';
-import {Link} from 'react-router-dom';
+import { animateScroll } from 'react-scroll';
+import { Link } from 'react-router-dom';
 import {
   Grid,
   Header,
@@ -16,12 +16,12 @@ import {
 import useMediaQuery from 'react-use-media-query-hook';
 
 import FileUploadInput from '../../components/FileUpload';
-import {withFirebase} from '../../components/Firebase';
+import { withFirebase } from '../../components/Firebase';
 import LoadingPage from '../Loading/LoadingPage';
 import ClosedAppPage from '../ClosedApp/ClosedApp';
 
 // Sections
-import {sections} from './Sections';
+import { sections } from './Sections';
 
 // Auto-Accept
 import autoAccept from './autoAccept.json';
@@ -47,7 +47,7 @@ const ButtonGroup = styled.div`
   justify-content: flex-end;
 `;
 
-const ApplicationPage = ({firebase}) => {
+const ApplicationPage = ({ firebase }) => {
   const isComputer = useMediaQuery('(min-width: 992px)');
   const [currSection, setCurrSection] = useState(0);
   const [history, setHistory] = useState([
@@ -57,7 +57,11 @@ const ApplicationPage = ({firebase}) => {
   const [applicationsOpen, setApplicationsOpen] = useState(null);
 
   useLayoutEffect(() => {
-    firebase.checkHackerApplicationsOpen(val => setApplicationsOpen(val));
+    const getConfig = async () => {
+      const { data } = await firebase.getYearConfig();
+      setApplicationsOpen(data.hackerAppsOpen);
+    };
+    getConfig();
   }, []);
 
   const _handleSubmit = async (values, formikApi) => {
@@ -78,11 +82,10 @@ const ApplicationPage = ({firebase}) => {
       // Clean up the form data
       let combined = {};
       for (let i = 0; i < newHistory.length; i++) {
-        combined = {...combined, ...newHistory[i]};
+        combined = { ...combined, ...newHistory[i] };
       }
       const {
         resume,
-        password,
         confirmPassword,
         mlhCodeOfConduct,
         regDataSharing,
@@ -91,35 +94,21 @@ const ApplicationPage = ({firebase}) => {
         confirmTrue,
         ...relevantValues
       } = combined;
-      console.log(resume);
-      const date = Date.now();
       // Submit to database
       try {
-        console.log('Logging in...');
-        await firebase.createAccount(relevantValues.email, password);
-        console.log('Logged in!');
-        const name =
-          relevantValues.lastName + relevantValues.firstName + date.toString();
-        console.log('Uploading resume...');
-        const resumePath = await firebase.uploadResume(name, resume);
-        console.log('Uploaded!');
-        console.log('Uploading application...');
-        if (autoAccept.hasOwnProperty(relevantValues.email)) {
-          await firebase.submitApplication({
-            ...relevantValues,
-            resumePath: resumePath,
-            accepted: true,
-            dateApplied: date
-          });
-        } else {
-          await firebase.submitApplication({
-            ...relevantValues,
-            resumePath: resumePath,
-            dateApplied: date
-          });
-        }
-        console.log('Uploaded!');
-        // await firebase.signOut();
+        // Read the resume file
+        const reader = new window.FileReader();
+        const resumeContent = await new Promise((resolve, reject) => {
+          reader.onload = event => {
+            resolve(event.target.result);
+          };
+          reader.readAsBinaryString(resume);
+        });
+        await firebase.submitApplication({
+          type: 'hacker',
+          applicationData: relevantValues,
+          resumeData: resumeContent
+        });
         formikApi.setSubmitting(false);
         setIsSubmitted(true);
       } catch (error) {
@@ -162,28 +151,6 @@ const ApplicationPage = ({firebase}) => {
     return <ClosedAppPage />;
   }
 
-  if (!isComputer) {
-    return (
-      <div
-        style={{
-          display: 'flex',
-          alignItems: 'center',
-          justifyContent: 'center',
-          flex: 1,
-          minHeight: '100vh',
-          padding: 40,
-          flexDirection: 'column'
-        }}
-      >
-        <h1>Oof.</h1>
-        <p>
-          Mobile devices are not currently supported for applying. Please apply
-          using a computer. We apologize for the inconvenience.
-        </p>
-      </div>
-    );
-  }
-
   // See https://www.npmjs.com/package/formik-semantic-ui
   // For documentation on some of these
   return (
@@ -202,9 +169,8 @@ const ApplicationPage = ({firebase}) => {
             <Modal.Description>
               <p>
                 We will send you an email when we have made a decision about
-                your application. Check back in the coming weeks for access to
-                your dashboard, where you can view more information about
-                SwampHacks and your application status. Happy hacking!
+                your application, but you can login to the dashboard at any time
+                to check on your status.
               </p>
             </Modal.Description>
             <ButtonGroup>
@@ -254,7 +220,7 @@ const ApplicationPage = ({firebase}) => {
                             required: componentProps.required
                           }}
                           key={name}
-                          errorComponent={({message}) => (
+                          errorComponent={({ message }) => (
                             <Label basic color='red' pointing>
                               {message}
                             </Label>
@@ -273,7 +239,7 @@ const ApplicationPage = ({firebase}) => {
                             required: componentProps.required
                           }}
                           key={name}
-                          errorComponent={({message}) => (
+                          errorComponent={({ message }) => (
                             <Label basic color='red' pointing>
                               {message}
                             </Label>
@@ -291,7 +257,7 @@ const ApplicationPage = ({firebase}) => {
                             required: componentProps.required
                           }}
                           key={name}
-                          errorComponent={({message}) => (
+                          errorComponent={({ message }) => (
                             <Label basic color='red' pointing>
                               {message}
                             </Label>
@@ -307,7 +273,7 @@ const ApplicationPage = ({firebase}) => {
                             name={name}
                             label={{
                               children: (
-                                <Container text style={{minWidth: 0}}>
+                                <Container text style={{ minWidth: 0 }}>
                                   {extras.content}
                                 </Container>
                               )

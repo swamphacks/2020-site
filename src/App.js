@@ -1,12 +1,13 @@
-import React, {useEffect} from 'react';
-import {Route, useLocation, Redirect, Switch} from 'react-router-dom';
-import {withFirebase} from './components/Firebase';
+import React, { useEffect } from 'react';
+import { Route, useLocation, Redirect, Switch } from 'react-router-dom';
+import { withFirebase } from './components/Firebase';
 // import {Container} from 'semantic-ui-react';
 
 // Pages
 import MainPage from './pages/Main/MainPage';
 import ApplicationPage from './pages/Application/ApplicationPage';
 import MVApplicationPage from './pages/MentorVolunteerApp/MVApplicationPage';
+import StandbyAppPage from './pages/StandbyApp/StandbyAppPage';
 import LoginPage from './pages/Login/Login';
 import LoadingPage from './pages/Loading/LoadingPage';
 import ClosedAppPage from './pages/ClosedApp/ClosedApp';
@@ -24,7 +25,7 @@ import LiveGreen from './pages/LiveGreen/LiveGreen';
 //   );
 // };
 
-const App = ({firebase}) => {
+const App = ({ firebase }) => {
   const location = useLocation();
 
   useEffect(() => {
@@ -44,6 +45,7 @@ const App = ({firebase}) => {
       {/* Added c.carrasquillo@ufl.edu to auto-accept */}
       <Route exact path='/application?v=1.2' component={ApplicationPage} />
       <Route exact path='/mvapplication' component={MVApplicationPage} />
+      <Route exact path='/standby-application' component={StandbyAppPage} />
       <Route exact path='/login' component={LoginPage} />
       {/* PDFs */}
       <Route path='/SponsorshipProspectus.pdf' exact />
