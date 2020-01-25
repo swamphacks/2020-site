@@ -98,20 +98,7 @@ const StandbyAppPage = ({ firebase }) => {
         formikApi.setSubmitting(false);
         setIsSubmitted(true);
       } catch (error) {
-        console.log(error);
-        var errorCode = error.code;
-        if (errorCode === 'auth/email-already-in-use') {
-          formikApi.setFieldError('email', 'This email is already in use.');
-        } else if (errorCode === 'auth/invalid-email') {
-          formikApi.setFieldError('email', 'This email is not valid.');
-        } else {
-          formikApi.setFieldError(
-            'email',
-            'An unexpected error occurred. Please try again.  If error persists, please contact support with error code: [' +
-              errorCode +
-              '].'
-          );
-        }
+        formikApi.setFieldError('email', `Error: ${error.message}`);
         formikApi.setSubmitting(false);
         animateScroll.scrollToTop({
           duration: 200,
