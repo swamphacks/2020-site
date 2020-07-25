@@ -1,18 +1,10 @@
 import React from 'react';
 import styled from 'styled-components';
 // Semantic UI
-import {
-  Grid,
-  Header,
-  Container,
-  Icon,
-  Table,
-  Button,
-  Segment
-} from 'semantic-ui-react';
-import {Link, withRouter} from 'react-router-dom';
-import {Element} from 'react-scroll';
-import {useSpring, animated} from 'react-spring';
+import { Grid, Header, Container, Segment } from 'semantic-ui-react';
+import { withRouter } from 'react-router-dom';
+import { Element } from 'react-scroll';
+import { useSpring, animated } from 'react-spring';
 import ModularAccordion from '../../components/Accordion';
 // Custom components
 import SocialButton from '../../components/SocialButton';
@@ -40,7 +32,7 @@ const createSponsor = (name, link, imgPath, long) => ({
   name,
   link,
   imgPath,
-  long: long
+  long: long,
 });
 const sponsorImagePrefix = '/images/sponsorLogos';
 
@@ -51,7 +43,7 @@ const sponsorList = {
       'Real Truck',
       'https://realtruck.com',
       `${sponsorImagePrefix}/realtruck.svg`
-    )
+    ),
   ],
   large: [
     createSponsor(
@@ -63,7 +55,7 @@ const sponsorList = {
       'Fracture',
       'https://fractureme.com',
       `${sponsorImagePrefix}/fracture.png`
-    )
+    ),
   ],
   medium: [
     createSponsor(
@@ -95,7 +87,7 @@ const sponsorList = {
       'Next Era',
       'http://www.nexteraenergy.com',
       `${sponsorImagePrefix}/nextEra.svg`
-    )
+    ),
   ],
   small: [
     createSponsor(
@@ -129,7 +121,7 @@ const sponsorList = {
       'Lyft',
       'https://www.lyft.com',
       `${sponsorImagePrefix}/lyft.svg`
-    )
+    ),
   ],
   extras: [
     createSponsor(
@@ -141,8 +133,8 @@ const sponsorList = {
       'UltraPress',
       'https://ultrapress.com/',
       `${sponsorImagePrefix}/ultraPress.png`
-    )
-  ]
+    ),
+  ],
 };
 
 // Styled components
@@ -206,8 +198,8 @@ const SunnyDock = styled.div`
   flex-direction: column;
 `;
 
-const Cloud1 = styled(animated.img).attrs(props => ({
-  src: '/images/cloud1.svg'
+const Cloud1 = styled(animated.img).attrs((props) => ({
+  src: '/images/cloud1.svg',
 }))`
   width: 400px;
   z-index: 3;
@@ -218,8 +210,8 @@ const Cloud1 = styled(animated.img).attrs(props => ({
   }
 `;
 
-const Cloud2 = styled(animated.img).attrs(props => ({
-  src: '/images/cloud2.svg'
+const Cloud2 = styled(animated.img).attrs((props) => ({
+  src: '/images/cloud2.svg',
 }))`
   width: 400px;
   z-index: 3;
@@ -240,7 +232,7 @@ const ButtonContainer = styled.div`
 const ContentContainer = styled.div`
   width: 100vw;
   display: flex;
-  align-items: ${props => {
+  align-items: ${(props) => {
     if (props.left) return 'flex-start';
     if (props.right) return 'flex-end';
     return 'center';
@@ -249,14 +241,14 @@ const ContentContainer = styled.div`
   background-repeat: no-repeat;
   background-size: cover;
   background-position: right top;
-  background-image: ${props => {
+  background-image: ${(props) => {
     if (props.bgSrc) return props.bgSrc;
     return 'none';
   }};
   flex-direction: column;
   @media screen and (max-width: 1400px) {
     align-items: center;
-    background-image: ${props => {
+    background-image: ${(props) => {
       if (props.waves) return 'none';
       if (props.bgSrc) return props.bgSrc;
       return 'none';
@@ -264,8 +256,8 @@ const ContentContainer = styled.div`
   }
 `;
 
-const SponsorButton = styled.img.attrs(props => ({
-  onClick: () => window.open(props.link, '_blank')
+const SponsorButton = styled.img.attrs((props) => ({
+  onClick: () => window.open(props.link, '_blank'),
 }))`
   width: 100%;
   padding: 40px;
@@ -313,8 +305,8 @@ const Heart = styled.svg`
   }
 `;
 
-const FooterLink = styled.a.attrs(props => ({
-  target: '_blank'
+const FooterLink = styled.a.attrs((props) => ({
+  target: '_blank',
 }))`
   color: white;
   display: block;
@@ -324,8 +316,8 @@ const FooterLink = styled.a.attrs(props => ({
   }
 `;
 
-const WaterScene = styled.img.attrs(props => ({
-  src: '/images/sailing.svg'
+const WaterScene = styled.img.attrs((props) => ({
+  src: '/images/sailing.svg',
 }))`
   width: 600px;
   position: absolute;
@@ -347,8 +339,8 @@ const WaterScene = styled.img.attrs(props => ({
   }
 `;
 
-const MainTitle = styled.img.attrs(props => ({
-  src: '/images/mainTitle.svg'
+const MainTitle = styled.img.attrs((props) => ({
+  src: '/images/mainTitle.svg',
 }))`
   z-index: 2;
   width: 40vw;
@@ -360,7 +352,7 @@ const MainTitle = styled.img.attrs(props => ({
 
 const createEvent = (name, time) => ({
   name,
-  time
+  time,
 });
 
 const events = [
@@ -372,8 +364,8 @@ const events = [
       createEvent('Team Building', '6:30-8:00 PM'),
       createEvent('Opening Ceremony', '8:00-9:00 PM'),
       createEvent('Sponsor Fair', '9:00-10:00 PM'),
-      createEvent('Hacking Begins', '10:00 PM')
-    ]
+      createEvent('Hacking Begins', '10:00 PM'),
+    ],
   },
   {
     day: 'Saturday',
@@ -381,8 +373,8 @@ const events = [
       createEvent('Midnight Snack', '12:00 AM'),
       createEvent('Breakfast', '8:00-9:00 AM'),
       createEvent('Lunch', '1:00-2:30 PM'),
-      createEvent('Dinner', '6:00-7:30 PM')
-    ]
+      createEvent('Dinner', '6:00-7:30 PM'),
+    ],
   },
   {
     day: 'Sunday',
@@ -392,9 +384,9 @@ const events = [
       createEvent('Devpost Submissions Close', '8:00 AM'),
       createEvent('Hacking Ends + Lunch', '10:00 AM'),
       createEvent('Demo Waves', '11:00 AM - 2:00 PM'),
-      createEvent('Closing Ceremony', '2:30-3:30 PM')
-    ]
-  }
+      createEvent('Closing Ceremony', '2:30-3:30 PM'),
+    ],
+  },
 ];
 
 const faq = [
@@ -409,7 +401,7 @@ const faq = [
         road-blocks. Swamphacks VI provides resources such as hardware,
         workshops, and mentors to support all student endeavors.
       </p>
-    )
+    ),
   },
   {
     title: 'Where is Swamphacks?',
@@ -418,7 +410,7 @@ const faq = [
         Collaboration Commons in the Marston Science Library at the University
         of Florida. Address is 444 Newell Dr, Gainesville, FL 32611.
       </p>
-    )
+    ),
   },
   {
     title: 'What should I bring?',
@@ -429,7 +421,7 @@ const faq = [
         etc.), a photo ID for registration, a government ID to rent hardware,
         and most importantly, yourself!
       </p>
-    )
+    ),
   },
   {
     title: 'Help, this is my first hackathon!',
@@ -440,7 +432,7 @@ const faq = [
         to learn we can guide you with our numerous mentors and beginner
         workshops.
       </p>
-    )
+    ),
   },
   {
     title: 'How much will I spend?',
@@ -449,7 +441,7 @@ const faq = [
         Swamphacks VI is free! Everything from the food, swag, and prizes has
         been covered by our generous sponsors.
       </p>
-    )
+    ),
   },
   {
     title: 'Who is Swamphacks for?',
@@ -458,7 +450,7 @@ const faq = [
         Swamphacks VI is for everyone! All students currently enrolled in
         university and interested in development are eligible.
       </p>
-    )
+    ),
   },
   {
     title: 'Can high school students attend?',
@@ -467,7 +459,7 @@ const faq = [
         Our venue does not allow minors to stay overnight. High school students
         and others below legal age are unable to participate.
       </p>
-    )
+    ),
   },
   {
     title: 'How can I volunteer or mentor?',
@@ -477,7 +469,7 @@ const faq = [
         if you choose to either mentor or volunteer, you cannot participate in
         the hackathon or submit a project.
       </p>
-    )
+    ),
   },
   {
     title: 'What happens after I apply?',
@@ -490,7 +482,7 @@ const faq = [
         This account will contain your event registration information. Your
         dashboard will also indicate your application status.
       </p>
-    )
+    ),
   },
   {
     title: 'What if I don’t have a team?',
@@ -502,7 +494,7 @@ const faq = [
         by yourself. We strive to let students forge new connections with people
         from other states and encourage you to work with people you don’t know.
       </p>
-    )
+    ),
   },
   {
     title: 'How do I get there?',
@@ -513,7 +505,7 @@ const faq = [
         request travel support before December 1st. Additional travel routes and
         buses may be announced depending on interest.
       </p>
-    )
+    ),
   },
   {
     title: 'Will I be sitting at my computer all weekend?',
@@ -524,7 +516,7 @@ const faq = [
         Feel free to attend as many or as few of these activities as you want in
         addition to coding your project.
       </p>
-    )
+    ),
   },
   {
     title: 'Will Swamphacks provide travel reimbursement?',
@@ -534,15 +526,15 @@ const faq = [
         deadline for applications seeking travel reimbursement is December 1st,
         2019.
       </p>
-    )
+    ),
   },
   {
     title: 'When do applications close?',
-    content: <p>Applications will close on January 12th.</p>
+    content: <p>Applications will close on January 12th.</p>,
   },
   {
     title: 'When do I need to confirm by?',
-    content: <p>The last day to confirm your acceptance is January 22nd.</p>
+    content: <p>The last day to confirm your acceptance is January 22nd.</p>,
   },
   {
     title: 'Is there a Code of Conduct?',
@@ -557,41 +549,41 @@ const faq = [
         </a>
         .
       </p>
-    )
-  }
+    ),
+  },
 ];
 
-const MainPage = props => {
+const MainPage = (props) => {
   // For flare animation
   const [flareProps, setFlareProps] = useSpring(() => ({
     xy: [0, 0],
-    config: {mass: 10, tension: 550, friction: 200}
+    config: { mass: 10, tension: 550, friction: 200 },
   }));
   const [cloudProps, setCloudProps] = useSpring(() => ({
     xy: [0, 0],
-    config: {mass: 7, tension: 350, friction: 155}
+    config: { mass: 7, tension: 350, friction: 155 },
   }));
   const [sunProps, setSunProps] = useSpring(() => ({
     xy: [0, 0],
-    config: {mass: 50, tension: 1000, friction: 550}
+    config: { mass: 50, tension: 1000, friction: 550 },
   }));
 
   return (
     <RootContainer id='mainRootContainer'>
       <ScrollNav
         items={[
-          {label: 'About', scrollId: 'aboutSection'},
-          {label: 'Schedule', scrollId: 'scheduleSection'},
-          {label: 'FAQ', scrollId: 'faqSection'},
-          {label: 'Sponsors', scrollId: 'sponsorSection'}
+          { label: 'About', scrollId: 'aboutSection' },
+          { label: 'Schedule', scrollId: 'scheduleSection' },
+          { label: 'FAQ', scrollId: 'faqSection' },
+          { label: 'Sponsors', scrollId: 'sponsorSection' },
         ]}
       />
       <ScrollToTop />
       <SunnyDock
-        onMouseMove={e => {
-          setFlareProps({xy: calc(e.clientX, e.clientY)});
-          setCloudProps({xy: calc(e.clientX, e.clientY)});
-          setSunProps({xy: calc(e.clientX, e.clientY)});
+        onMouseMove={(e) => {
+          setFlareProps({ xy: calc(e.clientX, e.clientY) });
+          setCloudProps({ xy: calc(e.clientX, e.clientY) });
+          setSunProps({ xy: calc(e.clientX, e.clientY) });
         }}
       >
         {/* For flare animation */}
@@ -602,7 +594,7 @@ const MainPage = props => {
             width: '300px',
             zIndex: 2,
             position: 'absolute',
-            top: 0
+            top: 0,
           }}
         />
         <animated.img
@@ -612,7 +604,7 @@ const MainPage = props => {
             width: '85px',
             zIndex: 3,
             position: 'absolute',
-            top: 0
+            top: 0,
           }}
         />
         <animated.img
@@ -622,7 +614,7 @@ const MainPage = props => {
             width: '125px',
             zIndex: 3,
             position: 'absolute',
-            top: 0
+            top: 0,
           }}
         />
         <animated.img
@@ -632,11 +624,11 @@ const MainPage = props => {
             width: '50px',
             zIndex: 3,
             position: 'absolute',
-            top: 0
+            top: 0,
           }}
         />
-        <Cloud1 style={{transform: cloudProps.xy.interpolate(cloud1Trans)}} />
-        <Cloud2 style={{transform: cloudProps.xy.interpolate(cloud2Trans)}} />
+        <Cloud1 style={{ transform: cloudProps.xy.interpolate(cloud1Trans) }} />
+        <Cloud2 style={{ transform: cloudProps.xy.interpolate(cloud2Trans) }} />
         <div
           style={{
             width: '100%',
@@ -646,33 +638,12 @@ const MainPage = props => {
             justifyContent: 'center',
             flexDirection: 'column',
             zIndex: 4,
-            paddingTop: '20%'
           }}
         >
           <MainTitle />
-          <ButtonContainer>
-            <WoodButton
-              login
-              onClick={() => {
-                window.location.href = 'https://dashboard.swamphacks.com';
-              }}
-            />
-            <WoodButton
-              mentorVolunteer
-              onClick={() => {
-                props.history.push('/mvapplication');
-              }}
-            />
-            <WoodButton
-              sponsor
-              onClick={() => {
-                window.location.href = 'mailto:sponsors@swamphacks.com';
-              }}
-            />
-          </ButtonContainer>
         </div>
 
-        <CoHost style={{position: 'absolute', left: 0, bottom: 0}} />
+        <CoHost style={{ position: 'absolute', left: 0, bottom: 0 }} />
 
         {/* </div> */}
       </SunnyDock>
@@ -682,13 +653,13 @@ const MainPage = props => {
         <ContentContainer
           left
           style={{
-            backgroundColor: '#FFD59A'
+            backgroundColor: '#FFD59A',
           }}
         >
           <VolleyballScene
             style={{
               position: 'absolute',
-              right: 0
+              right: 0,
             }}
           />
           <Grid container padded>
@@ -724,7 +695,7 @@ const MainPage = props => {
       </Element>
       <TransitionImage
         src={'/images/sandToWater.svg'}
-        style={{backgroundColor: '#FFD59A'}}
+        style={{ backgroundColor: '#FFD59A' }}
       />
       {/* Schedule of Events */}
       <Element name='scheduleSection'>
@@ -733,7 +704,7 @@ const MainPage = props => {
           waves
           bgSrc="url('/images/waves.svg')"
           style={{
-            backgroundColor: '#1475BC'
+            backgroundColor: '#1475BC',
           }}
         >
           <WaterScene />
@@ -744,12 +715,12 @@ const MainPage = props => {
                   Schedule of Events
                 </Header>
                 <Segment>
-                  {events.map(obj => {
+                  {events.map((obj) => {
                     return (
                       <React.Fragment key={obj.day}>
                         <Header size='medium'>{obj.day}</Header>
                         <Grid columns='equal' celled='internally'>
-                          {obj.events.map(e => {
+                          {obj.events.map((e) => {
                             return (
                               <Grid.Row key={e.name}>
                                 <Grid.Column>
@@ -775,20 +746,20 @@ const MainPage = props => {
       <Element name='faqSection'>
         <ContentContainer
           style={{
-            background: '#786b66'
+            background: '#786b66',
           }}
         >
-          <div style={{height: 0}}>
+          <div style={{ height: 0 }}>
             <div
               style={{
                 backgroundImage:
-                  'linear-gradient(180deg, rgba(20,117,188,1) 9.34%, rgba(64,199,244,1) 49.4%, rgba(255,255,253,1) 91.26%)'
+                  'linear-gradient(180deg, rgba(20,117,188,1) 9.34%, rgba(64,199,244,1) 49.4%, rgba(255,255,253,1) 91.26%)',
               }}
             >
               <RocksWall />
             </div>
           </div>
-          <ContentBlock text style={{minHeight: '100vh', zIndex: '3'}}>
+          <ContentBlock text style={{ minHeight: '100vh', zIndex: '3' }}>
             <Header size='huge' inverted>
               Frequently Asked Questions
             </Header>
@@ -806,7 +777,7 @@ const MainPage = props => {
                 alignItems: 'center',
                 justifyContent: 'center',
                 display: 'flex',
-                flexDirection: 'column'
+                flexDirection: 'column',
               }}
             >
               <Header size='huge' inverted>
@@ -815,7 +786,7 @@ const MainPage = props => {
               <Grid container padded>
                 {/* Deluxe */}
                 <Grid.Row centered verticalAlign='middle'>
-                  {sponsorList.deluxe.map(sponsor => (
+                  {sponsorList.deluxe.map((sponsor) => (
                     <Grid.Column key={sponsor.name} width='16'>
                       <SponsorButton
                         src={sponsor.imgPath}
@@ -826,7 +797,7 @@ const MainPage = props => {
                 </Grid.Row>
                 {/* Large */}
                 <Grid.Row centered verticalAlign='middle'>
-                  {sponsorList.large.map(sponsor => (
+                  {sponsorList.large.map((sponsor) => (
                     <Grid.Column key={sponsor.name} computer='12' mobile='14'>
                       <SponsorButton
                         src={sponsor.imgPath}
@@ -837,7 +808,7 @@ const MainPage = props => {
                 </Grid.Row>
                 {/* Medium */}
                 <Grid.Row centered verticalAlign='middle'>
-                  {sponsorList.medium.map(sponsor => (
+                  {sponsorList.medium.map((sponsor) => (
                     <Grid.Column key={sponsor.name} computer='8' mobile='11'>
                       <SponsorButton
                         src={sponsor.imgPath}
@@ -848,7 +819,7 @@ const MainPage = props => {
                 </Grid.Row>
                 {/* Small */}
                 <Grid.Row centered verticalAlign='middle'>
-                  {sponsorList.small.map(sponsor => (
+                  {sponsorList.small.map((sponsor) => (
                     <Grid.Column
                       key={sponsor.name}
                       computer={sponsor.long ? '7' : '4'}
@@ -863,7 +834,7 @@ const MainPage = props => {
                 </Grid.Row>
                 {/* Extras */}
                 <Grid.Row centered verticalAlign='middle'>
-                  {sponsorList.extras.map(sponsor => (
+                  {sponsorList.extras.map((sponsor) => (
                     <Grid.Column key={sponsor.name} computer='4' mobile='7'>
                       <SponsorButton
                         src={sponsor.imgPath}
@@ -878,7 +849,7 @@ const MainPage = props => {
 
           <img
             src={'/images/gatorSwan.png'}
-            style={{width: '100%', backgroundColor: '#586f52'}}
+            style={{ width: '100%', backgroundColor: '#586f52' }}
           />
         </ContentContainer>
       </Element>

@@ -1,52 +1,19 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { Route, useLocation, Redirect, Switch } from 'react-router-dom';
-import { withFirebase } from './components/Firebase';
-// import {Container} from 'semantic-ui-react';
 
 // Pages
 import MainPage from './pages/Main/MainPage';
-import ApplicationPage from './pages/Application/ApplicationPage';
-import MVApplicationPage from './pages/MentorVolunteerApp/MVApplicationPage';
-import StandbyAppPage from './pages/StandbyApp/StandbyAppPage';
-import LoginPage from './pages/Login/Login';
-import LoadingPage from './pages/Loading/LoadingPage';
-import ClosedAppPage from './pages/ClosedApp/ClosedApp';
 import LiveGreen from './pages/LiveGreen/LiveGreen';
 
-// const Placeholder = () => {
-//   return (
-//     <Container text style={{paddingTop: 80}}>
-//       <h1>It's Almost Here!</h1>
-//       <p>
-//         The official SwampHacks website is almost ready to launch. Come back in
-//         a few days to start applying!
-//       </p>
-//     </Container>
-//   );
-// };
-
-const App = ({ firebase }) => {
+const App = () => {
   const location = useLocation();
-
-  useEffect(() => {
-    // Test code
-    // End test code
-  }, []);
 
   return (
     <Switch location={location}>
       <Route exact path='/'>
         <MainPage />
       </Route>
-      {/* <Route exact path='/' component={Placeholder} /> */}
       <Route exact path='/comingsoon' component={() => <Redirect to='/' />} />
-      <Route exact path='/application' component={ApplicationPage} />
-      <Route exact path='/application?v=1.1' component={ApplicationPage} />
-      {/* Added c.carrasquillo@ufl.edu to auto-accept */}
-      <Route exact path='/application?v=1.2' component={ApplicationPage} />
-      <Route exact path='/mvapplication' component={MVApplicationPage} />
-      <Route exact path='/standby-application' component={StandbyAppPage} />
-      <Route exact path='/login' component={LoginPage} />
       {/* PDFs */}
       <Route path='/SponsorshipProspectus.pdf' exact />
       <Route path='/PhotoReleaseForm.pdf' exact />
@@ -62,4 +29,4 @@ const App = ({ firebase }) => {
   );
 };
 
-export default withFirebase(App);
+export default App;
